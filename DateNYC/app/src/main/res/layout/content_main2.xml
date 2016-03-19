@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".FourSquareAPI.LocationPage"
+    tools:showIn="@layout/activity_main2">
+
+    <ImageView
+        android:id="@+id/backgroundTwo"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="center"
+        />
+
+    <TextView
+        android:id="@+id/location"
+        android:text="Where You Going?"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/brooklyn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="146dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@+id/brooklyn"
+        android:layout_toRightOf="@+id/brooklyn"
+        android:layout_toEndOf="@+id/brooklyn" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/queens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@+id/fab"
+        android:layout_toRightOf="@+id/fab"
+        android:layout_toEndOf="@+id/fab" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/staten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@+id/queens"
+        android:layout_toRightOf="@+id/queens"
+        android:layout_toEndOf="@+id/queens" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/manhattan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@+id/staten"
+        android:layout_toRightOf="@+id/staten"
+        android:layout_toEndOf="@+id/staten" />
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

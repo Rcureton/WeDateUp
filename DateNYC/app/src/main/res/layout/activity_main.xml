@@ -8,7 +8,6 @@
 
     <ImageView
         android:id="@+id/background"
-        android:src="@drawable/highline"
         android:layout_width="fill_parent"
         android:scaleType="center"
         android:layout_height="fill_parent"

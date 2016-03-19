@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DateNYC</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="client_id">I304IKBD3PKC0HMR0QAHODBI3KRWGHCYHO4G0LJOU5HROYL2</string>
+    <string name="client_secret">A2YTKVC5HOCJ4NPXWAP5PZML2N1AEPDQX5SLG53MVLMV4HNP</string>
+
 </resources>
