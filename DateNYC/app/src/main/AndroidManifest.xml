@@ -3,8 +3,7 @@
     package="com.example.mom.datenyc">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -20,13 +19,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FourSquareAPI.LocationPage"
+            android:name=".YelpAPI.LocationPage"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.foursquare.android.nativeoauth.TokenExchangeActivity"
             android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".BudgetActivity"></activity>
     </application>
 
 </manifest>

@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".YelpAPI.LocationPage"
-    tools:showIn="@layout/activity_main2">
+    tools:context="com.example.mom.datenyc.BudgetActivity">
 
     <ImageView
-        android:id="@+id/backgroundTwo"
+        android:id="@+id/budgetBackground"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="center"
@@ -17,7 +14,7 @@
 
     <TextView
         android:id="@+id/location"
-        android:text="Where You Going?"
+        android:text="What's Your Budget?"
         android:textSize="25sp"
         android:textColor="#ffffff"
         android:layout_centerInParent="true"
@@ -26,65 +23,44 @@
         android:layout_height="wrap_content" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/brooklyn"
+        android:id="@+id/oneCash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="146dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/twoCash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginLeft="20dp"
-        android:layout_alignTop="@+id/brooklyn"
-        android:layout_toRightOf="@+id/brooklyn"
-        android:layout_toEndOf="@+id/brooklyn" />
+        android:layout_alignTop="@id/oneCash"
+        android:layout_toRightOf="@id/oneCash"
+        android:layout_toEndOf="@id/oneCash" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/queens"
+        android:id="@+id/threeCash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginLeft="20dp"
-        android:layout_alignTop="@+id/fab"
-        android:layout_toRightOf="@+id/fab"
-        android:layout_toEndOf="@+id/fab" />
+        android:layout_alignTop="@id/twoCash"
+        android:layout_toRightOf="@id/twoCash"
+        android:layout_toEndOf="@id/twoCash" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/staten"
+        android:id="@+id/fourCash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginLeft="20dp"
-        android:layout_alignTop="@+id/queens"
-        android:layout_toRightOf="@+id/queens"
-        android:layout_toEndOf="@+id/queens" />
+        android:layout_alignTop="@id/threeCash"
+        android:layout_toRightOf="@id/threeCash"
+        android:layout_toEndOf="@id/threeCash" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/manhattan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginLeft="20dp"
-        android:layout_alignTop="@+id/staten"
-        android:layout_toRightOf="@+id/staten"
-        android:layout_toEndOf="@+id/staten" />
-
-    <TextView
-        android:id="@+id/tvMessage"
-        android:textColor="#ffffff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/textView"
-        android:textSize="30sp"
-        android:textColor="#ffffff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 </RelativeLayout>

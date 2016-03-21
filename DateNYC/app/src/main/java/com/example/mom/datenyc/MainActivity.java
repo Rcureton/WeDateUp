@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.mom.datenyc.FourSquareAPI.LocationPage;
+import com.example.mom.datenyc.YelpAPI.LocationPage;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         mStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(MainActivity.this, LocationPage.class);
+                Intent intent= new Intent(MainActivity.this, BudgetActivity.class);
                 startActivity(intent);
             }
         });
