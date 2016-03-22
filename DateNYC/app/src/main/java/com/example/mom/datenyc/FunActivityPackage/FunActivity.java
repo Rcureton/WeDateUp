@@ -26,6 +26,12 @@ public class FunActivity extends AppCompatActivity {
 
         Picasso.with(FunActivity.this).load("https://media.timeout.com/images/103012874/image.jpg").fit().into(mBars);
         Picasso.with(FunActivity.this).load("http://www.ignant.de/wp-content/uploads/2013/03/DT64com_ignant_nyc-19-von-361.jpg").fit().into(mBreakfast);
+        Picasso.with(FunActivity.this).load("http://nyctalon.com/wp-content/uploads/2015/09/Catch-NYC-Rooftop-Brunch.jpg").fit().into(mBrunch);
+        Picasso.with(FunActivity.this).load("http://www.travelgoat.com/sites/default/files/temp_images_for_spot/ny_delmonicos_historic_downtown_23_445.jpg").fit().into(mLunch);
+        Picasso.with(FunActivity.this).load("https://theviewgoldcoast.files.wordpress.com/2014/05/new-york-hotel-restaurant-asiate-dining.jpg").fit().into(mDinner);
+        Picasso.with(FunActivity.this).load("https://pbs.twimg.com/media/CcoVkbeW0AELQjU.jpg").fit().into(mDessert);
+        Picasso.with(FunActivity.this).load("http://www.restaurantgirl.com/assets_c/other/Krieger4.jpg").fit().into(mWine);
+        Picasso.with(FunActivity.this).load("http://hgtvhome.sndimg.com/content/dam/images/hgtv/fullset/2014/6/18/2/BP_HFXUP103H_70s-Redress_dining-area-detail-113143-278651_h.jpg.rend.hgtvcom.1280.960.jpeg").fit().into(mCoffee);
 
 
     }

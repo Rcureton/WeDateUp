@@ -34,6 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bars"
+                    android:textStyle="bold"
                     android:layout_gravity="center"
                     android:textColor="#ffffff"
                     android:background="#76000000"
@@ -60,6 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Breakfast"
+                    android:textStyle="bold"
                     android:layout_gravity="center"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
@@ -92,7 +94,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Headline 2"
+                    android:text="Brunch"
+                    android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
             </FrameLayout>
@@ -115,7 +118,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Headline 2"
+                    android:text="Lunch"
+                    android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
             </FrameLayout>
@@ -145,7 +149,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Headline 2"
+                    android:text="Dinner"
+                    android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
             </FrameLayout>
@@ -168,7 +173,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Headline 6"
+                    android:text="Dessert"
+                    android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
             </FrameLayout>
@@ -198,7 +204,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Headline 2"
+                    android:text="Wine Bar"
+                    android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
             </FrameLayout>
@@ -221,7 +228,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Headline 2"
+                    android:text="Coffee"
+                    android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
             </FrameLayout>
