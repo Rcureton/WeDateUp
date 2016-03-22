@@ -23,48 +23,50 @@ public class BudgetActivity extends AppCompatActivity {
 
         Picasso.with(BudgetActivity.this).load("https://s-media-cache-ak0.pinimg.com/564x/b6/f1/34/b6f1340783278be2c97535f2674f6f49.jpg").fit().into(budgetBackground);
 
-        mOneCash= (FloatingActionButton)findViewById(R.id.oneCash);
+
+        mOneCash = (FloatingActionButton) findViewById(R.id.oneCash);
         mOneCash.setImageResource(R.drawable.cash);
-        mOneCash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BudgetActivity.this, LocationPage.class);
-                intent.putExtra("one", 1);
-                startActivity(intent);
-            }
-        });
+        mOneCash.setOnClickListener(setPrice);
 
-        mTwoCash= (FloatingActionButton)findViewById(R.id.twoCash);
+        mTwoCash = (FloatingActionButton) findViewById(R.id.twoCash);
         mTwoCash.setImageResource(R.drawable.cash_two);
-        mTwoCash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BudgetActivity.this, LocationPage.class);
-                intent.putExtra("two", 2);
-                startActivity(intent);
-            }
-        });
-
-        mThreeCash= (FloatingActionButton)findViewById(R.id.threeCash);
+        mTwoCash.setOnClickListener(setPrice);
+        mThreeCash = (FloatingActionButton) findViewById(R.id.threeCash);
         mThreeCash.setImageResource(R.drawable.cash_three);
-        mThreeCash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BudgetActivity.this, LocationPage.class);
-                intent.putExtra("three", 3);
-                startActivity(intent);
-            }
-        });
+        mThreeCash.setOnClickListener(setPrice);
 
-        mFourCash= (FloatingActionButton)findViewById(R.id.fourCash);
+        mFourCash = (FloatingActionButton) findViewById(R.id.fourCash);
         mFourCash.setImageResource(R.drawable.cash_four);
-        mFourCash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BudgetActivity.this, LocationPage.class);
-                intent.putExtra("four", 4);
-                startActivity(intent);
-            }
-        });
+        mFourCash.setOnClickListener(setPrice);
+
     }
+
+    View.OnClickListener setPrice = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            MyDateItems dateItems = new MyDateItems();
+
+            switch (id) {
+                case R.id.oneCash:
+                    dateItems.setPrice("one");
+                    break;
+                case R.id.twoCash:
+                    dateItems.setPrice("two");
+                    break;
+                case R.id.threeCash:
+                    dateItems.setPrice("three");
+                    break;
+                case R.id.fourCash:
+                    dateItems.setPrice("four");
+                    break;
+
+            }
+
+            Intent intent = new Intent(BudgetActivity.this, LocationPage.class);
+            intent.putExtra(MyDateItems.MY_ITEMS, dateItems);
+            startActivity(intent);
+
+        }
+    };
 }

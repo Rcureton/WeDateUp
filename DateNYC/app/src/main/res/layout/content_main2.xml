@@ -36,7 +36,7 @@
         android:layout_marginBottom="146dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/bronx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -51,9 +51,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginLeft="20dp"
-        android:layout_alignTop="@+id/fab"
-        android:layout_toRightOf="@+id/fab"
-        android:layout_toEndOf="@+id/fab" />
+        android:layout_alignTop="@+id/bronx"
+        android:layout_toRightOf="@+id/bronx"
+        android:layout_toEndOf="@+id/bronx" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/staten"

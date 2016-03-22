@@ -25,7 +25,9 @@
         <activity
             android:name="com.foursquare.android.nativeoauth.TokenExchangeActivity"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".BudgetActivity"></activity>
+        <activity android:name=".BudgetActivity" />
+        <activity android:name=".FunActivityPackage.FunActivity" />
+        <activity android:name=".ItineraryActivity"></activity>
     </application>
 
 </manifest>
