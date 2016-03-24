@@ -8,27 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.example.mom.datenyc.FunActivityPackage.FunActivity;
+import com.example.mom.datenyc.VenueTypePackage.VenueType;
 import com.example.mom.datenyc.MyDateItems;
 import com.example.mom.datenyc.R;
 import com.squareup.picasso.Picasso;
-import com.yelp.clientlib.connection.YelpAPI;
-import com.yelp.clientlib.connection.YelpAPIFactory;
-import com.yelp.clientlib.entities.Business;
-import com.yelp.clientlib.entities.SearchResponse;
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 
 public class LocationPage extends AppCompatActivity {
 
@@ -38,7 +22,7 @@ public class LocationPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_location);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Location");
@@ -75,7 +59,7 @@ public class LocationPage extends AppCompatActivity {
                         myDate.setLocation("manhattan");
                         break;
                 }
-                Intent sendLocation= new Intent(LocationPage.this, FunActivity.class);
+                Intent sendLocation= new Intent(LocationPage.this, VenueType.class);
                 sendLocation.putExtra(MyDateItems.MY_ITEMS,myDate);
                 startActivity(sendLocation);
 

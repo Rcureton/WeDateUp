@@ -13,6 +13,8 @@ public class MyDateItems implements Parcelable{
     private String location;
     private String venueType;
     private String funActivity;
+    private String cuisine;
+
 
 
     public MyDateItems(){
@@ -24,6 +26,7 @@ public class MyDateItems implements Parcelable{
         location = in.readString();
         venueType = in.readString();
         funActivity = in.readString();
+        cuisine= in.readString();
     }
 
     public static final Creator<MyDateItems> CREATOR = new Creator<MyDateItems>() {
@@ -70,6 +73,14 @@ public class MyDateItems implements Parcelable{
         this.funActivity = funActivity;
     }
 
+    public String getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
+    }
+
 
     @Override
     public int describeContents() {
@@ -82,5 +93,6 @@ public class MyDateItems implements Parcelable{
         dest.writeString(location);
         dest.writeString(venueType);
         dest.writeString(funActivity);
+        dest.writeString(cuisine);
     }
 }

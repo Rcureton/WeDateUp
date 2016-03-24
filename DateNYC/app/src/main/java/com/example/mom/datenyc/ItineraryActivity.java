@@ -1,10 +1,15 @@
 package com.example.mom.datenyc;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.mom.datenyc.VenueTypePackage.CustomAdapter;
+import com.squareup.picasso.Picasso;
 import com.yelp.clientlib.connection.YelpAPI;
 import com.yelp.clientlib.connection.YelpAPIFactory;
 import com.yelp.clientlib.entities.Business;
@@ -21,61 +26,67 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class ItineraryActivity extends AppCompatActivity {
-    private String businessId = "joju-elmhurst";
     static ArrayList<Business> mBusinesses;
     static String businessName = "";
     static double rating = 0.0;
-    TextView textView, search;
+    ImageView mBackground;
+    ListView mItineraryList;
+
 
     private final String consumerKey = "biD2L5UtLWUB3aYjEegIyw";
     private final String consumerSecret = "RKwhAlFerfB2NwdFG9_9SAE7p3Y";
     private final String token = "I_tC-YrL1nA4QfK7NFPJrIIrqqoGodNz";
     private final String tokenSecret = "eua-2OsRU8dnbK7P7YyDdGLuKJ0";
     YelpAPI yelpAPI;
+    String loadUrl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itinerary);
+        setTitle("Completed Date");
 
-        textView= (TextView)findViewById(R.id.tvMessage);
-        search= (TextView)findViewById(R.id.textView);
+        mItineraryList=(ListView)findViewById(R.id.itineraryList);
+        mBackground= (ImageView)findViewById(R.id.itineraryBackground);
+        Picasso.with(ItineraryActivity.this).load("http://www.cultivatingculture.com/wp-content/uploads/2013/07/shutterstock_104202650-copy.jpg").fit().into(mBackground);
+
 
         YelpAPIFactory apiFactory = new YelpAPIFactory(consumerKey, consumerSecret, token, tokenSecret);
         yelpAPI = apiFactory.createAPI();
-    }
 
-    public void searchBusinesses(){
+        Intent intent= getIntent();
+        final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
+
+        mBusinesses= new ArrayList<>();
+
+//        final CustomAdapter customAdapter= new CustomAdapter(this,mBusinesses);
+        final ItineraryCustomAdapter customAdapter1= new ItineraryCustomAdapter(this,mBusinesses);
+
+        mItineraryList.setAdapter(customAdapter1);
+
 
         Map<String, String> params = new HashMap<>();
 
         // general params
         params.put("term", "food");
         params.put("limit", "5");
-        params.put("category_filter","bars");
+        params.put("category_filter",myDate.getCuisine());
+
 
         Callback<SearchResponse> callback = new Callback<SearchResponse>() {
             @Override
             public void onResponse(Response<SearchResponse> response, Retrofit retrofit) {
                 SearchResponse searchResponse = response.body();
                 // Update UI text with the searchResponse.
-                String bName= searchResponse.businesses().get(4).name();
-                List<String> names = new ArrayList<>();
-                int i = 0;
-                while (i < 5) {
-                    names.add(searchResponse.businesses().get(i).name());
-                    ++i;
-                }
+                for(int i= 0; i<searchResponse.businesses().size();i++){
+//                    names.add(searchResponse.businesses().get(i).name());
 
-                int totalNumberOfResult = searchResponse.total();
-                mBusinesses = searchResponse.businesses();
-                String businessName = mBusinesses.get(4).name();  // "JapaCurry Truck"
-                Double rating = mBusinesses.get(0).rating();  // 4.0
+                    loadUrl = searchResponse.businesses().get(i).url();
 
-                search.setText(businessName+ " " +rating);
-                for (Business bussiness : mBusinesses) {
-                    Log.d("GOT THIS", bussiness.toString());
+                    mBusinesses.add(searchResponse.businesses().get(i));
                 }
+                customAdapter1.notifyDataSetChanged();
             }
 
             @Override
@@ -84,46 +95,18 @@ public class ItineraryActivity extends AppCompatActivity {
             }
 
         };
-        Call<SearchResponse> call = yelpAPI.search("San Francisco", params);
+        //TODO: NEED TO GET THE PARCEABLE EXTRA LOCATION AND PASS IT INTO THE CALL
+        //TODO: YELP DOESN'T ALLOW TO CALL BY PRICE.
+
+        Call<SearchResponse> call = yelpAPI.search(myDate.getCuisine(), params);
         call.enqueue(callback);
 
     }
 
 
-    public void getBusinesses() {
-
-        Callback<Business> callback = new Callback<Business>() {
-            @Override
-            public void onResponse(Response<Business> response, Retrofit retrofit) {
-                Business business = response.body();
-                String name = business.name();
-                double house= business.rating();
-//                textView.setText(String.valueOf(house));
-                textView.setText(name);
-                // Update UI text with the Business object.
-            }
-            @Override
-            public void onFailure(Throwable t) {
-                // HTTP error happened, do something to handle it.
-            }
-        };
-
-        Call<Business> call = yelpAPI.getBusiness(businessId);
-        call.enqueue(callback);
-
-    }
-
-    public void businessInfo(int busNum) throws Exception
-    {
-        // Get name, rating, distance
-        // Display one-by-one in order that Yelp returns data to us
-        if(busNum >= 20) { //TODO: Dont hardcode this. init total results
-            busNum = busNum % 20; //quick wrap around function
-        }
-        businessName = mBusinesses.get(busNum).name();
-        rating = mBusinesses.get(busNum).rating();
 
 
-    }
+
+
 
 }
