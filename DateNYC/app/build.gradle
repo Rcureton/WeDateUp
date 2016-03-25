@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+repositories{
+    mavenCentral()
+}
 
 android {
     compileSdkVersion 23
@@ -13,6 +16,9 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+
     }
 
     defaultConfig {
@@ -21,7 +27,13 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
+
+    configurations {
+        compile.exclude group: "org.apache.httpcomponents", module: "httpclient"
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -35,7 +47,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.android.support:design:23.2.1'
-    compile 'com.foursquare:foursquare-android-oauth:1.0.3'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.retrofit2:retrofit:2.0.0'
     compile 'com.google.code.gson:gson:2.2.4'
@@ -44,5 +55,8 @@ dependencies {
     compile 'com.yelp.clientlib:yelp-android:1.0.0'
     compile 'com.android.support:cardview-v7:23.0.+'
     compile 'com.android.support:recyclerview-v7:23.0.+'
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
+    compile 'com.uber.sdk:rides-android:0.1.0'
+
 }
 

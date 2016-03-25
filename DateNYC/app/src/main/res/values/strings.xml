@@ -8,5 +8,9 @@
     <string name="yelp_api_secret">RKwhAlFerfB2NwdFG9_9SAE7p3Y</string>
     <string name="yelp_token">I_tC-YrL1nA4QfK7NFPJrIIrqqoGodNz</string>
     <string name="yelp_token_secret">eua-2OsRU8dnbK7P7YyDdGLuKJ0</string>
+    <string name="API_KEY">AIzaSyDlBZB7bD8J_1_0hq5_z2j69-ke4ca7djY</string>
+    <string name="uber_client_id">BVqdBZ0dfixZGZTpblKOgrGAX5pjCEpZ</string>
+    <string name="uber_client_secret">cpRf0zo9YfxMA_jve9yU9rIAa-8IjxMss13m4390</string>
+    <string name="uber_token">uSOaLvZGElS8_oRaYsSH-x5RZiOxQVR3ZIEw3mCs</string>
 
 </resources>

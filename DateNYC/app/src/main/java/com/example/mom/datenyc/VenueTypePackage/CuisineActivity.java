@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.example.mom.datenyc.ItineraryActivity;
 import com.example.mom.datenyc.MyDateItems;
 import com.example.mom.datenyc.R;
+import com.example.mom.datenyc.RestaurantActivity;
 import com.squareup.picasso.Picasso;
 
 public class CuisineActivity extends AppCompatActivity {
@@ -62,31 +63,31 @@ public class CuisineActivity extends AppCompatActivity {
 
                 switch (id){
                     case R.id.asian_card:
-                        myDate.setCuisine("asian");
+                        myDate.setCuisine("Asian");
                         break;
                     case R.id.american_card:
-                        myDate.setCuisine("american");
+                        myDate.setCuisine("American");
                         break;
                     case R.id.indian_card:
-                        myDate.setCuisine("indian");
+                        myDate.setCuisine("Indian");
                         break;
                     case R.id.italian_card:
-                        myDate.setCuisine("italian");
+                        myDate.setCuisine("Italian");
                         break;
                     case R.id.mexican_card:
-                        myDate.setCuisine("mexican");
+                        myDate.setCuisine("Mexican");
                         break;
                     case R.id.meditteranean_card:
-                        myDate.setCuisine("meditteranean");
+                        myDate.setCuisine("Mediterranean");
                         break;
                     case R.id.thai_card:
-                        myDate.setCuisine("thai");
+                        myDate.setCuisine("Thai");
                         break;
                     case R.id.veagan_card:
-                        myDate.setCuisine("vegan");
+                        myDate.setCuisine("Vegan");
                         break;
                 }
-                Intent sendCuisine= new Intent(CuisineActivity.this, FunActivity.class);
+                Intent sendCuisine= new Intent(CuisineActivity.this, RestaurantActivity.class);
                 sendCuisine.putExtra(MyDateItems.MY_ITEMS,myDate);
                 startActivity(sendCuisine);
             }

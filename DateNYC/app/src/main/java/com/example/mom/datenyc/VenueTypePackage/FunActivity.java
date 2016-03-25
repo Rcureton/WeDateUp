@@ -88,7 +88,7 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
                         public void onClick(DialogInterface dialog, int id){
                             Intent sendFun= new Intent(FunActivity.this, ItineraryActivity.class);
                             myDate.setFunActivity(business.name());
-                            sendFun.putExtra(MyDateItems.MY_ITEMS,myDate);
+                            sendFun.putExtra(MyDateItems.MY_ITEMS, myDate);
                             startActivity(sendFun);
 
                         }
@@ -108,6 +108,7 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         // general params
         params.put("term", "activities");
         params.put("limit", "15");
+        params.put("actionlinks","true");
 
 
         Callback<SearchResponse> callback = new Callback<SearchResponse>() {

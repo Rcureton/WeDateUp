@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -29,7 +30,17 @@
         <activity android:name=".VenueTypePackage.VenueType" />
         <activity android:name=".ItineraryActivity" />
         <activity android:name=".VenueTypePackage.CuisineActivity" />
-        <activity android:name=".VenueTypePackage.FunActivity"></activity>
+        <activity android:name=".VenueTypePackage.FunActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDlBZB7bD8J_1_0hq5_z2j69-ke4ca7djY" />
+
+        <activity android:name=".GoogleMaps.MapActivity" />
+        <activity android:name=".RestaurantActivity"></activity>
     </application>
 
 </manifest>
