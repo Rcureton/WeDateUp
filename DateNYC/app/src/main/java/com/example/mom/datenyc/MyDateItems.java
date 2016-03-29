@@ -3,6 +3,9 @@ package com.example.mom.datenyc;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * Created by Ra on 3/21/16.
  */
@@ -14,6 +17,7 @@ public class MyDateItems implements Parcelable{
     private String venueType;
     private String funActivity;
     private String cuisine;
+    private String restaurant;
 
 
 
@@ -27,6 +31,7 @@ public class MyDateItems implements Parcelable{
         venueType = in.readString();
         funActivity = in.readString();
         cuisine= in.readString();
+        restaurant= in.readString();
     }
 
     public static final Creator<MyDateItems> CREATOR = new Creator<MyDateItems>() {
@@ -40,6 +45,14 @@ public class MyDateItems implements Parcelable{
             return new MyDateItems[size];
         }
     };
+
+    public String getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(String restaurant) {
+        this.restaurant = restaurant;
+    }
 
     public String getPrice() {
         return price;
@@ -69,11 +82,21 @@ public class MyDateItems implements Parcelable{
         return funActivity;
     }
 
+    public String getFormattedFunActivity()throws UnsupportedEncodingException{
+        return URLEncoder.encode(funActivity, "UTF-8");
+    }
+
     public void setFunActivity(String funActivity) {
         this.funActivity = funActivity;
     }
 
-    public String getCuisine() {
+    public String getFormattedCuisine() throws UnsupportedEncodingException {
+        return URLEncoder.encode(cuisine, "UTF-8");
+
+
+    }
+
+  public String getCuisine() {
         return cuisine;
     }
 
@@ -94,5 +117,6 @@ public class MyDateItems implements Parcelable{
         dest.writeString(venueType);
         dest.writeString(funActivity);
         dest.writeString(cuisine);
+        dest.writeString(restaurant);
     }
 }

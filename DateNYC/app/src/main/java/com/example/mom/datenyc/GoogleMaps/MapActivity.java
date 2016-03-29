@@ -2,12 +2,15 @@ package com.example.mom.datenyc.GoogleMaps;
 
 import android.Manifest;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.mom.datenyc.GoogleMaps.Data.Result;
+import com.example.mom.datenyc.MyDateItems;
 import com.example.mom.datenyc.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -28,9 +31,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        Intent intent= getIntent();
+        MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
+
         requestButton = (RequestButton) findViewById(R.id.uber);
         requestButton.setClientId(UBER_CLIENT_ID);
-
 
         mMapFragment = MapFragment.newInstance();
         FragmentTransaction fragmentTransaction =
@@ -42,7 +47,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     public void onMapReady(GoogleMap map) {
         mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(0, 0))
+                .position(new LatLng(40.7, -73.9))
                 .title("Marker"));
     }
 

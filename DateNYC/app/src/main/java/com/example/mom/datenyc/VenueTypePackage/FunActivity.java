@@ -3,6 +3,7 @@ package com.example.mom.datenyc.VenueTypePackage;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,23 +17,31 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.mom.datenyc.GoogleAdapter;
+import com.example.mom.datenyc.GoogleMaps.Data.Result;
+import com.example.mom.datenyc.GoogleMaps.MapActivity;
 import com.example.mom.datenyc.ItineraryActivity;
 import com.example.mom.datenyc.MyDateItems;
 import com.example.mom.datenyc.R;
-import com.yelp.clientlib.connection.YelpAPI;
-import com.yelp.clientlib.connection.YelpAPIFactory;
-import com.yelp.clientlib.entities.Business;
-import com.yelp.clientlib.entities.SearchResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 
 public class FunActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
@@ -40,14 +49,13 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
     private final String consumerSecret = "RKwhAlFerfB2NwdFG9_9SAE7p3Y";
     private final String token = "I_tC-YrL1nA4QfK7NFPJrIIrqqoGodNz";
     private final String tokenSecret = "eua-2OsRU8dnbK7P7YyDdGLuKJ0";
-    static ArrayList<Business> mBusinesses;
-    ArrayAdapter<String> mAdapter;
-    List<String> names;
+   GoogleAdapter mAdapter;
     ListView mList;
      String loadUrl;
+    ArrayList<Result> mPlaces;
+    GoogleAsyncTask mGoogleAsync;
 
-    YelpAPI yelpAPI;
-
+    String BASE_URL="https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&query=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +63,20 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_fun);
         setTitle("Choose Activity");
 
-        mList=(ListView)findViewById(R.id.listView);
-        YelpAPIFactory apiFactory = new YelpAPIFactory(consumerKey, consumerSecret, token, tokenSecret);
-        yelpAPI = apiFactory.createAPI();
+        mList = (ListView) findViewById(R.id.listView);
 
-        Intent intent= getIntent();
-        final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
+        Intent intent = getIntent();
+        final MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
-        final ArrayList<Business> funPlaces= new ArrayList<>();
+        String fun="fun+activities";
 
-        final CustomAdapter customAdapter= new CustomAdapter(this,funPlaces);
-        mList.setAdapter(customAdapter);
+        String googleRequest = BASE_URL+fun+"+in+"+myDate.getLocation();
+
+        mGoogleAsync= new GoogleAsyncTask();
+        mGoogleAsync.execute(googleRequest);
+
+        mAdapter= new GoogleAdapter(this, mPlaces);
+        mList.setAdapter(mAdapter);
 
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,70 +86,97 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
                 pb.setVisibility(ProgressBar.VISIBLE);
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(FunActivity.this);
-                    alert.setTitle(myDate.getFunActivity());
-                    WebView wv = new WebView(FunActivity.this);
+                alert.setTitle(myDate.getFunActivity());
+                WebView wv = new WebView(FunActivity.this);
 
-                final Business business = funPlaces.get(position);
+                final Result placeSelect= mPlaces.get(position);
+                String urlGoogle= placeSelect.getUrl();
 
-                    wv.setWebViewClient(new MyWebViewClient());
-                    wv.getSettings().setJavaScriptEnabled(true);
-                    wv.loadUrl(business.url());
-                    alert.setView(wv);
-                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-                        public void onClick(DialogInterface dialog, int id){
-                            Intent sendFun= new Intent(FunActivity.this, ItineraryActivity.class);
-                            myDate.setFunActivity(business.name());
-                            sendFun.putExtra(MyDateItems.MY_ITEMS, myDate);
-                            startActivity(sendFun);
 
-                        }
-                    });
-                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-                        public void onClick(DialogInterface dialog, int id){
+                wv.setWebViewClient(new MyWebViewClient());
+                wv.getSettings().setJavaScriptEnabled(true);
+                wv.loadUrl(urlGoogle);
+                alert.setView(wv);
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent sendFun = new Intent(FunActivity.this, MapActivity.class);
+                        myDate.setFunActivity(placeSelect.getName());
+                        sendFun.putExtra(MyDateItems.MY_ITEMS, myDate);
+                        startActivity(sendFun);
 
-                        }
-                    });
-                    alert.show();
+                    }
+                });
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                alert.show();
 
             }
         });
+    }
 
-        Map<String, String> params = new HashMap<>();
+    private String getInputData(InputStream inputStream) throws IOException {
+        StringBuilder stringBuilder= new StringBuilder();
+        BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(inputStream));
+        String data;
 
-        // general params
-        params.put("term", "activities");
-        params.put("limit", "15");
-        params.put("actionlinks","true");
+        while ((data=bufferedReader.readLine()) !=null){
+            stringBuilder.append(data);
+        }
+        bufferedReader.close();
 
+        return stringBuilder.toString();
+    }
 
-        Callback<SearchResponse> callback = new Callback<SearchResponse>() {
-            @Override
-            public void onResponse(Response<SearchResponse> response, Retrofit retrofit) {
-                SearchResponse searchResponse = response.body();
-                // Update UI text with the searchResponse.
-                for(int i= 0; i<searchResponse.businesses().size();i++){
-//                    names.add(searchResponse.businesses().get(i).name());
+    public class GoogleAsyncTask extends AsyncTask<String,Void,String> {
+        String data= " ";
 
-                    loadUrl = searchResponse.businesses().get(i).url();
+        @Override
+        protected String doInBackground(String... urls) {
 
-                    funPlaces.add(searchResponse.businesses().get(i));
+            try {
+                URL url = new URL(urls[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+                InputStream inputStream = connection.getInputStream();
+                data = getInputData(inputStream);
+            } catch (Throwable thr) {
+                thr.fillInStackTrace();
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            try {
+                JSONObject dataObject = new JSONObject(data);
+                JSONArray placesArray = dataObject.getJSONArray("results");
+                mPlaces= new ArrayList<>();
+
+                for (int i = 0; i < placesArray.length(); i++) {
+                    JSONObject object = placesArray.optJSONObject(i);
+                    String title = object.optString("name");
+
+                    Log.d("name",title);
+
+                    Gson gson = new GsonBuilder().create();
+                    Result place= gson.fromJson(String.valueOf(placesArray.get(i)), Result.class);
+
+                    mPlaces.add(place);
+
                 }
-                customAdapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+
+                e.printStackTrace();
             }
-
-            @Override
-            public void onFailure(Throwable t) {
-                // HTTP error happened, do something to handle it.
-            }
-
-        };
-        //TODO: NEED TO GET THE PARCEABLE EXTRA LOCATION AND PASS IT INTO THE CALL
-        //TODO: YELP DOESN'T ALLOW TO CALL BY PRICE.
-
-        Call<SearchResponse> call = yelpAPI.search(myDate.getLocation(), params);
-        call.enqueue(callback);
-
-
+            mAdapter.setResults(mPlaces);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

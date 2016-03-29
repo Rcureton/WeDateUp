@@ -63,28 +63,28 @@ public class CuisineActivity extends AppCompatActivity {
 
                 switch (id){
                     case R.id.asian_card:
-                        myDate.setCuisine("Asian");
+                        myDate.setCuisine("best Asian restaurant");
                         break;
                     case R.id.american_card:
-                        myDate.setCuisine("American");
+                        myDate.setCuisine("best American cuisine");
                         break;
                     case R.id.indian_card:
-                        myDate.setCuisine("Indian");
+                        myDate.setCuisine("best Indian restaurant");
                         break;
                     case R.id.italian_card:
-                        myDate.setCuisine("Italian");
+                        myDate.setCuisine("best Italian restaurant");
                         break;
                     case R.id.mexican_card:
-                        myDate.setCuisine("Mexican");
+                        myDate.setCuisine("best Mexican restaurant");
                         break;
                     case R.id.meditteranean_card:
-                        myDate.setCuisine("Mediterranean");
+                        myDate.setCuisine("best Mediterranean restaurant");
                         break;
                     case R.id.thai_card:
-                        myDate.setCuisine("Thai");
+                        myDate.setCuisine("best Thai restaurant");
                         break;
                     case R.id.veagan_card:
-                        myDate.setCuisine("Vegan");
+                        myDate.setCuisine("best Vegan restaurant");
                         break;
                 }
                 Intent sendCuisine= new Intent(CuisineActivity.this, RestaurantActivity.class);

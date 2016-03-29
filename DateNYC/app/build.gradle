@@ -49,14 +49,14 @@ dependencies {
     compile 'com.android.support:design:23.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.retrofit2:retrofit:2.0.0'
-    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.squareup.okhttp3:okhttp:3.1.2'
-    compile 'com.yelp.clientlib:yelp-android:1.0.0'
     compile 'com.android.support:cardview-v7:23.0.+'
     compile 'com.android.support:recyclerview-v7:23.0.+'
     compile 'com.google.android.gms:play-services-maps:8.4.0'
     compile 'com.uber.sdk:rides-android:0.1.0'
+    compile 'org.glassfish:javax.annotation:10.0-b28'
 
 }
 

@@ -44,19 +44,19 @@ public class LocationPage extends AppCompatActivity {
 
                 switch (id){
                     case R.id.brooklyn:
-                        myDate.setLocation("brooklyn");
+                        myDate.setLocation("Brooklyn");
                         break;
                     case R.id.bronx:
-                        myDate.setLocation("bronx");
+                        myDate.setLocation("Bronx");
                         break;
                     case R.id.queens:
-                        myDate.setLocation("queens");
+                        myDate.setLocation("Queens");
                         break;
                     case R.id.staten:
-                        myDate.setLocation("staten island");
+                        myDate.setLocation("Staten+Island");
                         break;
                     case R.id.manhattan:
-                        myDate.setLocation("manhattan");
+                        myDate.setLocation("Manhattan");
                         break;
                 }
                 Intent sendLocation= new Intent(LocationPage.this, VenueType.class);

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -40,7 +41,7 @@
             android:value="AIzaSyDlBZB7bD8J_1_0hq5_z2j69-ke4ca7djY" />
 
         <activity android:name=".GoogleMaps.MapActivity" />
-        <activity android:name=".RestaurantActivity"></activity>
+        <activity android:name=".RestaurantActivity" />
     </application>
 
 </manifest>

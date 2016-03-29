@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.mom.datenyc.MyDateItems;
 import com.example.mom.datenyc.R;
+import com.example.mom.datenyc.RestaurantActivity;
 import com.squareup.picasso.Picasso;
 
 
@@ -66,16 +67,16 @@ public class VenueType extends AppCompatActivity {
 
                 switch (id){
                     case R.id.break_card:
-                        myDate.setVenueType("breakfast");
+                        myDate.setVenueType("Breakfast");
                         break;
                     case R.id.brunch_card:
-                        myDate.setVenueType("brunch");
+                        myDate.setVenueType("Brunch");
                         break;
                     case R.id.lunch_card:
-                        myDate.setVenueType("lunch");
+                        myDate.setVenueType("Lunch");
                         break;
                     case R.id.dinner_card:
-                        myDate.setVenueType("dinner");
+                        myDate.setVenueType("Dinner");
                         break;
                 }
                 Intent sendVenue= new Intent(VenueType.this,CuisineActivity.class);
@@ -86,8 +87,8 @@ public class VenueType extends AppCompatActivity {
         mBarCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sendBar= new Intent(VenueType.this,FunActivity.class);
-                myDate.setVenueType("bars");
+                Intent sendBar= new Intent(VenueType.this,RestaurantActivity.class);
+                myDate.setCuisine("best Bars");
                 sendBar.putExtra(MyDateItems.MY_ITEMS,myDate);
                 startActivity(sendBar);
 
@@ -96,8 +97,8 @@ public class VenueType extends AppCompatActivity {
         mDessertCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sendDessert= new Intent(VenueType.this,FunActivity.class);
-                myDate.setVenueType("dessert");
+                Intent sendDessert= new Intent(VenueType.this,RestaurantActivity.class);
+                myDate.setVenueType("best Dessert");
                 sendDessert.putExtra(MyDateItems.MY_ITEMS, myDate);
 
                 startActivity(sendDessert);
@@ -107,8 +108,8 @@ public class VenueType extends AppCompatActivity {
         mWineCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sendWine= new Intent(VenueType.this,FunActivity.class);
-                myDate.setVenueType("wine");
+                Intent sendWine= new Intent(VenueType.this,RestaurantActivity.class);
+                myDate.setCuisine("best wine bar");
                 sendWine.putExtra(MyDateItems.MY_ITEMS, myDate);
 
                 startActivity(sendWine);
@@ -118,8 +119,8 @@ public class VenueType extends AppCompatActivity {
         mCoffeeCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sendCoffee= new Intent(VenueType.this,FunActivity.class);
-                myDate.setVenueType("coffee");
+                Intent sendCoffee= new Intent(VenueType.this,RestaurantActivity.class);
+                myDate.setCuisine("best coffee shop");
                 sendCoffee.putExtra(MyDateItems.MY_ITEMS, myDate);
 
                 startActivity(sendCoffee);

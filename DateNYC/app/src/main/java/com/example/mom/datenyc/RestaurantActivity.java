@@ -1,25 +1,41 @@
 package com.example.mom.datenyc;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.yelp.clientlib.connection.YelpAPI;
-import com.yelp.clientlib.connection.YelpAPIFactory;
-import com.yelp.clientlib.entities.Business;
-import com.yelp.clientlib.entities.SearchResponse;
+import com.example.mom.datenyc.GoogleMaps.Data.Result;
+import com.example.mom.datenyc.GoogleMaps.remote.GooglePlacesAPI;
+import com.example.mom.datenyc.VenueTypePackage.FunActivity;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 
 public class RestaurantActivity extends AppCompatActivity {
 
@@ -27,13 +43,15 @@ public class RestaurantActivity extends AppCompatActivity {
     private final String consumerSecret = "RKwhAlFerfB2NwdFG9_9SAE7p3Y";
     private final String token = "I_tC-YrL1nA4QfK7NFPJrIIrqqoGodNz";
     private final String tokenSecret = "eua-2OsRU8dnbK7P7YyDdGLuKJ0";
-    static ArrayList<Business> mBusinesses;
-    ArrayAdapter<String> mAdapter;
-    List<String> names;
+    GoogleAdapter mGoogleAdapter;
     ListView mList;
-    String loadUrl;
+    String url= "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&query=best%20Bars%2Bin%2Bbrooklyn";
 
-    YelpAPI yelpAPI;
+    String BASE_URL="https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&query=";
+    ArrayList<Result> mPlaces;
+
+    private GoogleAsyncTask mGoogleAsync;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,56 +59,135 @@ public class RestaurantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant);
         setTitle("Choose Restaurant");
 
+
         mList=(ListView)findViewById(R.id.restaurantlistView);
-        YelpAPIFactory apiFactory = new YelpAPIFactory(consumerKey, consumerSecret, token, tokenSecret);
-        yelpAPI = apiFactory.createAPI();
 
         Intent intent= getIntent();
         final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
-        mBusinesses= new ArrayList<>();
-
-        final RestaurantAdapter restaurantAdapter = new RestaurantAdapter(this,mBusinesses);
-        mList.setAdapter(restaurantAdapter);
+        mGoogleAdapter= new GoogleAdapter(this,mPlaces);
+        mList.setAdapter(mGoogleAdapter);
 
 
-        Map<String, String> params = new HashMap<>();
+        String googleRequest= null;
+        try {
+            googleRequest = BASE_URL+myDate.getFormattedCuisine()+"+in+"+myDate.getLocation();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
-        // general params
-        params.put("term",myDate.getCuisine());
-        params.put("limit", "15");
-        params.put("sort","0");
-        params.put("category_filter", "food");
-//        params.put("actionlinks","true");
+        mGoogleAsync= new GoogleAsyncTask();
+        GoogleAsyncTask googleAsyncTask= new GoogleAsyncTask();
+        googleAsyncTask.execute(googleRequest);
 
 
-        Callback<SearchResponse> callback = new Callback<SearchResponse>() {
+        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onResponse(Response<SearchResponse> response, Retrofit retrofit) {
-                SearchResponse searchResponse = response.body();
-                // Update UI text with the searchResponse.
-                for(int i= 0; i<searchResponse.businesses().size();i++){
-//                    names.add(searchResponse.businesses().get(i).name());
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(RestaurantActivity.this);
+                alert.setTitle(myDate.getVenueType());
+                WebView wv = new WebView(RestaurantActivity.this);
 
-                    loadUrl = searchResponse.businesses().get(i).url();
+                final Result placeSelect= mPlaces.get(position);
+                String urlGoogle= placeSelect.getWebsite();
 
-                    mBusinesses.add(searchResponse.businesses().get(i));
-//                    mBusinesses.get(0).location().coordinate().latitude();
-                }
-                restaurantAdapter.notifyDataSetChanged();
+
+                wv.setWebViewClient(new MyWebViewClient());
+                wv.getSettings().setJavaScriptEnabled(true);
+                wv.loadUrl(urlGoogle);
+                alert.setView(wv);
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent sendRest = new Intent(RestaurantActivity.this, FunActivity.class);
+                        myDate.setRestaurant(placeSelect.getName());
+                        sendRest.putExtra(MyDateItems.MY_ITEMS, myDate);
+                        startActivity(sendRest);
+
+                    }
+                });
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                alert.show();
+
             }
-
-            @Override
-            public void onFailure(Throwable t) {
-                // HTTP error happened, do something to handle it.
-            }
-
-        };
-        //TODO: NEED TO GET THE PARCEABLE EXTRA LOCATION AND PASS IT INTO THE CALL
-        //TODO: YELP DOESN'T ALLOW TO CALL BY PRICE.
-
-        Call<SearchResponse> call = yelpAPI.search(myDate.getLocation(), params);
-        call.enqueue(callback);
-
+        });
     }
+    private String getInputData(InputStream inputStream) throws IOException {
+        StringBuilder stringBuilder= new StringBuilder();
+        BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(inputStream));
+        String data;
+
+        while ((data=bufferedReader.readLine()) !=null){
+            stringBuilder.append(data);
+        }
+        bufferedReader.close();
+
+        return stringBuilder.toString();
+    }
+
+    public class GoogleAsyncTask extends AsyncTask<String,Void,String> {
+        String data= " ";
+
+        @Override
+        protected String doInBackground(String... urls) {
+
+            try {
+                URL url = new URL(urls[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+                InputStream inputStream = connection.getInputStream();
+                data = getInputData(inputStream);
+            } catch (Throwable thr) {
+                thr.fillInStackTrace();
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            try {
+                JSONObject dataObject = new JSONObject(data);
+                JSONArray placesArray = dataObject.getJSONArray("results");
+                 mPlaces= new ArrayList<>();
+
+                for (int i = 0; i < placesArray.length(); i++) {
+                    JSONObject object = placesArray.optJSONObject(i);
+                    String title = object.optString("name");
+
+                    Log.d("name",title);
+
+                    Gson gson = new GsonBuilder().create();
+                    Result place= gson.fromJson(String.valueOf(placesArray.get(i)), Result.class);
+
+                    mPlaces.add(place);
+
+                }
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+            }
+            mGoogleAdapter.setResults(mPlaces);
+            mGoogleAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+
+
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            return false;
+        }
+    }
+
+
+
 }
