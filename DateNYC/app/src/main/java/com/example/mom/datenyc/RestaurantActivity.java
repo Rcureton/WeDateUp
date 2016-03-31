@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mom.datenyc.GoogleMaps.Data.Result;
+import com.example.mom.datenyc.GoogleMaps.Data.Review;
 import com.example.mom.datenyc.GoogleMaps.remote.GooglePlacesAPI;
 import com.example.mom.datenyc.VenueTypePackage.FunActivity;
 import com.google.gson.Gson;
@@ -39,10 +41,6 @@ import java.util.Map;
 
 public class RestaurantActivity extends AppCompatActivity {
 
-    private final String consumerKey = "biD2L5UtLWUB3aYjEegIyw";
-    private final String consumerSecret = "RKwhAlFerfB2NwdFG9_9SAE7p3Y";
-    private final String token = "I_tC-YrL1nA4QfK7NFPJrIIrqqoGodNz";
-    private final String tokenSecret = "eua-2OsRU8dnbK7P7YyDdGLuKJ0";
     GoogleAdapter mGoogleAdapter;
     ListView mList;
     String url= "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&query=best%20Bars%2Bin%2Bbrooklyn";
@@ -68,6 +66,8 @@ public class RestaurantActivity extends AppCompatActivity {
         mGoogleAdapter= new GoogleAdapter(this,mPlaces);
         mList.setAdapter(mGoogleAdapter);
 
+        String price= "minprice="+myDate.getPrice();
+
 
         String googleRequest= null;
         try {
@@ -86,20 +86,24 @@ public class RestaurantActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(RestaurantActivity.this);
                 alert.setTitle(myDate.getVenueType());
-                WebView wv = new WebView(RestaurantActivity.this);
+                LayoutInflater inflater = RestaurantActivity.this.getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+                alert.setView(dialogView);
 
                 final Result placeSelect= mPlaces.get(position);
-                String urlGoogle= placeSelect.getWebsite();
+                String name= placeSelect.getName();
+                String rating= String.valueOf(placeSelect.getRating());
+                String address= placeSelect.getFormattedAddress();
 
 
-                wv.setWebViewClient(new MyWebViewClient());
-                wv.getSettings().setJavaScriptEnabled(true);
-                wv.loadUrl(urlGoogle);
-                alert.setView(wv);
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent sendRest = new Intent(RestaurantActivity.this, FunActivity.class);
                         myDate.setRestaurant(placeSelect.getName());
+                        myDate.setAddress(placeSelect.getFormattedAddress());
+                        myDate.setRating(String.valueOf(placeSelect.getRating()));
+                        myDate.setLat(placeSelect.getGeometry().getLocation().getLat());
+                        myDate.setLon(placeSelect.getGeometry().getLocation().getLng());
                         sendRest.putExtra(MyDateItems.MY_ITEMS, myDate);
                         startActivity(sendRest);
 
@@ -176,18 +180,5 @@ public class RestaurantActivity extends AppCompatActivity {
             mGoogleAdapter.notifyDataSetChanged();
         }
     }
-
-
-
-
-    private class MyWebViewClient extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-            return false;
-        }
-    }
-
-
 
 }

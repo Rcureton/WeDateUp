@@ -18,7 +18,12 @@ public class MyDateItems implements Parcelable{
     private String funActivity;
     private String cuisine;
     private String restaurant;
-
+    private String address;
+    private String rating;
+    private String funAddress;
+    private String funRating;
+    private double lat;
+    private double lon;
 
 
     public MyDateItems(){
@@ -32,6 +37,13 @@ public class MyDateItems implements Parcelable{
         funActivity = in.readString();
         cuisine= in.readString();
         restaurant= in.readString();
+        address=in.readString();
+        rating=in.readString();
+        funAddress=in.readString();
+        funRating=in.readString();
+        lat=in.readDouble();
+        lon=in.readDouble();
+
     }
 
     public static final Creator<MyDateItems> CREATOR = new Creator<MyDateItems>() {
@@ -104,6 +116,53 @@ public class MyDateItems implements Parcelable{
         this.cuisine = cuisine;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getFunAddress() {
+        return funAddress;
+    }
+
+    public void setFunAddress(String funAddress) {
+        this.funAddress = funAddress;
+    }
+
+    public String getFunRating() {
+        return funRating;
+    }
+
+    public void setFunRating(String funRating) {
+        this.funRating = funRating;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
 
     @Override
     public int describeContents() {
@@ -118,5 +177,11 @@ public class MyDateItems implements Parcelable{
         dest.writeString(funActivity);
         dest.writeString(cuisine);
         dest.writeString(restaurant);
+        dest.writeString(address);
+        dest.writeString(rating);
+        dest.writeString(funAddress);
+        dest.writeString(funRating);
+        dest.writeDouble(lat);
+        dest.writeDouble(lon);
     }
 }

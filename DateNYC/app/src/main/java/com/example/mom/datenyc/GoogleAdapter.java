@@ -45,6 +45,11 @@ public class GoogleAdapter extends ArrayAdapter<Result> {
         TextView placesRating=(TextView)itemLayout.findViewById(R.id.googleRating);
 
         Result resultItems= mResults.get(position);
+        String phone =resultItems.getFormattedPhoneNumber();
+        double lat= resultItems.getGeometry().getLocation().getLat();
+        double lon= resultItems.getGeometry().getLocation().getLng();
+        Log.d("lat and long", String.valueOf(lat)+ String.valueOf(lon));
+        Log.e("Phone", String.valueOf(phone));
 
         if(resultItems.getPhotos().size()>0){
             if(resultItems.getPhotos().get(0)!=null){
@@ -57,8 +62,6 @@ public class GoogleAdapter extends ArrayAdapter<Result> {
 
             }
         }
-
-
         placesName.setText(resultItems.getName());
         placesAddress.setText(resultItems.getFormattedAddress());
         placesPhone.setText(resultItems.getFormattedPhoneNumber());

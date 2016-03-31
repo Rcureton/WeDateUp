@@ -49,16 +49,16 @@ public class BudgetActivity extends AppCompatActivity {
 
             switch (id) {
                 case R.id.oneCash:
-                    dateItems.setPrice("one");
+                    dateItems.setPrice("1");
                     break;
                 case R.id.twoCash:
-                    dateItems.setPrice("two");
+                    dateItems.setPrice("2");
                     break;
                 case R.id.threeCash:
-                    dateItems.setPrice("three");
+                    dateItems.setPrice("3");
                     break;
                 case R.id.fourCash:
-                    dateItems.setPrice("four");
+                    dateItems.setPrice("4");
                     break;
 
             }

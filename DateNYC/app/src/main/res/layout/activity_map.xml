@@ -3,32 +3,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@drawable/sky"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:uber="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.mom.datenyc.GoogleMaps.MapActivity">
 
-    <FrameLayout
-        android:id="@+id/my_container"
-        android:layout_alignParentTop="true"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
+    <TextView
+        android:id="@+id/headline"
+        android:text="DATE ITINERARY"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ee32ff"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            android:name="com.google.android.gms.maps.MapFragment"
-            android:id="@+id/map"
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_itinerary"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp"
+        android:layout_below="@id/headline"
+        app:cardCornerRadius="7dp"
+        app:cardBackgroundColor="#9003a9f4"
+
+        >
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:padding="5dp"
+            android:layout_height="match_parent">
 
-    </FrameLayout>
+            <TextView
+                android:id="@+id/restaurant_info_text"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="#ffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/restaurant_info_text_address"
+                android:textColor="#ffff"
+                android:autoLink="map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurant_info_text"/>
+
+            <TextView
+                android:id="@+id/restaurant_info_text_rating"
+                android:textColor="#ffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurant_info_text_address"/>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/resto"
+        android:text="Fun Activity For Your Date"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ee32ff"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_below="@id/card_view_itinerary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_fun_itinerary"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp"
+        android:padding="10dp"
+        android:layout_below="@id/resto"
+        app:cardCornerRadius="7dp"
+        app:cardBackgroundColor="#9003a9f4"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/fun_info_text"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="#ffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/fun_info_text_address"
+                android:textColor="#ffff"
+                android:autoLink="map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fun_info_text"/>
+
+            <TextView
+                android:id="@+id/fun_info_text_rating"
+                android:textColor="#ffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fun_info_text_address"/>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
     <TextView
         android:id="@+id/uberText"
-        android:text="Want a way there?"
+        android:text="Want A Ride There?"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="15sp"
+        android:padding="5dp"
         android:textColor="#ffff"
-        android:layout_below="@id/my_container"
+        android:layout_below="@id/card_view_fun_itinerary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -45,6 +139,7 @@
         android:text="Save date for later"
         android:textStyle="bold"
         android:textSize="20sp"
+        android:padding="5dp"
         android:textColor="#ffff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,6 +150,7 @@
         android:text="Email Itinerary"
         android:textStyle="bold"
         android:textSize="20sp"
+        android:padding="5dp"
         android:textColor="#ffff"
         android:layout_below="@id/calendarText"
         android:layout_width="wrap_content"
@@ -62,16 +158,30 @@
     <EditText
         android:id="@+id/emailInput"
         android:hint="Type Email Address"
+        android:padding="5dp"
         android:layout_below="@id/emailItineray"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/sendButton"
         android:text="Send Itinerary"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:padding="5dp"
         android:layout_below="@id/emailInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/homeButton"
+        android:src="@drawable/ic_action_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:padding="10dp" />
 
 </RelativeLayout>

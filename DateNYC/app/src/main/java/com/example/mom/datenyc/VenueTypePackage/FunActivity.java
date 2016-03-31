@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -45,10 +46,6 @@ import java.util.Map;
 
 public class FunActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-    private final String consumerKey = "biD2L5UtLWUB3aYjEegIyw";
-    private final String consumerSecret = "RKwhAlFerfB2NwdFG9_9SAE7p3Y";
-    private final String token = "I_tC-YrL1nA4QfK7NFPJrIIrqqoGodNz";
-    private final String tokenSecret = "eua-2OsRU8dnbK7P7YyDdGLuKJ0";
    GoogleAdapter mAdapter;
     ListView mList;
      String loadUrl;
@@ -87,20 +84,18 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(FunActivity.this);
                 alert.setTitle(myDate.getFunActivity());
-                WebView wv = new WebView(FunActivity.this);
+                LayoutInflater inflater = FunActivity.this.getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+                alert.setView(dialogView);
 
-                final Result placeSelect= mPlaces.get(position);
-                String urlGoogle= placeSelect.getUrl();
+                final Result placeSelect = mPlaces.get(position);
 
-
-                wv.setWebViewClient(new MyWebViewClient());
-                wv.getSettings().setJavaScriptEnabled(true);
-                wv.loadUrl(urlGoogle);
-                alert.setView(wv);
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent sendFun = new Intent(FunActivity.this, MapActivity.class);
                         myDate.setFunActivity(placeSelect.getName());
+                        myDate.setFunAddress(placeSelect.getFormattedAddress());
+                        myDate.setFunRating(String.valueOf(placeSelect.getRating()));
                         sendFun.putExtra(MyDateItems.MY_ITEMS, myDate);
                         startActivity(sendFun);
 
@@ -184,12 +179,5 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
 
     }
 
-    private class MyWebViewClient extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-            return false;
-        }
-    }
 
 }
