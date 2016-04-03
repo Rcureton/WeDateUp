@@ -2,7 +2,6 @@ package com.example.mom.datenyc;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,17 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.example.mom.datenyc.GoogleMaps.Data.Result;
-import com.example.mom.datenyc.GoogleMaps.Data.Review;
-import com.example.mom.datenyc.GoogleMaps.remote.GooglePlacesAPI;
-import com.example.mom.datenyc.VenueTypePackage.FunActivity;
+import com.example.mom.datenyc.VenueTypePackage.RestDetails;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.json.JSONArray;
@@ -35,9 +29,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class RestaurantActivity extends AppCompatActivity {
 
@@ -49,6 +40,7 @@ public class RestaurantActivity extends AppCompatActivity {
     ArrayList<Result> mPlaces;
 
     private GoogleAsyncTask mGoogleAsync;
+    ProgressBar pb;
 
 
     @Override
@@ -59,6 +51,7 @@ public class RestaurantActivity extends AppCompatActivity {
 
 
         mList=(ListView)findViewById(R.id.restaurantlistView);
+        pb = (ProgressBar) findViewById(R.id.pbLoadingR);
 
         Intent intent= getIntent();
         final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
@@ -98,12 +91,13 @@ public class RestaurantActivity extends AppCompatActivity {
 
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent sendRest = new Intent(RestaurantActivity.this, FunActivity.class);
+                        Intent sendRest = new Intent(RestaurantActivity.this, RestDetails.class);
                         myDate.setRestaurant(placeSelect.getName());
                         myDate.setAddress(placeSelect.getFormattedAddress());
                         myDate.setRating(String.valueOf(placeSelect.getRating()));
                         myDate.setLat(placeSelect.getGeometry().getLocation().getLat());
                         myDate.setLon(placeSelect.getGeometry().getLocation().getLng());
+                        myDate.setPlaceId(placeSelect.getPlaceId());
                         sendRest.putExtra(MyDateItems.MY_ITEMS, myDate);
                         startActivity(sendRest);
 
@@ -136,6 +130,13 @@ public class RestaurantActivity extends AppCompatActivity {
         String data= " ";
 
         @Override
+        protected void onPreExecute() {
+            pb.setVisibility(ProgressBar.VISIBLE);
+
+            super.onPreExecute();
+        }
+
+        @Override
         protected String doInBackground(String... urls) {
 
             try {
@@ -153,6 +154,8 @@ public class RestaurantActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+            pb.setVisibility(ProgressBar.GONE);
+
             super.onPostExecute(s);
 
             try {

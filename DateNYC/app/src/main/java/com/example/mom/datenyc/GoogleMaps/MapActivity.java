@@ -4,24 +4,22 @@ import android.Manifest;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Rect;
-import android.graphics.pdf.PdfDocument;
-import android.graphics.pdf.PdfRenderer;
+
 import android.net.Uri;
-import android.os.Environment;
-import android.print.pdf.PrintedPdfDocument;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,30 +36,22 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.uber.sdk.android.rides.RequestButton;
 import com.uber.sdk.android.rides.RideParameters;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Date;
 
 public class MapActivity extends AppCompatActivity {
-    MapFragment mMapFragment;
     RequestButton requestButton;
     Button mSendEmail;
     FloatingActionButton mHome;
-    TextView mName, mAddress, mRating, mFunName, mFunAddress, mFunRating;
-    GoogleMap mMap;
+    TextView mName, mAddress, mRating, mFunName, mFunAddress, mFunRating, mPhone;
+    EditText mEmailInput;
     private String UBER_CLIENT_ID = "BVqdBZ0dfixZGZTpblKOgrGAX5pjCEpZ";
     private int MY_LOCATION_REQUEST_CODE = 1;
-    GoogleApiClient mGoogleClient;
-    PlaceDetectionApi mCurrentP;
     private int MY_PERMISSIONS_REQUEST_MAP_LOCATION = 2;
+    private ShareActionProvider mShareActionProvider;
+    String restName, restAdd, funName, funAdd, email, phone;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +65,22 @@ public class MapActivity extends AppCompatActivity {
         mFunAddress= (TextView)findViewById(R.id.fun_info_text_address);
         mFunRating= (TextView)findViewById(R.id.fun_info_text_rating);
         mSendEmail=(Button)findViewById(R.id.sendButton);
+        mEmailInput=(EditText)findViewById(R.id.emailInput);
         mHome=(FloatingActionButton)findViewById(R.id.homeButton);
+        mPhone=(TextView)findViewById(R.id.restaurant_phone);
+
+
+        email= mEmailInput.getText().toString();
+
+
+
 
         mSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takeScreenshot();
+                sendEmail();
+//                Intent stay= new Intent(MapActivity.this,MapActivity.class);
+//                startActivity(stay);
             }
         });
 
@@ -114,12 +114,19 @@ public class MapActivity extends AppCompatActivity {
         Intent intent = getIntent();
         MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
+        restName= myDate.getRestaurant();
+        restAdd= myDate.getAddress();
+        funName=myDate.getFunActivity();
+        funAdd= myDate.getFunAddress();
+        phone= myDate.getPhoneNumber();
+
         mName.setText(myDate.getRestaurant());
         mAddress.setText(myDate.getAddress());
         mRating.setText(myDate.getRating());
         mFunName.setText(myDate.getFunActivity());
         mFunAddress.setText(myDate.getFunAddress());
         mFunRating.setText(myDate.getFunRating());
+        mPhone.setText(phone);
 
         //TODO: UBER RIDE REQUEST BUTTON
         requestButton = (RequestButton) findViewById(R.id.uber);
@@ -132,42 +139,63 @@ public class MapActivity extends AppCompatActivity {
 
     }
 
-    private void takeScreenshot() {
-        Date now = new Date();
-        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+    //TODO: This is the code to launch the EMail Intent to the provider of the user's choice
+
+    protected void sendEmail() {
+        Log.i("Send email", "");
+        String [] TO = {""};
+        String[] CC = {""};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        //TODO: To field in email isn't receiving the input of email Address
+
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL,TO);
+        emailIntent.putExtra(Intent.EXTRA_CC, CC);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "DateNYC Itinerary");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Thanks for planning your date with DateNYC. " + " "+
+                "Here is your Itinerary " + restName + " "+ restAdd +" "+"please enjoy $15 off of your first UBER Ride with us by clicking " +
+                "this link https://www.uber.com/invite/DateNYC or using promo code fptg5. ");
 
         try {
-            // image naming and path  to include sd card  appending name you choose for file
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
 
-            // create bitmap screen capture
-            View v1 = getWindow().getDecorView().getRootView();
-            v1.setDrawingCacheEnabled(true);
-            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-            v1.setDrawingCacheEnabled(false);
-
-            File imageFile = new File(mPath);
-
-            FileOutputStream outputStream = new FileOutputStream(imageFile);
-            int quality = 100;
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-            openScreenshot(imageFile);
-        } catch (Throwable e) {
-            // Several error may come out with file handling or OOM
-            e.printStackTrace();
+        }
+        catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(MapActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void openScreenshot(File imageFile) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        Uri uri = Uri.fromFile(imageFile);
-        intent.setDataAndType(uri, "image/*");
-        startActivity(intent);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate menu resource file.
+        getMenuInflater().inflate(R.menu.share_actions, menu);
+
+        // Locate MenuItem with ShareActionProvider
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+
+        // Fetch and store ShareActionProvider
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+        // Return true so Android will know we want to display the menu
+
+        Intent mShareIntent = new Intent();
+        mShareIntent.setAction(Intent.ACTION_SEND);
+        mShareIntent.setType("text/plain");
+        mShareIntent.putExtra(Intent.EXTRA_TEXT, "I planned my date with DATENYC");
+        setShareIntent(mShareIntent);
+        return true;
     }
+
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
+    }
+
 }
 
 

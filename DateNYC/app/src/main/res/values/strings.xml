@@ -12,5 +12,6 @@
     <string name="uber_client_id">BVqdBZ0dfixZGZTpblKOgrGAX5pjCEpZ</string>
     <string name="uber_client_secret">cpRf0zo9YfxMA_jve9yU9rIAa-8IjxMss13m4390</string>
     <string name="uber_token">uSOaLvZGElS8_oRaYsSH-x5RZiOxQVR3ZIEw3mCs</string>
+    <string name="title_activity_rest_details">RestDetails</string>
 
 </resources>

@@ -24,6 +24,9 @@ public class MyDateItems implements Parcelable{
     private String funRating;
     private double lat;
     private double lon;
+    private String placeId;
+    private String phoneNumber;
+
 
 
     public MyDateItems(){
@@ -43,6 +46,8 @@ public class MyDateItems implements Parcelable{
         funRating=in.readString();
         lat=in.readDouble();
         lon=in.readDouble();
+        placeId=in.readString();
+        phoneNumber=in.readString();
 
     }
 
@@ -164,6 +169,22 @@ public class MyDateItems implements Parcelable{
         this.lat = lat;
     }
 
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -183,5 +204,7 @@ public class MyDateItems implements Parcelable{
         dest.writeString(funRating);
         dest.writeDouble(lat);
         dest.writeDouble(lon);
+        dest.writeString(placeId);
+        dest.writeString(phoneNumber);
     }
 }

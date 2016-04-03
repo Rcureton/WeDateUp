@@ -98,7 +98,7 @@ public class VenueType extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent sendDessert= new Intent(VenueType.this,RestaurantActivity.class);
-                myDate.setVenueType("best Dessert");
+                myDate.setCuisine("best Bakeries");
                 sendDessert.putExtra(MyDateItems.MY_ITEMS, myDate);
 
                 startActivity(sendDessert);
@@ -109,7 +109,7 @@ public class VenueType extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent sendWine= new Intent(VenueType.this,RestaurantActivity.class);
-                myDate.setCuisine("best wine bar");
+                myDate.setCuisine("best wine bars");
                 sendWine.putExtra(MyDateItems.MY_ITEMS, myDate);
 
                 startActivity(sendWine);
@@ -120,7 +120,7 @@ public class VenueType extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent sendCoffee= new Intent(VenueType.this,RestaurantActivity.class);
-                myDate.setCuisine("best coffee shop");
+                myDate.setCuisine("Coffee shops");
                 sendCoffee.putExtra(MyDateItems.MY_ITEMS, myDate);
 
                 startActivity(sendCoffee);

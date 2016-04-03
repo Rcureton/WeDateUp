@@ -41,13 +41,23 @@
                 android:textColor="#ffff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/restaurant_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:autoLink="phone"
+                android:textColor="#ffff"
+                android:layout_below="@id/restaurant_info_text"/>
             <TextView
                 android:id="@+id/restaurant_info_text_address"
                 android:textColor="#ffff"
                 android:autoLink="map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/restaurant_info_text"/>
+                android:layout_below="@id/restaurant_phone"/>
 
             <TextView
                 android:id="@+id/restaurant_info_text_rating"
@@ -134,16 +144,6 @@
         uber:client_id="clientId"
         uber:style="black"/>
 
-    <TextView
-        android:id="@+id/calendarText"
-        android:text="Save date for later"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:padding="5dp"
-        android:textColor="#ffff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/uber"/>
 
     <TextView
         android:id="@+id/emailItineray"
@@ -152,7 +152,7 @@
         android:textSize="20sp"
         android:padding="5dp"
         android:textColor="#ffff"
-        android:layout_below="@id/calendarText"
+        android:layout_below="@id/uber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <EditText

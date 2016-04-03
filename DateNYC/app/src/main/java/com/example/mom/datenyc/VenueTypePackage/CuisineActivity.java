@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.mom.datenyc.ItineraryActivity;
 import com.example.mom.datenyc.MyDateItems;
 import com.example.mom.datenyc.R;
 import com.example.mom.datenyc.RestaurantActivity;

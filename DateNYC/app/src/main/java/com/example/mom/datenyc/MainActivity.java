@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView background= (ImageView)findViewById(R.id.background);
 
-        Picasso.with(MainActivity.this).load("https://s-media-cache-ak0.pinimg.com/564x/b6/f1/34/b6f1340783278be2c97535f2674f6f49.jpg").fit().into(background);
+        Picasso.with(MainActivity.this).load("http://realestate-report.com/media/33.jpg").fit().into(background);
 
 
         mStart=(Button)findViewById(R.id.start);

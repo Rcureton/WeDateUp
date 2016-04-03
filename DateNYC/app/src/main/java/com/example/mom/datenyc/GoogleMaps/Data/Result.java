@@ -71,6 +71,9 @@ public class Result {
     @SerializedName("website")
     @Expose
     private String website;
+    @SerializedName("result")
+    @Expose
+    private String result;
 
 
     /**
@@ -434,5 +437,20 @@ public class Result {
     public void setWebsite(String website) {
         this.website = website;
     }
+
+
+    public String getResult() {
+        return result;
+    }
+
+    /**
+     *
+     * @param result
+     * The result
+     */
+    public void setResult(String result) {
+        this.result = result;
+    }
+
 
 }

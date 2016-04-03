@@ -1,6 +1,5 @@
 package com.example.mom.datenyc.VenueTypePackage;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,18 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.mom.datenyc.GoogleAdapter;
 import com.example.mom.datenyc.GoogleMaps.Data.Result;
 import com.example.mom.datenyc.GoogleMaps.MapActivity;
-import com.example.mom.datenyc.ItineraryActivity;
 import com.example.mom.datenyc.MyDateItems;
 import com.example.mom.datenyc.R;
 import com.google.gson.Gson;
@@ -35,18 +29,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class FunActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
    GoogleAdapter mAdapter;
+    ProgressBar pb;
     ListView mList;
      String loadUrl;
     ArrayList<Result> mPlaces;
@@ -61,11 +52,12 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         setTitle("Choose Activity");
 
         mList = (ListView) findViewById(R.id.listView);
+        pb = (ProgressBar) findViewById(R.id.pbLoading);
 
         Intent intent = getIntent();
         final MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
-        String fun="fun+activities";
+        String fun="fun+attractions";
 
         String googleRequest = BASE_URL+fun+"+in+"+myDate.getLocation();
 
@@ -79,8 +71,6 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoading);
-                pb.setVisibility(ProgressBar.VISIBLE);
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(FunActivity.this);
                 alert.setTitle(myDate.getFunActivity());
@@ -128,6 +118,14 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
     public class GoogleAsyncTask extends AsyncTask<String,Void,String> {
         String data= " ";
 
+
+        @Override
+        protected void onPreExecute() {
+
+            pb.setVisibility(ProgressBar.VISIBLE);
+            super.onPreExecute();
+        }
+
         @Override
         protected String doInBackground(String... urls) {
 
@@ -146,6 +144,8 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
 
         @Override
         protected void onPostExecute(String s) {
+            pb.setVisibility(ProgressBar.GONE);
+
             super.onPostExecute(s);
 
             try {

@@ -21,7 +21,7 @@ public class BudgetActivity extends AppCompatActivity {
 
         ImageView budgetBackground = (ImageView) findViewById(R.id.budgetBackground);
 
-        Picasso.with(BudgetActivity.this).load("https://s-media-cache-ak0.pinimg.com/564x/b6/f1/34/b6f1340783278be2c97535f2674f6f49.jpg").fit().into(budgetBackground);
+        Picasso.with(BudgetActivity.this).load("http://cdn.c.photoshelter.com/img-get2/I0000M1hl9JItGcI/fit=1000x750/D1321099.jpg").fit().into(budgetBackground);
 
 
         mOneCash = (FloatingActionButton) findViewById(R.id.oneCash);
