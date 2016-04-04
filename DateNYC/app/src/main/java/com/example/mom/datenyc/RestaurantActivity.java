@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -38,9 +39,14 @@ public class RestaurantActivity extends AppCompatActivity {
 
     String BASE_URL="https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&query=";
     ArrayList<Result> mPlaces;
+    String PAGE_TOKEN;
+    String SECOND_CALL;
+    String googleRequest;
 
     private GoogleAsyncTask mGoogleAsync;
     ProgressBar pb;
+    private int pageCount = 0;
+    String TAG= MainActivity.class.getSimpleName();
 
 
     @Override
@@ -59,12 +65,12 @@ public class RestaurantActivity extends AppCompatActivity {
         mGoogleAdapter= new GoogleAdapter(this,mPlaces);
         mList.setAdapter(mGoogleAdapter);
 
-        String price= "minprice="+myDate.getPrice();
+        String price= "&minprice="+myDate.getPrice();
 
 
-        String googleRequest= null;
+
         try {
-            googleRequest = BASE_URL+myDate.getFormattedCuisine()+"+in+"+myDate.getLocation();
+            googleRequest = BASE_URL+myDate.getFormattedCuisine()+"+in+"+myDate.getLocation()+price;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -73,6 +79,7 @@ public class RestaurantActivity extends AppCompatActivity {
         GoogleAsyncTask googleAsyncTask= new GoogleAsyncTask();
         googleAsyncTask.execute(googleRequest);
 
+        mList.setOnScrollListener(onScrollListener());
 
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,7 +90,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
                 alert.setView(dialogView);
 
-                final Result placeSelect= mPlaces.get(position);
+                final Result placeSelect = mPlaces.get(position);
 
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -108,22 +115,53 @@ public class RestaurantActivity extends AppCompatActivity {
 
             }
         });
+}
+    private void getNewData(String url){
+        SECOND_CALL=BASE_URL+"&pagetoken="+PAGE_TOKEN;
+        new GoogleAsyncTask().execute(SECOND_CALL);
     }
-    private String getInputData(InputStream inputStream) throws IOException {
-        StringBuilder stringBuilder= new StringBuilder();
-        BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(inputStream));
-        String data;
 
-        while ((data=bufferedReader.readLine()) !=null){
-            stringBuilder.append(data);
+    private OnScrollListener onScrollListener() {
+        return new OnScrollListener(20) {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                int threshold = 1;
+                int count = mList.getCount();
+
+                if (scrollState == SCROLL_STATE_IDLE) {
+                    if (mList.getLastVisiblePosition() >= count - threshold && pageCount < 2) {
+                        Log.i(TAG, "loading more data");
+                        // Execute LoadMoreDataTask AsyncTask
+                        getNewData(SECOND_CALL);
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                                 int totalItemCount) {
+            }
+
+        };
+    }
+
+
+        private String getInputData(InputStream inputStream) throws IOException {
+            StringBuilder stringBuilder= new StringBuilder();
+            BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(inputStream));
+            String data;
+
+            while ((data=bufferedReader.readLine()) !=null){
+                stringBuilder.append(data);
+            }
+            bufferedReader.close();
+
+            return stringBuilder.toString();
         }
-        bufferedReader.close();
-
-        return stringBuilder.toString();
-    }
 
     public class GoogleAsyncTask extends AsyncTask<String,Void,String> {
-        String data= " ";
+        String data="";
 
         @Override
         protected void onPreExecute() {
@@ -156,8 +194,12 @@ public class RestaurantActivity extends AppCompatActivity {
 
             try {
                 JSONObject dataObject = new JSONObject(data);
+                PAGE_TOKEN= dataObject.optString("next_page_token");
                 JSONArray placesArray = dataObject.getJSONArray("results");
-                 mPlaces= new ArrayList<>();
+                if(mPlaces ==null|| mPlaces.isEmpty()){
+                    mPlaces= new ArrayList<>();
+                }
+
 
                 for (int i = 0; i < placesArray.length(); i++) {
                     JSONObject object = placesArray.optJSONObject(i);

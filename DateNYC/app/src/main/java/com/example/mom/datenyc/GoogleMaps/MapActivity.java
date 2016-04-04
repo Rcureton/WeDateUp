@@ -159,7 +159,7 @@ public class MapActivity extends AppCompatActivity {
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            finish();
+
 
         }
         catch (android.content.ActivityNotFoundException ex) {

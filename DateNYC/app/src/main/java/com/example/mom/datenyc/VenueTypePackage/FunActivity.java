@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -17,6 +18,7 @@ import com.example.mom.datenyc.GoogleAdapter;
 import com.example.mom.datenyc.GoogleMaps.Data.Result;
 import com.example.mom.datenyc.GoogleMaps.MapActivity;
 import com.example.mom.datenyc.MyDateItems;
+import com.example.mom.datenyc.OnScrollListener;
 import com.example.mom.datenyc.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -42,6 +44,9 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
      String loadUrl;
     ArrayList<Result> mPlaces;
     GoogleAsyncTask mGoogleAsync;
+    private int pageCount = 0;
+    String PAGE_TOKEN;
+    String SECOND_CALL;
 
     String BASE_URL="https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&query=";
 
@@ -67,6 +72,7 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         mAdapter= new GoogleAdapter(this, mPlaces);
         mList.setAdapter(mAdapter);
 
+        mList.setOnScrollListener(onScrollListener());
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -100,6 +106,35 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
 
             }
         });
+    }
+
+    private void getNewData(String url){
+        SECOND_CALL=BASE_URL+"&pagetoken="+PAGE_TOKEN;
+        new GoogleAsyncTask().execute(SECOND_CALL);
+    }
+
+    private OnScrollListener onScrollListener() {
+        return new OnScrollListener(20) {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                int threshold = 1;
+                int count = mList.getCount();
+
+                if (scrollState == SCROLL_STATE_IDLE) {
+                    if (mList.getLastVisiblePosition() >= count - threshold && pageCount < 2) {
+                        // Execute LoadMoreDataTask AsyncTask
+                        getNewData(SECOND_CALL);
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                                 int totalItemCount) {
+            }
+
+        };
     }
 
     private String getInputData(InputStream inputStream) throws IOException {
@@ -151,7 +186,10 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
             try {
                 JSONObject dataObject = new JSONObject(data);
                 JSONArray placesArray = dataObject.getJSONArray("results");
-                mPlaces= new ArrayList<>();
+                PAGE_TOKEN= dataObject.optString("next_page_token");
+                if(mPlaces ==null|| mPlaces.isEmpty()){
+                    mPlaces= new ArrayList<>();
+                }
 
                 for (int i = 0; i < placesArray.length(); i++) {
                     JSONObject object = placesArray.optJSONObject(i);
