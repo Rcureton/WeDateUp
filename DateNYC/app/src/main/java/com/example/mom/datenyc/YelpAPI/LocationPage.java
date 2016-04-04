@@ -30,7 +30,7 @@ public class LocationPage extends AppCompatActivity {
 
         ImageView backgroundTwo = (ImageView) findViewById(R.id.backgroundTwo);
 
-        Picasso.with(LocationPage.this).load("https://s-media-cache-ak0.pinimg.com/564x/b6/f1/34/b6f1340783278be2c97535f2674f6f49.jpg").fit().into(backgroundTwo);
+        Picasso.with(LocationPage.this).load("http://blog.tourcontrastesdenuevayork.com/wp-content/uploads/2014/04/FOTO-NYC-765.jpg").fit().into(backgroundTwo);
 
         final Intent intent = getIntent();
         final MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);

@@ -41,7 +41,6 @@ public class GoogleAdapter extends ArrayAdapter<Result> {
         ImageView placesImage= (ImageView)itemLayout.findViewById(R.id.google_card_image);
         TextView placesName=(TextView)itemLayout.findViewById(R.id.google_place_info);
         TextView placesAddress= (TextView)itemLayout.findViewById(R.id.google_address);
-        TextView placesPhone= (TextView)itemLayout.findViewById(R.id.google_phoneNumber);
         TextView placesRating=(TextView)itemLayout.findViewById(R.id.googleRating);
 
         Result resultItems= mResults.get(position);
@@ -58,13 +57,15 @@ public class GoogleAdapter extends ArrayAdapter<Result> {
 //                    Log.d("photos", photoRef);
                     String finalPhoto=baseURL+photoRef+apiKey;
                     Picasso.with(parent.getContext()).load(finalPhoto).into(placesImage);
+                }else{
+                    Picasso.with(parent.getContext()).load("https://randolphmase.files.wordpress.com/2014/10/tavern-on-the-green-2014.jpg").into(placesImage);
+
                 }
 
             }
         }
         placesName.setText(resultItems.getName());
         placesAddress.setText(resultItems.getFormattedAddress());
-        placesPhone.setText(resultItems.getFormattedPhoneNumber());
         placesRating.setText(String.valueOf(resultItems.getRating()));
 
      return itemLayout;

@@ -42,7 +42,6 @@ public class RestDetails extends AppCompatActivity {
     String BASE_URL="https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&placeid=";
     ListView mDetailsList;
     ProgressBar pb;
-    FloatingActionButton mFab;
     Button mButton;
     RestAsyncTask mRestAsync;
     TextView placeName, mAddress, mPhone, mReview;
@@ -57,7 +56,7 @@ public class RestDetails extends AppCompatActivity {
         setContentView(R.layout.activity_rest_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Restaurant Details");
+
 
         Intent intent= getIntent();
         final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
@@ -65,24 +64,23 @@ public class RestDetails extends AppCompatActivity {
         final String location= myDate.getLocation();
 
         mBackground=(ImageView)findViewById(R.id.restDetailsBackground);
-        placeName= (TextView)findViewById(R.id.example);
-        mAddress=(TextView)findViewById(R.id.formaddress);
-        mPhone=(TextView)findViewById(R.id.formphone);
+//        mAddress=(TextView)findViewById(R.id.formaddress);
+//        mPhone=(TextView)findViewById(R.id.formphone);
         mReview=(TextView)findViewById(R.id.reviewText);
         mButton= (Button)findViewById(R.id.button2);
-        mFab = (FloatingActionButton) findViewById(R.id.fabDetails);
 
-        Picasso.with(RestDetails.this).load("http://cdn.lifebuzz.com/images/3891/lifebuzz-2f3699e8b8831bcb43fbb778a69ce01f-limit_2000.jpg").fit().into(mBackground);
+        setTitle(myDate.getRestaurant());
 
 
+        Picasso.with(RestDetails.this).load("http://novayorkevoce.com/wp-content/uploads/2014/09/the-chester-nova-york-e-voce-3.jpg").fit().into(mBackground);
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder= new AlertDialog.Builder(RestDetails.this);
-                builder.setTitle(myDate.getVenueType());
+                builder.setTitle(myDate.getRestaurant());
                 LayoutInflater inflater = RestDetails.this.getLayoutInflater();
-                View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+                View dialogView = inflater.inflate(R.layout.custom_dialog_new_details, null);
                 builder.setView(dialogView);
 
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -160,9 +158,9 @@ public class RestDetails extends AppCompatActivity {
                 String address= me.optString("formatted_address");
                 phone= me.optString("formatted_phone_number");
 
-                placeName.setText(name);
-                mAddress.setText(address);
-                mPhone.setText(phone);
+
+//                mAddress.setText(address);
+//                mPhone.setText(phone);
 
                 mReviewsList= new ArrayList<>();
 
@@ -174,7 +172,6 @@ public class RestDetails extends AppCompatActivity {
 
                     mReviewsList.add(review);
 
-//                    mReview.setText(review);
                 }
 
             } catch (JSONException e) {

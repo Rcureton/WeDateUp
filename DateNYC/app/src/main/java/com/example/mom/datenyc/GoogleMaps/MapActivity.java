@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapFragment;
+import com.squareup.picasso.Picasso;
 import com.uber.sdk.android.rides.RequestButton;
 import com.uber.sdk.android.rides.RideParameters;
 
@@ -45,7 +47,6 @@ public class MapActivity extends AppCompatActivity {
     Button mSendEmail;
     FloatingActionButton mHome;
     TextView mName, mAddress, mRating, mFunName, mFunAddress, mFunRating, mPhone;
-    EditText mEmailInput;
     private String UBER_CLIENT_ID = "BVqdBZ0dfixZGZTpblKOgrGAX5pjCEpZ";
     private int MY_LOCATION_REQUEST_CODE = 1;
     private int MY_PERMISSIONS_REQUEST_MAP_LOCATION = 2;
@@ -58,6 +59,11 @@ public class MapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        ImageView itineraryBackground = (ImageView) findViewById(R.id.itineraryBackground);
+
+        Picasso.with(MapActivity.this).load("https://cdn1.vox-cdn.com/uploads/chorus_image/image/47979575/1110_Park_roof_0903_5B1_5D.0.JPG").fit().into(itineraryBackground);
+
+
         mName= (TextView)findViewById(R.id.restaurant_info_text);
         mAddress= (TextView)findViewById(R.id.restaurant_info_text_address);
         mRating= (TextView)findViewById(R.id.restaurant_info_text_rating);
@@ -65,15 +71,8 @@ public class MapActivity extends AppCompatActivity {
         mFunAddress= (TextView)findViewById(R.id.fun_info_text_address);
         mFunRating= (TextView)findViewById(R.id.fun_info_text_rating);
         mSendEmail=(Button)findViewById(R.id.sendButton);
-        mEmailInput=(EditText)findViewById(R.id.emailInput);
         mHome=(FloatingActionButton)findViewById(R.id.homeButton);
         mPhone=(TextView)findViewById(R.id.restaurant_phone);
-
-
-        email= mEmailInput.getText().toString();
-
-
-
 
         mSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,8 +153,8 @@ public class MapActivity extends AppCompatActivity {
         emailIntent.putExtra(Intent.EXTRA_EMAIL,TO);
         emailIntent.putExtra(Intent.EXTRA_CC, CC);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "DateNYC Itinerary");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Thanks for planning your date with DateNYC. " + " "+
-                "Here is your Itinerary " + restName + " "+ restAdd +" "+"please enjoy $15 off of your first UBER Ride with us by clicking " +
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Thanks for planning your date with DateNYC. \n\n" +
+                "Here is your Itinerary, " +"\n\n "+ restName +"\n"+ phone +"\n"+ restAdd +" \n\n"+ funName+ "\n"+ funAdd+ "\n\n "+ "Please enjoy $15 off of your first UBER Ride with us by clicking " +
                 "this link https://www.uber.com/invite/DateNYC or using promo code fptg5. ");
 
         try {

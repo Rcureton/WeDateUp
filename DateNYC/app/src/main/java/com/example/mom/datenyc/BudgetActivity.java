@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.mom.datenyc.YelpAPI.LocationPage;
@@ -12,6 +13,7 @@ import com.squareup.picasso.Picasso;
 
 public class BudgetActivity extends AppCompatActivity {
     FloatingActionButton mOneCash, mTwoCash, mThreeCash, mFourCash;
+    ImageButton mOne, mTwo, mThree, mFour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class BudgetActivity extends AppCompatActivity {
         mTwoCash.setImageResource(R.drawable.cash_two);
         mTwoCash.setOnClickListener(setPrice);
         mThreeCash = (FloatingActionButton) findViewById(R.id.threeCash);
-        mThreeCash.setImageResource(R.drawable.cash_three);
+        mThreeCash.setImageResource(R.drawable.cash_three_new);
         mThreeCash.setOnClickListener(setPrice);
 
         mFourCash = (FloatingActionButton) findViewById(R.id.fourCash);

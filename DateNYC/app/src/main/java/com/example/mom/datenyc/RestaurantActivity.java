@@ -78,16 +78,12 @@ public class RestaurantActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(RestaurantActivity.this);
-                alert.setTitle(myDate.getVenueType());
+                alert.setTitle(myDate.getRestaurant());
                 LayoutInflater inflater = RestaurantActivity.this.getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
                 alert.setView(dialogView);
 
                 final Result placeSelect= mPlaces.get(position);
-                String name= placeSelect.getName();
-                String rating= String.valueOf(placeSelect.getRating());
-                String address= placeSelect.getFormattedAddress();
-
 
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

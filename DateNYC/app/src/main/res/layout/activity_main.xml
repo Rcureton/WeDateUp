@@ -28,7 +28,7 @@
         android:id="@+id/slogan"
         android:text="Press Start To Build Your Perfect Date"
         android:textColor="#ffffff"
-        android:textStyle="italic"
+        android:textStyle="italic|bold"
         android:layout_marginTop="10dp"
         android:textSize="20sp"
         android:layout_centerInParent="true"
@@ -42,6 +42,7 @@
         android:text="Start"
         android:textSize="25sp"
         android:textColor="#ffffff"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -49,30 +50,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="55dp" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/facebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/fb"
-        android:layout_below="@+id/slogan"
-        android:layout_alignLeft="@+id/slogan"
-        android:layout_alignStart="@+id/slogan" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/twitter"
-        android:src="@drawable/twitter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/facebook"
-        android:layout_centerHorizontal="true" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/instagram"
-        android:src="@drawable/instagram"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/twitter"
-        android:layout_alignRight="@+id/slogan"
-        android:layout_alignEnd="@+id/slogan" />
 
 </RelativeLayout>

@@ -7,7 +7,7 @@
         android:id="@+id/reviewText"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        android:text="Look at Reviews?"
+        android:text="Choose this location?"
         android:textStyle="bold"
         android:textColor="#8309ca"
         android:textSize="20sp"

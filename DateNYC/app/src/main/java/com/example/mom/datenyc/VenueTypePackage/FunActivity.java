@@ -75,7 +75,7 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
                 AlertDialog.Builder alert = new AlertDialog.Builder(FunActivity.this);
                 alert.setTitle(myDate.getFunActivity());
                 LayoutInflater inflater = FunActivity.this.getLayoutInflater();
-                View dialogView = inflater.inflate(R.layout.custom_alert_dialog, null);
+                View dialogView = inflater.inflate(R.layout.custom_dialog_new_details, null);
                 alert.setView(dialogView);
 
                 final Result placeSelect = mPlaces.get(position);
