@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mom.datenyc.BudgetActivity">
+    tools:context="com.datenyc.mom.datenyc.BudgetActivity">
 
     <ImageView
         android:id="@+id/budgetBackground"
@@ -22,41 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <!--<ImageButton-->
-        <!--android:id="@+id/imageButton"-->
-        <!--android:src="@drawable/cash_three_new"-->
-        <!--android:background="@android:color/transparent"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/threeCash"-->
-        <!--android:layout_toRightOf="@+id/threeCash"-->
-        <!--android:layout_toEndOf="@+id/threeCash" />-->
 
-    <!--<ImageButton-->
-        <!--android:id="@+id/imageButton2"-->
-        <!--android:src="@drawable/cash_two_new"-->
-        <!--android:background="@android:color/transparent"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/imageButton"-->
-        <!--android:layout_alignRight="@+id/twoCash"-->
-        <!--android:layout_alignEnd="@+id/twoCash" />-->
-
-    <!--<ImageButton-->
-        <!--android:id="@+id/imageButton1"-->
-        <!--android:src="@drawable/cash"-->
-        <!--android:background="@android:color/transparent"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/imageButton2"-->
-        <!--android:layout_alignRight="@+id/twoCash"-->
-        <!--android:layout_alignEnd="@+id/twoCash" />-->
-    <!-- -->
-    <!--<ImageButton-->
-        <!--android:id="@+id/imageB"-->
-        <!--android:src="@drawable/cas"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
 
 
     <android.support.design.widget.FloatingActionButton

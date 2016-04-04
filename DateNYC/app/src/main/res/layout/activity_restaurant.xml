@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="3dp"
-    tools:context="com.example.mom.datenyc.RestaurantActivity">
+    tools:context="com.datenyc.mom.datenyc.RestaurantActivity">
 
     <ListView
         android:id="@+id/restaurantlistView"

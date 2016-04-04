@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:uber="http://schemas.android.com/apk/res-auto"
+    tools:context="com.datenyc.mom.datenyc.GoogleMaps.MapActivity">
+
+    <ImageView
+        android:id="@+id/itineraryBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+
+        android:scaleType="center"
+        />
+
+    <TextView
+        android:id="@+id/headline"
+        android:text="DATE ITINERARY"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorLight"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_itinerary"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp"
+        android:layout_below="@id/headline"
+        app:cardCornerRadius="7dp"
+        app:cardBackgroundColor="#90dc03f4"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/restaurant_info_text"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="#ffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/restaurant_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:autoLink="phone"
+                android:textColor="#ffff"
+                android:layout_below="@id/restaurant_info_text"/>
+            <TextView
+                android:id="@+id/restaurant_info_text_address"
+                android:textColor="#ffff"
+                android:autoLink="map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurant_phone"/>
+
+            <TextView
+                android:id="@+id/restaurant_info_text_rating"
+                android:textColor="#ffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/restaurant_info_text_address"/>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/resto"
+        android:text="Fun Activity For Your Date"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorLight"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_below="@id/card_view_itinerary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_fun_itinerary"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp"
+        android:padding="10dp"
+        android:layout_below="@id/resto"
+        app:cardCornerRadius="7dp"
+        app:cardBackgroundColor="#90dc03f4"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/fun_info_text"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="#ffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/fun_info_text_address"
+                android:textColor="#ffff"
+                android:autoLink="map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fun_info_text"/>
+
+            <TextView
+                android:id="@+id/fun_info_text_rating"
+                android:textColor="#ffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fun_info_text_address"/>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/uberText"
+        android:text="Need A Ride?"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:textColor="#ffff"
+        android:layout_below="@id/card_view_fun_itinerary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.uber.sdk.android.rides.RequestButton
+        android:id="@+id/uber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/uberText"
+        uber:client_id="clientId"
+        uber:style="black"/>
+
+
+    <TextView
+        android:id="@+id/emailItineray"
+        android:text="Email Itinerary"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:textColor="#ffff"
+        android:layout_below="@id/uber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:text="Send Itinerary"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:padding="5dp"
+        android:layout_below="@id/emailItineray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/homeButton"
+        android:src="@drawable/ic_action_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:padding="10dp" />
+
+</RelativeLayout>

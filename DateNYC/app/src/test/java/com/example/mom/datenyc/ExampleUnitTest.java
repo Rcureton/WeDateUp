@@ -1,4 +1,4 @@
-package com.example.mom.datenyc;
+package com.datenyc.mom.datenyc;
 
 import org.junit.Test;
 

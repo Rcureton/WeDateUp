@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mom.datenyc.ItineraryActivity">
+    tools:context="com.datenyc.mom.datenyc.ItineraryActivity">
 
     <ImageView
         android:id="@+id/itineraryBackground"

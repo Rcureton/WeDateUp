@@ -22,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.mom.datenyc"
+        applicationId "com.datenyc.mom.datenyc"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
