@@ -20,17 +20,18 @@
         android:text="Where You Going?"
         android:textSize="25sp"
         android:textColor="#ffffff"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/brooklyn"
+        android:layout_below="@id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="146dp" />
@@ -86,14 +87,26 @@
         android:textColor="#ffffff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/chooseLocation"
+        android:text="Choose By Current Location"
+        android:textStyle="bold"
+        android:textColor="#ffff"
+        android:textSize="25sp"
+        android:layout_below="@id/bronx"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_location_on"
+        android:layout_below="@id/chooseLocation"
         android:id="@+id/imageButton"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="15dp"
         android:background="@android:color/transparent"
-        android:layout_alignTop="@+id/location"
-        android:layout_centerHorizontal="true" />
+        />
 
 </RelativeLayout>

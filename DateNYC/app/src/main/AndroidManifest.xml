@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.datenyc.mom.datenyc.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,13 +25,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.datenyc.mom.datenyc.YelpAPI.LocationPage"
+            android:name=".YelpAPI.LocationPage"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.datenyc.mom.datenyc.BudgetActivity" />
-        <activity android:name="com.datenyc.mom.datenyc.VenueTypePackage.VenueType" />
-        <activity android:name="com.datenyc.mom.datenyc.VenueTypePackage.CuisineActivity" />
-        <activity android:name="com.datenyc.mom.datenyc.VenueTypePackage.FunActivity" />
+        <activity android:name=".BudgetActivity" />
+        <activity android:name=".VenueTypePackage.VenueType" />
+        <activity android:name=".VenueTypePackage.CuisineActivity" />
+        <activity android:name=".VenueTypePackage.FunActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -40,12 +40,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDlBZB7bD8J_1_0hq5_z2j69-ke4ca7djY" />
 
-        <activity android:name="com.datenyc.mom.datenyc.GoogleMaps.MapActivity" />
-        <activity android:name="com.datenyc.mom.datenyc.RestaurantActivity" />
+        <activity android:name=".GoogleMaps.MapActivity" />
+        <activity android:name=".RestaurantActivity" />
         <activity
-            android:name="com.datenyc.mom.datenyc.VenueTypePackage.RestDetails"
+            android:name=".VenueTypePackage.RestDetails"
             android:label="@string/title_activity_rest_details"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".VenueTypePackage.ActivityType"></activity>
     </application>
 
 </manifest>

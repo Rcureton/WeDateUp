@@ -31,6 +31,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -62,10 +63,14 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         Intent intent = getIntent();
         final MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
-        String fun="fun+attractions";
         String location= "&location="+myDate.getLat()+","+myDate.getLon()+"&radius=16100";
 
-        String googleRequest = BASE_URL+fun+"+in+"+location;
+        String googleRequest = null;
+        try {
+            googleRequest = BASE_URL+myDate.getFormattedFunType()+"+in+"+location;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         mGoogleAsync= new GoogleAsyncTask();
         mGoogleAsync.execute(googleRequest);

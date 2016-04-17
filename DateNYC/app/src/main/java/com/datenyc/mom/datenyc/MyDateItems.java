@@ -26,6 +26,7 @@ public class MyDateItems implements Parcelable{
     private double lon;
     private String placeId;
     private String phoneNumber;
+    private String funType;
 
 
 
@@ -48,6 +49,7 @@ public class MyDateItems implements Parcelable{
         lon=in.readDouble();
         placeId=in.readString();
         phoneNumber=in.readString();
+        funType=in.readString();
 
     }
 
@@ -109,8 +111,10 @@ public class MyDateItems implements Parcelable{
 
     public String getFormattedCuisine() throws UnsupportedEncodingException {
         return URLEncoder.encode(cuisine, "UTF-8");
+    }
 
-
+    public String getFormattedFunType() throws UnsupportedEncodingException{
+        return URLEncoder.encode(funType, "UTF-8");
     }
 
   public String getCuisine() {
@@ -185,6 +189,14 @@ public class MyDateItems implements Parcelable{
         this.phoneNumber = phoneNumber;
     }
 
+    public String getFunType() {
+        return funType;
+    }
+
+    public void setFunType(String funType) {
+        this.funType = funType;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -206,5 +218,6 @@ public class MyDateItems implements Parcelable{
         dest.writeDouble(lon);
         dest.writeString(placeId);
         dest.writeString(phoneNumber);
+        dest.writeString(funType);
     }
 }

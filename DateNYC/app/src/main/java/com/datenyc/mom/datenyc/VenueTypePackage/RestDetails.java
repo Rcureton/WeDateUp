@@ -59,8 +59,6 @@ public class RestDetails extends AppCompatActivity {
         final String location= myDate.getLocation();
 
         mBackground=(ImageView)findViewById(R.id.restDetailsBackground);
-//        mAddress=(TextView)findViewById(R.id.formaddress);
-//        mPhone=(TextView)findViewById(R.id.formphone);
         mReview=(TextView)findViewById(R.id.reviewText);
         mButton= (Button)findViewById(R.id.button2);
 
@@ -80,7 +78,7 @@ public class RestDetails extends AppCompatActivity {
 
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent goToActivity= new Intent(RestDetails.this, FunActivity.class);
+                        Intent goToActivity= new Intent(RestDetails.this, ActivityType.class);
                         myDate.setLocation(location);
                         myDate.setPhoneNumber(phone);
                         goToActivity.putExtra(MyDateItems.MY_ITEMS,myDate);
