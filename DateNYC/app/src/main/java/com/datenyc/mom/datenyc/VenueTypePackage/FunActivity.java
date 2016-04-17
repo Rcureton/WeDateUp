@@ -63,8 +63,9 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         final MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
         String fun="fun+attractions";
+        String location= "&location="+myDate.getLat()+","+myDate.getLon()+"&radius=16100";
 
-        String googleRequest = BASE_URL+fun+"+in+"+myDate.getLocation();
+        String googleRequest = BASE_URL+fun+"+in+"+location;
 
         mGoogleAsync= new GoogleAsyncTask();
         mGoogleAsync.execute(googleRequest);

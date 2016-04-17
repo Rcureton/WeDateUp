@@ -66,11 +66,12 @@ public class RestaurantActivity extends AppCompatActivity {
         mList.setAdapter(mGoogleAdapter);
 
         String price= "&minprice="+myDate.getPrice();
+        String location= "&location="+myDate.getLat()+","+myDate.getLon()+"&radius=16100";
 
 
 
         try {
-            googleRequest = BASE_URL+myDate.getFormattedCuisine()+"+in+"+myDate.getLocation()+price;
+            googleRequest = BASE_URL+myDate.getFormattedCuisine()+"+in+"+location+price;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

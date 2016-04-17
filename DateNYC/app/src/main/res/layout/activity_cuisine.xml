@@ -62,7 +62,7 @@
                     android:id="@+id/latest_news_2_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="American"
+                    android:text="BBQ"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:textColor="#ffffff"

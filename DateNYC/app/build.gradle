@@ -29,6 +29,9 @@ android {
         versionName "1.0"
         multiDexEnabled true
     }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
 
     configurations {
         compile.exclude group: "org.apache.httpcomponents", module: "httpclient"
@@ -56,6 +59,7 @@ dependencies {
     compile 'com.uber.sdk:rides-android:0.1.0'
     compile 'org.glassfish:javax.annotation:10.0-b28'
     compile 'com.google.android.gms:play-services-location:8.4.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
 
 
 }

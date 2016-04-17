@@ -43,7 +43,7 @@ public class CuisineActivity extends AppCompatActivity {
 
 
         Picasso.with(CuisineActivity.this).load("http://nebula.wsimg.com/82c2438bcec6ce077fdb9f5777483347?AccessKeyId=FB771320EF82836BDCA7&disposition=0&alloworigin=1").fit().into(mAsian);
-        Picasso.with(CuisineActivity.this).load("https://upload.wikimedia.org/wikipedia/commons/7/71/Soul_Food_at_Powell's_Place.jpg").fit().into(mAmerican);
+        Picasso.with(CuisineActivity.this).load("http://www.loneriderbeer.com/wp-content/uploads/bbq.jpg").fit().into(mAmerican);
         Picasso.with(CuisineActivity.this).load("http://insidenirvana.com/wp-content/uploads/2015/08/best-indian-food-new-orleans.jpg").fit().into(mIndian);
         Picasso.with(CuisineActivity.this).load("http://blog.maggianos.com/wp-content/uploads/ChickenFontina_FPO.jpg").fit().into(mItalian);
         Picasso.with(CuisineActivity.this).load("http://theseasonedchef.com/wp-content/uploads/2013/12/Mexican-Food.jpg").fit().into(mMexican);
@@ -65,7 +65,7 @@ public class CuisineActivity extends AppCompatActivity {
                         myDate.setCuisine("best Asian restaurant");
                         break;
                     case R.id.american_card:
-                        myDate.setCuisine("best American cuisine");
+                        myDate.setCuisine("best BBQ restaurant");
                         break;
                     case R.id.indian_card:
                         myDate.setCuisine("best Indian restaurant");

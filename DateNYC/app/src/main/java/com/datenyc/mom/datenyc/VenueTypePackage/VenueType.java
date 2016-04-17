@@ -55,7 +55,7 @@ public class VenueType extends AppCompatActivity {
 
         Intent intent= getIntent();
         final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
-        Log.d("location",myDate.getLocation());
+
 
 
 
@@ -88,7 +88,7 @@ public class VenueType extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent sendBar= new Intent(VenueType.this,RestaurantActivity.class);
-                myDate.setCuisine("best Bars");
+                myDate.setCuisine("Bars");
                 sendBar.putExtra(MyDateItems.MY_ITEMS,myDate);
                 startActivity(sendBar);
 
