@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="3dp"
+    tools:context="com.datenyc.mom.datenyc.RestaurantActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp"
+        android:layout_centerVertical="true"
+        app:cardCornerRadius="7dp"
+        app:cardBackgroundColor="@color/colorAccent"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/theatre_place_info"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="#ffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/theatre_address"
+                android:textColor="#ffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/google_place_info"/>
+
+            <TextView
+                android:id="@+id/theatreRating"
+                android:textColor="#ffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/google_address"/>
+
+            <ImageView
+                android:id="@+id/theatre_card_image"
+                android:layout_marginTop="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/tavern"
+                android:layout_below="@id/googleRating"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+</RelativeLayout>
+
+
+
+
+
+

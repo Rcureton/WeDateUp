@@ -46,7 +46,9 @@
             android:name=".VenueTypePackage.RestDetails"
             android:label="@string/title_activity_rest_details"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".VenueTypePackage.ActivityType"></activity>
+        <activity android:name=".VenueTypePackage.ActivityType" />
+        <activity android:name=".Theatre.TheatreActivity" />
+        <activity android:name=".Movies.RottenTomatoes"></activity>
     </application>
 
 </manifest>

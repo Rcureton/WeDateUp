@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.datenyc.mom.datenyc.Movies.RottenTomatoes;
+import com.datenyc.mom.datenyc.Theatre.TheatreActivity;
 import com.squareup.picasso.Picasso;
 
 import java.security.Permission;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         mStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BudgetActivity.class);
+                Intent intent = new Intent(MainActivity.this, RottenTomatoes.class);
                 startActivity(intent);
             }
         });
