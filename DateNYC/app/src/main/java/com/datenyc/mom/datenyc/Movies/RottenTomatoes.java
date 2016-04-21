@@ -40,11 +40,11 @@ public class RottenTomatoes extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        mAdapter= new MoviesCustomAdapter(this,mMovies);
-        mMoviesList.setAdapter(mAdapter);
-
         MoviesAsyncTask moviesAsyncTask= new MoviesAsyncTask();
         moviesAsyncTask.execute();
+
+        mAdapter= new MoviesCustomAdapter(this,mMovies);
+        mMoviesList.setAdapter(mAdapter);
 
     }
 
@@ -97,6 +97,7 @@ public class RottenTomatoes extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            mAdapter.setResults(mMovies);
             mAdapter.notifyDataSetChanged();
         }
     }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.datenyc.mom.datenyc.Movies.MovieData.Result;
 import com.datenyc.mom.datenyc.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,8 @@ public class MoviesCustomAdapter extends ArrayAdapter<Result> {
 
         movieName.setText(name);
         movieDescription.setText(description);
-        movieRating.setText((int) rating);
+        Picasso.with(parent.getContext()).load(image).into(movieImage);
+//        movieRating.setText((int) rating);
 
         return itemLayout;
     }
@@ -56,5 +58,12 @@ public class MoviesCustomAdapter extends ArrayAdapter<Result> {
     @Override
     public int getCount() {
         return mMovieItems.size();
+    }
+
+    public void setResults(ArrayList<Result> results) {
+        mMovieItems.clear();
+        if(results != null){
+            mMovieItems.addAll(results);
+        }
     }
 }
