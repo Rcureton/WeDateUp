@@ -48,7 +48,7 @@ public class MapActivity extends AppCompatActivity {
 
         ImageView itineraryBackground = (ImageView) findViewById(R.id.itineraryBackground);
 
-        Picasso.with(MapActivity.this).load("https://cdn1.vox-cdn.com/uploads/chorus_image/image/47979575/1110_Park_roof_0903_5B1_5D.0.JPG").fit().into(itineraryBackground);
+        Picasso.with(MapActivity.this).load("https://wwcdn.weddingwire.com/vendor/730001_735000/732250/thumbnails/800x800_1416947204119-vista-sky-lounge.jpg").fit().into(itineraryBackground);
 
 
         mName= (TextView)findViewById(R.id.restaurant_info_text);

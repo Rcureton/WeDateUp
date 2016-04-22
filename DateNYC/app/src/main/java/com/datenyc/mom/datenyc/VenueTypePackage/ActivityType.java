@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.datenyc.mom.datenyc.Movies.RottenTomatoes;
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.R;
 import com.squareup.picasso.Picasso;
@@ -95,7 +96,13 @@ public class ActivityType extends AppCompatActivity {
         mBowlingCard.setOnClickListener(setActivityType);
         mTheaterCard.setOnClickListener(setActivityType);
         mMuseumCard.setOnClickListener(setActivityType);
-        mMovieCard.setOnClickListener(setActivityType);
+        mMovieCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent currentMovies= new Intent(ActivityType.this, RottenTomatoes.class);
+                startActivity(currentMovies);
+            }
+        });
         mAmusementCard.setOnClickListener(setActivityType);
 
 
