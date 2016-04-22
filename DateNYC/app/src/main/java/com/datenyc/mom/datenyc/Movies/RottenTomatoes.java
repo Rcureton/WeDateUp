@@ -38,6 +38,7 @@ public class RottenTomatoes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rotten_tomatoes);
         ButterKnife.bind(this);
+        setTitle("Now Playing");
 
 
         MoviesAsyncTask moviesAsyncTask= new MoviesAsyncTask();
