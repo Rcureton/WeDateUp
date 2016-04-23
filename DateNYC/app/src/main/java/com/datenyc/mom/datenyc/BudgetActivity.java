@@ -27,18 +27,18 @@ public class BudgetActivity extends AppCompatActivity {
 
 
         mOneCash = (FloatingActionButton) findViewById(R.id.oneCash);
-        mOneCash.setImageResource(R.drawable.cash);
+        mOneCash.setImageResource(R.drawable.ic_looks_one);
         mOneCash.setOnClickListener(setPrice);
 
         mTwoCash = (FloatingActionButton) findViewById(R.id.twoCash);
-        mTwoCash.setImageResource(R.drawable.cash_two);
+        mTwoCash.setImageResource(R.drawable.ic_looks_two);
         mTwoCash.setOnClickListener(setPrice);
         mThreeCash = (FloatingActionButton) findViewById(R.id.threeCash);
-        mThreeCash.setImageResource(R.drawable.cash_three_new);
+        mThreeCash.setImageResource(R.drawable.ic_looks_3);
         mThreeCash.setOnClickListener(setPrice);
 
         mFourCash = (FloatingActionButton) findViewById(R.id.fourCash);
-        mFourCash.setImageResource(R.drawable.cash_four);
+        mFourCash.setImageResource(R.drawable.ic_looks_4);
         mFourCash.setOnClickListener(setPrice);
 
     }

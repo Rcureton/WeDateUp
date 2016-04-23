@@ -23,17 +23,21 @@
         android:layout_height="wrap_content" />
 
 
-
+<LinearLayout
+    android:id="@+id/linear"
+    android:orientation="horizontal"
+    android:layout_below="@id/location"
+    android:layout_centerInParent="true"
+    android:paddingTop="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/oneCash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="146dp" />
+        android:layout_marginLeft="10dp"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/twoCash"
@@ -41,9 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginLeft="20dp"
-        android:layout_alignTop="@id/oneCash"
-        android:layout_toRightOf="@id/oneCash"
-        android:layout_toEndOf="@id/oneCash" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/threeCash"
@@ -51,9 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginLeft="20dp"
-        android:layout_alignTop="@id/twoCash"
-        android:layout_toRightOf="@id/twoCash"
-        android:layout_toEndOf="@id/twoCash" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fourCash"
@@ -61,9 +61,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginLeft="20dp"
-        android:layout_alignTop="@id/threeCash"
-        android:layout_toRightOf="@id/threeCash"
-        android:layout_toEndOf="@id/threeCash" />
+         />
+
+</LinearLayout>
+
+
 
 
 </RelativeLayout>

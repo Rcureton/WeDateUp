@@ -118,55 +118,55 @@ public class LocationPage extends AppCompatActivity implements GoogleApiClient.C
         }
 
 
-        View.OnClickListener setLocation = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int id = v.getId();
+//        View.OnClickListener setLocation = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int id = v.getId();
+//
+//                switch (id){
+//                    case R.id.brooklyn:
+//                        myDate.setLocation("Brooklyn");
+//                        break;
+//                    case R.id.bronx:
+//                        myDate.setLocation("Bronx,NY");
+//                        break;
+//                    case R.id.queens:
+//                        myDate.setLocation("Queens,NY");
+//                        break;
+//                    case R.id.staten:
+//                        myDate.setLocation("Staten+Island,NY");
+//                        break;
+//                    case R.id.manhattan:
+//                        myDate.setLocation("Manhattan,NY");
+//                        break;
+//                }
+//                Intent sendLocation= new Intent(LocationPage.this, VenueType.class);
+//                sendLocation.putExtra(MyDateItems.MY_ITEMS,myDate);
+//                startActivity(sendLocation);
+//
+//            }
+//        };
 
-                switch (id){
-                    case R.id.brooklyn:
-                        myDate.setLocation("Brooklyn");
-                        break;
-                    case R.id.bronx:
-                        myDate.setLocation("Bronx,NY");
-                        break;
-                    case R.id.queens:
-                        myDate.setLocation("Queens,NY");
-                        break;
-                    case R.id.staten:
-                        myDate.setLocation("Staten+Island,NY");
-                        break;
-                    case R.id.manhattan:
-                        myDate.setLocation("Manhattan,NY");
-                        break;
-                }
-                Intent sendLocation= new Intent(LocationPage.this, VenueType.class);
-                sendLocation.putExtra(MyDateItems.MY_ITEMS,myDate);
-                startActivity(sendLocation);
-
-            }
-        };
-
-
-        mBk = (FloatingActionButton) findViewById(R.id.brooklyn);
-        mBk.setImageResource(R.drawable.bk);
-        mBk.setOnClickListener(setLocation);
-
-        mBx = (FloatingActionButton) findViewById(R.id.bronx);
-        mBx.setImageResource(R.drawable.bx);
-        mBx.setOnClickListener(setLocation);
-
-        mQu = (FloatingActionButton) findViewById(R.id.queens);
-        mQu.setImageResource(R.drawable.qu);
-        mQu.setOnClickListener(setLocation);
-
-        mMa = (FloatingActionButton) findViewById(R.id.manhattan);
-        mMa.setImageResource(R.drawable.ma);
-        mMa.setOnClickListener(setLocation);
-
-        mSi = (FloatingActionButton) findViewById(R.id.staten);
-        mSi.setImageResource(R.drawable.si);
-        mSi.setOnClickListener(setLocation);
+//
+//        mBk = (FloatingActionButton) findViewById(R.id.brooklyn);
+//        mBk.setImageResource(R.drawable.bk);
+//        mBk.setOnClickListener(setLocation);
+//
+//        mBx = (FloatingActionButton) findViewById(R.id.bronx);
+//        mBx.setImageResource(R.drawable.bx);
+//        mBx.setOnClickListener(setLocation);
+//
+//        mQu = (FloatingActionButton) findViewById(R.id.queens);
+//        mQu.setImageResource(R.drawable.qu);
+//        mQu.setOnClickListener(setLocation);
+//
+//        mMa = (FloatingActionButton) findViewById(R.id.manhattan);
+//        mMa.setImageResource(R.drawable.ma);
+//        mMa.setOnClickListener(setLocation);
+//
+//        mSi = (FloatingActionButton) findViewById(R.id.staten);
+//        mSi.setImageResource(R.drawable.si);
+//        mSi.setOnClickListener(setLocation);
 
 
         if(checkPlayServices() ){
