@@ -32,6 +32,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class RestDetails extends AppCompatActivity {
 
     String BASE_URL="https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&placeid=";
@@ -44,6 +47,8 @@ public class RestDetails extends AppCompatActivity {
     ArrayAdapter<String> mReviewAdapter;
     String phone;
     ImageView mBackground;
+    String website;
+    @Bind(R.id.website)TextView mWebText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,7 @@ public class RestDetails extends AppCompatActivity {
         setContentView(R.layout.activity_rest_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        ButterKnife.bind(this);
 
         Intent intent= getIntent();
         final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
@@ -150,10 +155,9 @@ public class RestDetails extends AppCompatActivity {
                 String name= me.optString("name");
                 String address= me.optString("formatted_address");
                 phone= me.optString("formatted_phone_number");
+                website= me.optString("website");
 
-
-//                mAddress.setText(address);
-//                mPhone.setText(phone);
+                mWebText.setText(website);
 
                 mReviewsList= new ArrayList<>();
 

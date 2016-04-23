@@ -28,23 +28,32 @@
         <Button
             android:id="@+id/button2"
             android:text="Choose Me?"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/website"
+        android:textColor="@color/colorPrimaryDark"
+        android:autoLink="web"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_below="@id/linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
     <TextView
         android:text="REVIEWS"
         android:id="@+id/header"
-        android:textColor="@color/colorLight"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:paddingTop="15dp"
         android:textStyle="bold"
         android:textSize="25sp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/linear"
+        android:layout_below="@id/website"
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.CardView

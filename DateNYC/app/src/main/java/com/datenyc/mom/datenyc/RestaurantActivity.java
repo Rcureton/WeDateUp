@@ -18,6 +18,8 @@ import com.datenyc.mom.datenyc.GoogleMaps.Data.Result;
 import com.datenyc.mom.datenyc.VenueTypePackage.RestDetails;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jpardogo.android.googleprogressbar.library.GoogleProgressBar;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +33,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class RestaurantActivity extends AppCompatActivity {
 
     GoogleAdapter mGoogleAdapter;
@@ -42,6 +47,7 @@ public class RestaurantActivity extends AppCompatActivity {
     String PAGE_TOKEN;
     String SECOND_CALL;
     String googleRequest;
+    @Bind(R.id.google_progress)GoogleProgressBar mProgressGoogle;
 
     private GoogleAsyncTask mGoogleAsync;
     ProgressBar pb;
@@ -54,7 +60,7 @@ public class RestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
         setTitle("Choose Restaurant");
-
+        ButterKnife.bind(this);
 
         mList=(ListView)findViewById(R.id.restaurantlistView);
         pb = (ProgressBar) findViewById(R.id.pbLoadingR);
@@ -67,7 +73,6 @@ public class RestaurantActivity extends AppCompatActivity {
 
         String price= "&minprice="+myDate.getPrice();
         String location= "&location="+myDate.getLat()+","+myDate.getLon()+"&radius=16100";
-
 
 
         try {
@@ -166,7 +171,8 @@ public class RestaurantActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            pb.setVisibility(ProgressBar.VISIBLE);
+//            pb.setVisibility(ProgressBar.VISIBLE);
+            mProgressGoogle.setVisibility(GoogleProgressBar.VISIBLE);
 
             super.onPreExecute();
         }
@@ -189,7 +195,8 @@ public class RestaurantActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            pb.setVisibility(ProgressBar.GONE);
+//            pb.setVisibility(ProgressBar.GONE);
+            mProgressGoogle.setVisibility(GoogleProgressBar.GONE);
 
             super.onPostExecute(s);
 

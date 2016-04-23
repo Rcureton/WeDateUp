@@ -49,6 +49,7 @@ public class RestDetailsAdapter extends ArrayAdapter<Result> {
         String phone =resultItems.getFormattedPhoneNumber();
         double lat= resultItems.getGeometry().getLocation().getLat();
         double lon= resultItems.getGeometry().getLocation().getLng();
+        String website= resultItems.getWebsite();
         Log.d("lat and long", String.valueOf(lat) + String.valueOf(lon));
         Log.e("Phone", String.valueOf(phone));
 

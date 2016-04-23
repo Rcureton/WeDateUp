@@ -22,6 +22,7 @@ import com.datenyc.mom.datenyc.OnScrollListener;
 import com.datenyc.mom.datenyc.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jpardogo.android.googleprogressbar.library.GoogleProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,13 +37,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public class FunActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
    GoogleAdapter mAdapter;
-    ProgressBar pb;
+    @Bind(R.id.google_progress)GoogleProgressBar mProgress;
     ListView mList;
-     String loadUrl;
     ArrayList<Result> mPlaces;
     GoogleAsyncTask mGoogleAsync;
     private int pageCount = 0;
@@ -56,9 +59,10 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fun);
         setTitle("Choose Activity");
+        ButterKnife.bind(this);
 
         mList = (ListView) findViewById(R.id.listView);
-        pb = (ProgressBar) findViewById(R.id.pbLoading);
+
 
         Intent intent = getIntent();
         final MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
@@ -162,8 +166,8 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
 
         @Override
         protected void onPreExecute() {
+            mProgress.setVisibility(GoogleProgressBar.VISIBLE);
 
-            pb.setVisibility(ProgressBar.VISIBLE);
             super.onPreExecute();
         }
 
@@ -185,7 +189,8 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
 
         @Override
         protected void onPostExecute(String s) {
-            pb.setVisibility(ProgressBar.GONE);
+
+            mProgress.setVisibility(GoogleProgressBar.GONE);
 
             super.onPostExecute(s);
 
