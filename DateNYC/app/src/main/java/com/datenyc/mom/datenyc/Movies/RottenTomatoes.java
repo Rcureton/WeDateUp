@@ -1,13 +1,21 @@
 package com.datenyc.mom.datenyc.Movies;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.datenyc.mom.datenyc.GoogleMaps.MapActivity;
 import com.datenyc.mom.datenyc.Movies.MovieData.Result;
+import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -40,12 +48,48 @@ public class RottenTomatoes extends AppCompatActivity {
         ButterKnife.bind(this);
         setTitle("Now Playing");
 
+        Intent intent = getIntent();
+        final MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
         MoviesAsyncTask moviesAsyncTask= new MoviesAsyncTask();
         moviesAsyncTask.execute();
 
         mAdapter= new MoviesCustomAdapter(this,mMovies);
         mMoviesList.setAdapter(mAdapter);
+
+        mMoviesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(RottenTomatoes.this);
+                alert.setTitle("Choose This Current Movie?");
+                LayoutInflater inflater = RottenTomatoes.this.getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.custom_dialog_new_details, null);
+                alert.setView(dialogView);
+
+               final Result placeSelect = mMovies.get(position);
+
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent sendFunAct = new Intent(RottenTomatoes.this, MapActivity.class);
+                        String media= placeSelect.getOriginalTitle();
+                        Log.d("****", media);
+
+                        myDate.setFunActivity(media);
+                        myDate.setFunAddress(placeSelect.getOverview());
+                        sendFunAct.putExtra(MyDateItems.MY_ITEMS, myDate);
+                        startActivity(sendFunAct);
+
+                    }
+                });
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                alert.show();
+
+            }
+        });
 
     }
 

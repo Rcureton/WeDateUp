@@ -86,8 +86,6 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
                 AlertDialog.Builder alert = new AlertDialog.Builder(FunActivity.this);
                 alert.setTitle(myDate.getFunActivity());
                 LayoutInflater inflater = FunActivity.this.getLayoutInflater();
