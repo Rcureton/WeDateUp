@@ -20,7 +20,7 @@
         android:text="DATE ITINERARY"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/colorLight"
+        android:textColor="@color/colorAccent"
         android:textSize="25sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -82,7 +82,7 @@
         android:id="@+id/resto"
         android:text="Fun Activity For Your Date"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/colorLight"
+        android:textColor="@color/colorAccent"
         android:textSize="25sp"
         android:textStyle="bold"
         android:layout_below="@id/card_view_itinerary"
