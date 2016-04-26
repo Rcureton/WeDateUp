@@ -100,6 +100,7 @@ public class ActivityType extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent currentMovies= new Intent(ActivityType.this, RottenTomatoes.class);
+                currentMovies.putExtra(MyDateItems.MY_ITEMS,myDate);
                 startActivity(currentMovies);
             }
         });

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Picasso.with(MainActivity.this).load("http://realestate-report.com/media/33.jpg").fit().into(mBackground);
+        Picasso.with(MainActivity.this).load("http://www.18gramercypark.com/img/content/residences_amenities/view2.jpg").fit().into(mBackground);
 
         mStart.setOnClickListener(new View.OnClickListener() {
             @Override
