@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:uber="http://schemas.android.com/apk/res-auto"
+    xmlns:ads= "http://schemas.android.com/apk/res-auto"
     tools:context="com.datenyc.mom.datenyc.GoogleMaps.MapActivity">
 
     <ImageView
@@ -184,5 +185,15 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:padding="10dp" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/ad_banner_mob_id">
+    </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

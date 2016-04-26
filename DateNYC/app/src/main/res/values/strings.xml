@@ -14,5 +14,6 @@
     <string name="uber_token">uSOaLvZGElS8_oRaYsSH-x5RZiOxQVR3ZIEw3mCs</string>
     <string name="title_activity_rest_details">RestDetails</string>
     <string name="pause">" "</string>
+    <string name="ad_banner_mob_id">ca-app-pub-4769395927018789/5101973554</string>
 
 </resources>
