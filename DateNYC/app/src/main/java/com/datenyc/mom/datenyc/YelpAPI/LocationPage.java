@@ -37,7 +37,6 @@ import butterknife.ButterKnife;
 
 public class LocationPage extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
-    FloatingActionButton mBk, mQu, mMa, mSi, mBx;
     LocationManager locationManager;
     LocationListener locationListener;
     @Bind(R.id.imageButton)ImageButton mLocation;

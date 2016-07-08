@@ -116,6 +116,7 @@
                 android:id="@+id/fun_info_text_address"
                 android:textColor="#ffff"
                 android:autoLink="map"
+                android:lines="3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/fun_info_text"/>
@@ -132,47 +133,43 @@
 
     </android.support.v7.widget.CardView>
 
-    <TextView
-        android:id="@+id/uberText"
-        android:text="Need A Ride?"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:padding="5dp"
-        android:textColor="#ffff"
+
+    <LinearLayout
+        android:id="@+id/linearItinerary"
+        android:orientation="vertical"
         android:layout_below="@id/card_view_fun_itinerary"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:paddingTop="8dp"
+        android:layout_marginRight="5dp"
+        android:layout_height="wrap_content">
 
-    <com.uber.sdk.android.rides.RequestButton
-        android:id="@+id/uber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/uberText"
-        uber:client_id="clientId"
-        uber:style="black"/>
+        <com.uber.sdk.android.rides.RequestButton
+            android:id="@+id/uber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            uber:client_id="clientId"
+            uber:style="black"/>
+        <ImageButton
+            android:id="@+id/lyftButton"
+            android:src="@drawable/lyft_logo"
+            android:background="#4A148C"
+            android:paddingTop="5dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/sendButton"
+            android:text="Send Itinerary"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/emailItineray"
-        android:text="Email Itinerary"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:padding="5dp"
-        android:textColor="#ffff"
-        android:layout_below="@id/uber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/sendButton"
-        android:text="Send Itinerary"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:padding="5dp"
-        android:layout_below="@id/emailItineray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/homeButton"
