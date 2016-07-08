@@ -67,14 +67,25 @@ public class LocationPage extends AppCompatActivity implements GoogleApiClient.C
         setTitle("Location");
         ButterKnife.bind(this);
 
+        final Intent intent = getIntent();
+        myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
+
+        double currentLocation= myDate.getLat()+myDate.getLon();
+        double brooklyn= 40.6782+73.9442;
+        double staten= 40.5795+74.1502;
+        double longIsland= 40.7891+73.1350;
 
         ImageView backgroundTwo = (ImageView) findViewById(R.id.backgroundTwo);
 
-        Picasso.with(LocationPage.this).load("http://blog.tourcontrastesdenuevayork.com/wp-content/uploads/2014/04/FOTO-NYC-765.jpg").fit().into(backgroundTwo);
+        if(currentLocation == brooklyn){
+            Picasso.with(LocationPage.this).load("https://images.trvl-media.com/media/content/shared/images/travelguides/destination/178293/Brooklyn-20046.jpg").fit().into(backgroundTwo);
+        }else if(currentLocation== longIsland){
+            Picasso.with(LocationPage.this).load("https://cbsnewyork.files.wordpress.com/2015/08/140506_sd-coliseum.jpg").fit().into(backgroundTwo);
+        }else{
+            Picasso.with(LocationPage.this).load("http://blog.tourcontrastesdenuevayork.com/wp-content/uploads/2014/04/FOTO-NYC-765.jpg").fit().into(backgroundTwo);
+        }
 
-        final Intent intent = getIntent();
-        myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
-        Log.d("price", myDate.getPrice());
+
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {

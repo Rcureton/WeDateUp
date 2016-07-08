@@ -28,6 +28,8 @@ import android.widget.Toast;
 import com.datenyc.mom.datenyc.MainActivity;
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 import com.uber.sdk.android.rides.RequestButton;
 import com.uber.sdk.android.rides.RideParameters;
@@ -53,7 +55,15 @@ public class MapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+
         mLyft=(ImageButton)findViewById(R.id.lyftButton);
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        mAdView.loadAd(adRequest);
+
+
         ImageView itineraryBackground = (ImageView) findViewById(R.id.itineraryBackground);
 
         Picasso.with(MapActivity.this).load("http://www.samsung.com/global/microsite/galaxycamera/mobile/images/nx/img_pic_LARGE_08.jpg").fit().into(itineraryBackground);

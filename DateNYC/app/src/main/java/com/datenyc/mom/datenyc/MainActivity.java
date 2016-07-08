@@ -25,6 +25,9 @@ import android.widget.Toast;
 
 import com.datenyc.mom.datenyc.Movies.RottenTomatoes;
 import com.datenyc.mom.datenyc.Theatre.TheatreActivity;
+
+import com.datenyc.mom.datenyc.VenueTypePackage.VenueType;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -37,7 +40,9 @@ import java.security.Permission;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
+
     @Bind(R.id.start)
     Button mStart;
     @Bind(R.id.background)
@@ -82,24 +87,29 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
 
 
-
-
-
         if(checkPlayServices() ){
             buildGoogleApiClient();
             createLocationRequest();
         }
 
+       final  MyDateItems myDate= new MyDateItems();
+
         mStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, BudgetActivity.class);
+                displayLocation();
+                myDate.setLat(lat);
+                myDate.setLon(lon);
+                intent.putExtra(MyDateItems.MY_ITEMS, myDate);
                 startActivity(intent);
             }
         });
 
 
+
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -140,9 +150,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             lat= mLastLocationCoordinates.getLatitude();
             lon= mLastLocationCoordinates.getLongitude();
 
-            mText.setText( " " );
+
         }else{
-            mText.setText("Couldn't get the location");
+
         }
     }
 
@@ -193,16 +203,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     protected void stopLocationUpdates(){
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,this);
+
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case 10:
-                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    configureButton();
-        }
-    }
+
+
 
     private void configureButton() {
 //        mLocation.setOnClickListener(new View.OnClickListener() {
@@ -237,16 +242,26 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+        Log.i(TAG,"Connection failed" + connectionResult.getErrorMessage());
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 10:
+                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    configureButton();
+        }
+    }
+
+
+    @Override
     public void onLocationChanged(Location location) {
         mLastLocationCoordinates= location;
         Toast.makeText(MainActivity.this, "Location Changed", Toast.LENGTH_SHORT).show();
         displayLocation();
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-        Log.i(TAG,"Connection failed" + connectionResult.getErrorMessage());
     }
 
 
