@@ -9,7 +9,8 @@
         android:id="@+id/budgetBackground"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/restaurant_budget"
         />
 
     <TextView
@@ -64,6 +65,46 @@
          />
 
 </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/budgetLinear"
+        android:layout_below="@id/linear"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Under $10"
+            android:textColor="#00C853"
+            android:layout_marginLeft="10dp"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="$11-$30"
+            android:textColor="#00C853"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="$31-$60"
+            android:textColor="#00C853"
+            android:layout_marginLeft="20dp"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="Above $61"
+            android:layout_marginLeft="15dp"
+            android:textColor="#00C853"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 
 

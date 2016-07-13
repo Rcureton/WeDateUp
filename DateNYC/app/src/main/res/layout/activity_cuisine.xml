@@ -7,6 +7,16 @@
     android:orientation="vertical"
     >
     <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:id="@+id/foodEditText"
+        android:hint="Search For Food Type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/submitButton"
+        android:text="Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/latest_news_1_layout"

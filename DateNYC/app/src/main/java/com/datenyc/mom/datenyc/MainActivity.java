@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Bind(R.id.background)
     ImageView mBackground;
     @Bind(R.id.blankText)TextView mText;
-    LocationManager locationManager;
-    LocationListener locationListener;
     private static double lon;
     private static double lat;
     private static final String TAG= MainActivity.class.getSimpleName();
@@ -69,7 +67,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Picasso.with(MainActivity.this).load("http://www.18gramercypark.com/img/content/residences_amenities/view2.jpg").fit().into(mBackground);
+
+        if(checkPlayServices() ){
+            buildGoogleApiClient();
+            createLocationRequest();
+        }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -87,10 +89,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
 
 
-        if(checkPlayServices() ){
-            buildGoogleApiClient();
-            createLocationRequest();
-        }
 
        final  MyDateItems myDate= new MyDateItems();
 

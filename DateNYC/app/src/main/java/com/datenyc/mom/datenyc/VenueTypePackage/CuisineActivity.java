@@ -6,22 +6,32 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.R;
 import com.datenyc.mom.datenyc.RestaurantActivity;
 import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class CuisineActivity extends AppCompatActivity {
     ImageView mAsian,mAmerican,mIndian,mItalian,mMexican,mMeditteranean,mThai,mVeagan;
     CardView mAsianCard,mAmericanCard,mIndianCard,mItalianCard,mMexcianCard,mMeditteraneanCard, mThaiCard,mVeaganCard;
+    @Bind(R.id.foodEditText)EditText mEditText;
+    @Bind(R.id.submitButton)Button mButton;
+    private static String mUserInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cuisine);
         setTitle("Cuisine Type");
+        ButterKnife.bind(this);
 
         mAsian=(ImageView)findViewById(R.id.asian);
         mAmerican=(ImageView)findViewById(R.id.american);
@@ -100,6 +110,22 @@ public class CuisineActivity extends AppCompatActivity {
         mMeditteraneanCard.setOnClickListener(setCuisine);
         mThaiCard.setOnClickListener(setCuisine);
         mVeaganCard.setOnClickListener(setCuisine);
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUserInput= mEditText.getText().toString();
+                if(mUserInput==null){
+                    Toast.makeText(CuisineActivity.this, "Please enter input", Toast.LENGTH_SHORT).show();
+
+                }
+                myDate.setCuisine(mUserInput);
+                Intent textBox= new Intent(CuisineActivity.this, RestaurantActivity.class);
+                textBox.putExtra(MyDateItems.MY_ITEMS, myDate);
+                startActivity(textBox);
+
+            }
+        });
 
     }
 }

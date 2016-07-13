@@ -37,8 +37,6 @@ import butterknife.ButterKnife;
 
 public class LocationPage extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
-    LocationManager locationManager;
-    LocationListener locationListener;
     @Bind(R.id.imageButton)ImageButton mLocation;
     @Bind(R.id.locationText)
     TextView mText;
@@ -67,51 +65,14 @@ public class LocationPage extends AppCompatActivity implements GoogleApiClient.C
         setTitle("Location");
         ButterKnife.bind(this);
 
+        if(checkPlayServices() ){
+            buildGoogleApiClient();
+            createLocationRequest();
+        }
+
         final Intent intent = getIntent();
         myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
-        double currentLocation= myDate.getLat()+myDate.getLon();
-        double brooklyn= 40.6782+73.9442;
-        double staten= 40.5795+74.1502;
-        double longIsland= 40.7891+73.1350;
-
-        ImageView backgroundTwo = (ImageView) findViewById(R.id.backgroundTwo);
-
-        if(currentLocation == brooklyn){
-            Picasso.with(LocationPage.this).load("https://images.trvl-media.com/media/content/shared/images/travelguides/destination/178293/Brooklyn-20046.jpg").fit().into(backgroundTwo);
-        }else if(currentLocation== longIsland){
-            Picasso.with(LocationPage.this).load("https://cbsnewyork.files.wordpress.com/2015/08/140506_sd-coliseum.jpg").fit().into(backgroundTwo);
-        }else{
-            Picasso.with(LocationPage.this).load("http://blog.tourcontrastesdenuevayork.com/wp-content/uploads/2014/04/FOTO-NYC-765.jpg").fit().into(backgroundTwo);
-        }
-
-
-
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-
-                lon= location.getLongitude();
-                lat= location.getLatitude();
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-                Intent intent= new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-            }
-        };
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             ActivityCompat.requestPermissions(LocationPage.this, new String[]{
@@ -127,14 +88,6 @@ public class LocationPage extends AppCompatActivity implements GoogleApiClient.C
 
         }
 
-
-
-
-
-        if(checkPlayServices() ){
-            buildGoogleApiClient();
-            createLocationRequest();
-        }
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

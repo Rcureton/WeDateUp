@@ -13,35 +13,38 @@ import com.datenyc.mom.datenyc.R;
 import com.datenyc.mom.datenyc.RestaurantActivity;
 import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 public class VenueType extends AppCompatActivity {
-    ImageView mBars,mBreakfast,mLunch,mCoffee,mBrunch,mDinner,mDessert,mWine;
-    CardView mBarCard,mBrunchCard,mBreakfastCard,mLunchCard,mCoffeeCard,mDinnerCard, mWineCard,mDessertCard;
+
+
+   //Imageviews
+    @Bind(R.id.bars)ImageView mBars;
+    @Bind(R.id.breakfast)ImageView mBreakfast;
+    @Bind(R.id.brunch)ImageView mBrunch;
+    @Bind(R.id.lunch) ImageView mLunch;
+    @Bind(R.id.coffee)ImageView mCoffee;
+    @Bind(R.id.dinner)ImageView mDinner;
+    @Bind(R.id.dessert)ImageView mDessert;
+    @Bind(R.id.winebar)ImageView mWine;
+    //Cardviews
+    @Bind(R.id.bar_card)CardView mBarCard;
+    @Bind(R.id.brunch_card)CardView mBrunchCard;
+    @Bind(R.id.break_card)CardView mBreakfastCard;
+    @Bind(R.id.lunch_card)CardView mLunchCard;
+    @Bind(R.id.coffee_card)CardView mCoffeeCard;
+    @Bind(R.id.dinner_card)CardView mDinnerCard;
+    @Bind(R.id.wine_card)CardView mWineCard;
+    @Bind(R.id.dessert_card)CardView mDessertCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_venue_type);
         setTitle("Venue Type");
-
-        mBars=(ImageView)findViewById(R.id.bars);
-        mBreakfast=(ImageView)findViewById(R.id.breakfast);
-        mBrunch=(ImageView)findViewById(R.id.brunch);
-        mLunch=(ImageView)findViewById(R.id.lunch);
-        mDinner=(ImageView)findViewById(R.id.dinner);
-        mCoffee=(ImageView)findViewById(R.id.coffee);
-        mDessert=(ImageView)findViewById(R.id.dessert);
-        mWine=(ImageView)findViewById(R.id.winebar);
-
-        mBarCard=(CardView)findViewById(R.id.bar_card);
-        mBreakfastCard=(CardView)findViewById(R.id.break_card);
-        mBrunchCard=(CardView)findViewById(R.id.brunch_card);
-        mLunchCard=(CardView)findViewById(R.id.lunch_card);
-        mDinnerCard=(CardView)findViewById(R.id.dinner_card);
-        mCoffeeCard=(CardView)findViewById(R.id.coffee_card);
-        mWineCard=(CardView)findViewById(R.id.wine_card);
-        mDessertCard=(CardView)findViewById(R.id.dessert_card);
+        ButterKnife.bind(this);
 
 
         Picasso.with(VenueType.this).load("https://media.timeout.com/images/103012874/image.jpg").fit().into(mBars);

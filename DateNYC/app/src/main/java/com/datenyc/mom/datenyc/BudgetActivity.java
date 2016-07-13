@@ -11,33 +11,32 @@ import android.widget.ImageView;
 import com.datenyc.mom.datenyc.YelpAPI.LocationPage;
 import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class BudgetActivity extends AppCompatActivity {
-    FloatingActionButton mOneCash, mTwoCash, mThreeCash, mFourCash;
-    ImageButton mOne, mTwo, mThree, mFour;
+    @Bind(R.id.oneCash)FloatingActionButton mOneCash;
+@   Bind(R.id.twoCash)FloatingActionButton mTwoCash;
+    @Bind(R.id.threeCash)FloatingActionButton mThreeCash;
+    @Bind(R.id.fourCash)FloatingActionButton mFourCash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget);
         setTitle("Budget");
-
-        ImageView budgetBackground = (ImageView) findViewById(R.id.budgetBackground);
-
-        Picasso.with(BudgetActivity.this).load("http://cdn.c.photoshelter.com/img-get2/I0000M1hl9JItGcI/fit=1000x750/D1321099.jpg").fit().into(budgetBackground);
+        ButterKnife.bind(this);
 
 
-        mOneCash = (FloatingActionButton) findViewById(R.id.oneCash);
         mOneCash.setImageResource(R.drawable.ic_looks_one);
         mOneCash.setOnClickListener(setPrice);
 
-        mTwoCash = (FloatingActionButton) findViewById(R.id.twoCash);
         mTwoCash.setImageResource(R.drawable.ic_looks_two);
         mTwoCash.setOnClickListener(setPrice);
-        mThreeCash = (FloatingActionButton) findViewById(R.id.threeCash);
+
         mThreeCash.setImageResource(R.drawable.ic_looks_3);
         mThreeCash.setOnClickListener(setPrice);
 
-        mFourCash = (FloatingActionButton) findViewById(R.id.fourCash);
         mFourCash.setImageResource(R.drawable.ic_looks_4);
         mFourCash.setOnClickListener(setPrice);
 
