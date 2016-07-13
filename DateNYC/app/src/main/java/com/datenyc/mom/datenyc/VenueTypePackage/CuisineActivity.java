@@ -20,8 +20,26 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class CuisineActivity extends AppCompatActivity {
-    ImageView mAsian,mAmerican,mIndian,mItalian,mMexican,mMeditteranean,mThai,mVeagan;
-    CardView mAsianCard,mAmericanCard,mIndianCard,mItalianCard,mMexcianCard,mMeditteraneanCard, mThaiCard,mVeaganCard;
+
+    //ImageViews
+    @Bind(R.id.asian)ImageView mAsian;
+    @Bind(R.id.american)ImageView mAmerican;
+    @Bind(R.id.indian)ImageView mIndian;
+    @Bind(R.id.italian)ImageView mItalian;
+    @Bind(R.id.mexican)ImageView mMexican;
+    @Bind(R.id.meditteranean)ImageView mMeditteranean;
+    @Bind(R.id.thai)ImageView mThai;
+    @Bind(R.id.veagan)ImageView mVeagan;
+    //Cardviews
+    @Bind(R.id.asian_card)CardView mAsianCard;
+    @Bind(R.id.american_card)CardView mAmericanCard;
+    @Bind(R.id.indian_card)CardView mIndianCard;
+    @Bind(R.id.italian_card)CardView mItalianCard;
+    @Bind(R.id.mexican_card)CardView mMexicanCard;
+    @Bind(R.id.meditteranean_card)CardView mMeditteraneanCard;
+    @Bind(R.id.thai_card)CardView mThaiCard;
+    @Bind(R.id.veagan_card)CardView mVeaganCard;
+
     @Bind(R.id.foodEditText)EditText mEditText;
     @Bind(R.id.submitButton)Button mButton;
     private static String mUserInput;
@@ -32,25 +50,6 @@ public class CuisineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cuisine);
         setTitle("Cuisine Type");
         ButterKnife.bind(this);
-
-        mAsian=(ImageView)findViewById(R.id.asian);
-        mAmerican=(ImageView)findViewById(R.id.american);
-        mIndian=(ImageView)findViewById(R.id.indian);
-        mItalian=(ImageView)findViewById(R.id.italian);
-        mMexican=(ImageView)findViewById(R.id.mexican);
-        mMeditteranean=(ImageView)findViewById(R.id.meditteranean);
-        mThai=(ImageView)findViewById(R.id.thai);
-        mVeagan=(ImageView)findViewById(R.id.veagan);
-
-        mAsianCard=(CardView)findViewById(R.id.asian_card);
-        mAmericanCard=(CardView)findViewById(R.id.american_card);
-        mIndianCard=(CardView)findViewById(R.id.indian_card);
-        mItalianCard=(CardView)findViewById(R.id.italian_card);
-        mMexcianCard=(CardView)findViewById(R.id.mexican_card);
-        mMeditteraneanCard=(CardView)findViewById(R.id.meditteranean_card);
-        mThaiCard=(CardView)findViewById(R.id.thai_card);
-        mVeaganCard=(CardView)findViewById(R.id.veagan_card);
-
 
         Picasso.with(CuisineActivity.this).load("http://nebula.wsimg.com/82c2438bcec6ce077fdb9f5777483347?AccessKeyId=FB771320EF82836BDCA7&disposition=0&alloworigin=1").fit().into(mAsian);
         Picasso.with(CuisineActivity.this).load("http://www.loneriderbeer.com/wp-content/uploads/bbq.jpg").fit().into(mAmerican);
@@ -106,7 +105,7 @@ public class CuisineActivity extends AppCompatActivity {
         mAmericanCard.setOnClickListener(setCuisine);
         mIndianCard.setOnClickListener(setCuisine);
         mItalianCard.setOnClickListener(setCuisine);
-        mMexcianCard.setOnClickListener(setCuisine);
+        mMexicanCard.setOnClickListener(setCuisine);
         mMeditteraneanCard.setOnClickListener(setCuisine);
         mThaiCard.setOnClickListener(setCuisine);
         mVeaganCard.setOnClickListener(setCuisine);
