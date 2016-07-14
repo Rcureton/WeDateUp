@@ -39,18 +39,15 @@ import butterknife.ButterKnife;
 public class RestaurantActivity extends AppCompatActivity {
 
     GoogleAdapter mGoogleAdapter;
-    ListView mList;
-    String url= "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&query=best%20Bars%2Bin%2Bbrooklyn";
-
     String BASE_URL="https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&query=";
     ArrayList<Result> mPlaces;
     String PAGE_TOKEN;
     String SECOND_CALL;
     String googleRequest;
     @Bind(R.id.google_progress)GoogleProgressBar mProgressGoogle;
-
+    @Bind(R.id.restaurantlistView)ListView mList;
     private GoogleAsyncTask mGoogleAsync;
-    ProgressBar pb;
+
     private int pageCount = 0;
     String TAG= MainActivity.class.getSimpleName();
 
@@ -62,9 +59,6 @@ public class RestaurantActivity extends AppCompatActivity {
         setTitle("Choose Restaurant");
         ButterKnife.bind(this);
 
-        mList=(ListView)findViewById(R.id.restaurantlistView);
-        pb = (ProgressBar) findViewById(R.id.pbLoadingR);
-
         Intent intent= getIntent();
         final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
@@ -72,7 +66,7 @@ public class RestaurantActivity extends AppCompatActivity {
         mList.setAdapter(mGoogleAdapter);
 
         String price= "&minprice="+myDate.getPrice();
-        String location= "&location="+myDate.getLat()+","+myDate.getLon()+"&radius=16100";
+        String location= "&location="+myDate.getLat()+","+myDate.getLon()+"&radius=8100";
 
 
         try {

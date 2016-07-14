@@ -23,20 +23,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.datenyc.mom.datenyc.Movies.RottenTomatoes;
-import com.datenyc.mom.datenyc.Theatre.TheatreActivity;
-
-import com.datenyc.mom.datenyc.VenueTypePackage.VenueType;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.squareup.picasso.Picasso;
-
-import java.security.Permission;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -67,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setTitle("WeDateUp");
 
         if(checkPlayServices() ){
             buildGoogleApiClient();

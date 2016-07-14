@@ -40,6 +40,7 @@ public class ActivityType extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_type);
         ButterKnife.bind(this);
+        setTitle("WeDateUp");
 
         Intent intent= getIntent();
         final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);

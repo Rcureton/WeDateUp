@@ -110,6 +110,8 @@ public class CuisineActivity extends AppCompatActivity {
         mThaiCard.setOnClickListener(setCuisine);
         mVeaganCard.setOnClickListener(setCuisine);
 
+        //Edit Text Input that searches for food as well as the cards
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

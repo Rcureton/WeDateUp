@@ -7,25 +7,6 @@
     android:orientation="vertical"
     >
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/foodEditText"
-            android:hint="Search For Food Type"
-            android:layout_width="510dp"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/submitButton"
-            android:text="Search"
-            android:background="@color/colorAccent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/latest_news_1_layout"
@@ -36,8 +17,8 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
-            android:id="@+id/asian_card"
-            android:layout_height="100dp"
+            android:id="@+id/parks_card"
+            android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:layout_margin="1dp"
             android:background="#333333">
@@ -45,15 +26,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/asian"
+                    android:id="@+id/parks"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="centerCrop"/>
                 <TextView
                     android:id="@+id/latest_news_1_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Asian"
+                    android:text="Parks"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:textColor="#ffffff"
@@ -65,8 +46,8 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:id="@+id/american_card"
+            android:layout_height="150dp"
+            android:id="@+id/museum_card"
             android:layout_weight="0.5"
             android:layout_margin="1dp"
             android:background="#333333">
@@ -74,14 +55,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/american"
+                    android:id="@+id/museum"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
                 <TextView
                     android:id="@+id/latest_news_2_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="BBQ"
+                    android:text="Museums"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:textColor="#ffffff"
@@ -99,8 +80,8 @@
         android:layout_weight="0.25">
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:id="@+id/indian_card"
+            android:layout_height="150dp"
+            android:id="@+id/comedy_card"
             android:layout_weight="0.5"
             android:background="#333333"
             android:layout_margin="1dp">
@@ -108,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/indian"
+                    android:id="@+id/comedy"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
                 <TextView
@@ -116,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Indian"
+                    android:text="Comedy"
                     android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
@@ -124,8 +105,8 @@
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:id="@+id/italian_card"
+            android:layout_height="150dp"
+            android:id="@+id/amusement_card"
             android:layout_weight="0.5"
             android:background="#333333"
             android:layout_margin="1dp">
@@ -133,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/italian"
+                    android:id="@+id/amusement"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
                 <TextView
@@ -141,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Italian"
+                    android:text="Amusement"
                     android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
@@ -156,16 +137,16 @@
         android:layout_weight="0.25">
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:layout_weight="0.5"
-            android:id="@+id/mexican_card"
+            android:id="@+id/theater_card"
             android:layout_margin="1dp"
             android:background="#333333">
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/mexican"
+                    android:id="@+id/theater"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
                 <TextView
@@ -173,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Mexican"
+                    android:text="Theaters"
                     android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
@@ -181,16 +162,16 @@
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:layout_weight="0.5"
-            android:id="@+id/meditteranean_card"
+            android:id="@+id/movies_card"
             android:layout_margin="1dp"
             android:background="#333333">
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/meditteranean"
+                    android:id="@+id/movies"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
                 <TextView
@@ -198,7 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Meditteranean"
+                    android:text="Movies"
                     android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
@@ -213,8 +194,8 @@
         android:layout_weight="0.25">
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:id="@+id/thai_card"
+            android:layout_height="150dp"
+            android:id="@+id/bowling_card"
             android:layout_weight="0.5"
             android:layout_margin="1dp"
             android:background="#333333">
@@ -222,7 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/thai"
+                    android:id="@+id/bowling"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
                 <TextView
@@ -230,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Thai"
+                    android:text="Bowling"
                     android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>
@@ -238,16 +219,16 @@
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:layout_weight="0.5"
-            android:id="@+id/veagan_card"
+            android:id="@+id/paint_card"
             android:layout_margin="1dp"
             android:background="#333333">
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:id="@+id/veagan"
+                    android:id="@+id/paint"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
                 <TextView
@@ -255,7 +236,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Vegan"
+                    android:text="Date Paint"
                     android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:background="#76000000"/>

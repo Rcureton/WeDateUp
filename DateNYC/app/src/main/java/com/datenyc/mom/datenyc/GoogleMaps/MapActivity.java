@@ -34,16 +34,23 @@ import com.squareup.picasso.Picasso;
 import com.uber.sdk.android.rides.RequestButton;
 import com.uber.sdk.android.rides.RideParameters;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public class MapActivity extends AppCompatActivity {
-    RequestButton requestButton;
-    Button mSendEmail;
-    ImageButton mLyft;
-    FloatingActionButton mHome;
-    TextView mName, mAddress, mRating, mFunName, mFunAddress, mFunRating, mPhone;
-    private String UBER_CLIENT_ID = "BVqdBZ0dfixZGZTpblKOgrGAX5pjCEpZ";
-    private int MY_LOCATION_REQUEST_CODE = 1;
-    private int MY_PERMISSIONS_REQUEST_MAP_LOCATION = 2;
+    @Bind(R.id.restaurant_info_text)TextView mName;
+    @Bind(R.id.restaurant_info_text_address)TextView mAddress;
+    @Bind(R.id.restaurant_info_text_rating)TextView mRating;
+    @Bind(R.id.fun_info_text)TextView mFunName;
+    @Bind(R.id.fun_info_text_address)TextView mFunAddress;
+    @Bind(R.id.fun_info_text_rating)TextView mFunRating;
+    @Bind(R.id.restaurant_phone)TextView mPhone;
+    @Bind(R.id.lyftButton)ImageButton mLyft;
+    @Bind(R.id.sendButton)Button mSendEmail;
+    @Bind(R.id.homeButton)FloatingActionButton mHome;
+    @Bind(R.id.uber)RequestButton requestButton;
+    private String UBER_CLIENT_ID;
     private ShareActionProvider mShareActionProvider;
     String restName, restAdd, funName, funAdd, email, phone;
     private static final String TAG = "lyft:Example";
@@ -54,37 +61,25 @@ public class MapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        setTitle("WeDateUp");
+        ButterKnife.bind(this);
 
-
-        mLyft=(ImageButton)findViewById(R.id.lyftButton);
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .build();
         mAdView.loadAd(adRequest);
 
-
         ImageView itineraryBackground = (ImageView) findViewById(R.id.itineraryBackground);
 
-        Picasso.with(MapActivity.this).load("http://www.samsung.com/global/microsite/galaxycamera/mobile/images/nx/img_pic_LARGE_08.jpg").fit().into(itineraryBackground);
+//        Picasso.with(MapActivity.this).load("http://www.samsung.com/global/microsite/galaxycamera/mobile/images/nx/img_pic_LARGE_08.jpg").fit().into(itineraryBackground);
 
-
-        mName= (TextView)findViewById(R.id.restaurant_info_text);
-        mAddress= (TextView)findViewById(R.id.restaurant_info_text_address);
-        mRating= (TextView)findViewById(R.id.restaurant_info_text_rating);
-        mFunName= (TextView)findViewById(R.id.fun_info_text);
-        mFunAddress= (TextView)findViewById(R.id.fun_info_text_address);
-        mFunRating= (TextView)findViewById(R.id.fun_info_text_rating);
-        mSendEmail=(Button)findViewById(R.id.sendButton);
-        mHome=(FloatingActionButton)findViewById(R.id.homeButton);
-        mPhone=(TextView)findViewById(R.id.restaurant_phone);
 
         mSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendEmail();
-//                Intent stay= new Intent(MapActivity.this,MapActivity.class);
-//                startActivity(stay);
+
             }
         });
 
@@ -133,7 +128,7 @@ public class MapActivity extends AppCompatActivity {
         mPhone.setText(phone);
 
         //TODO: UBER RIDE REQUEST BUTTON
-        requestButton = (RequestButton) findViewById(R.id.uber);
+        UBER_CLIENT_ID=getResources().getString(R.string.uber_client_id);
         requestButton.setClientId(UBER_CLIENT_ID);
         RideParameters rideParams = new RideParameters.Builder()
                 .setProductId("DateNYC")

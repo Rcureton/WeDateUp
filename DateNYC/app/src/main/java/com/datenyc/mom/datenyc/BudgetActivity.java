@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.datenyc.mom.datenyc.VenueTypePackage.VenueType;
 import com.datenyc.mom.datenyc.YelpAPI.LocationPage;
 import com.squareup.picasso.Picasso;
 
@@ -64,7 +65,7 @@ public class BudgetActivity extends AppCompatActivity {
 
             }
 
-            Intent intent = new Intent(BudgetActivity.this, LocationPage.class);
+            Intent intent = new Intent(BudgetActivity.this, VenueType.class);
             intent.putExtra(MyDateItems.MY_ITEMS, dateItems);
             startActivity(intent);
 

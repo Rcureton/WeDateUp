@@ -45,7 +45,7 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
 
    GoogleAdapter mAdapter;
     @Bind(R.id.google_progress)GoogleProgressBar mProgress;
-    ListView mList;
+    @Bind(R.id.listView)ListView mList;
     ArrayList<Result> mPlaces;
     GoogleAsyncTask mGoogleAsync;
     private int pageCount = 0;
@@ -60,9 +60,6 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_fun);
         setTitle("Choose Activity");
         ButterKnife.bind(this);
-
-        mList = (ListView) findViewById(R.id.listView);
-
 
         Intent intent = getIntent();
         final MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
