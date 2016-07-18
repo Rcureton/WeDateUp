@@ -9,6 +9,8 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setTitle("WeDateUp");
+        isNetworkAvailable();
 
         if(checkPlayServices() ){
             buildGoogleApiClient();
@@ -194,6 +197,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected void stopLocationUpdates(){
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,this);
 
+    }
+    public boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        // if no network is available networkInfo will be null
+        // otherwise check if we are connected
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        }else{
+            Toast.makeText(MainActivity.this, "Please Connect To Network", Toast.LENGTH_SHORT).show();
+        }
+        return false;
     }
 
 

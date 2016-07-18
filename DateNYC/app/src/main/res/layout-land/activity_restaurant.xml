@@ -8,6 +8,7 @@
     tools:context="com.datenyc.mom.datenyc.RestaurantActivity">
 
     <ListView
+        android:layout_centerHorizontal="true"
         android:id="@+id/restaurantlistView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

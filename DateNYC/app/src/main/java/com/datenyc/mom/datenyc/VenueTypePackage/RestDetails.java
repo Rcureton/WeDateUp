@@ -48,6 +48,7 @@ public class RestDetails extends AppCompatActivity {
     String phone;
     ImageView mBackground;
     String website;
+
     @Bind(R.id.website)TextView mWebText;
 
     @Override
