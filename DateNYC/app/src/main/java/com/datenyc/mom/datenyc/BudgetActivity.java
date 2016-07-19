@@ -65,7 +65,7 @@ public class BudgetActivity extends AppCompatActivity {
 
             }
 
-            Intent intent = new Intent(BudgetActivity.this, VenueType.class);
+            Intent intent = new Intent(BudgetActivity.this, LocationPage.class);
             intent.putExtra(MyDateItems.MY_ITEMS, dateItems);
             startActivity(intent);
 

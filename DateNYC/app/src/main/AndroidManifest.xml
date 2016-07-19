@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.datenyc.mom.datenyc"
-    android:versionCode="2"
-    android:versionName="1.1">
+    android:versionCode="3"
+    android:versionName="1.2">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -10,8 +10,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
 
     <application
         android:allowBackup="true"
@@ -38,11 +37,12 @@
             android:value="@integer/google_play_services_version" />
 
         <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDlBZB7bD8J_1_0hq5_z2j69-ke4ca7djY" />
+        <meta-data
+            android:name="com.google.android.awareness.API_KEY"
+            android:value="@string/google_places_androidkey"/>
+
 
         <activity android:name=".GoogleMaps.MapActivity" />
         <activity android:name=".RestaurantActivity" />

@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Bind(R.id.start)
     Button mStart;
-    @Bind(R.id.background)
-    ImageView mBackground;
-    @Bind(R.id.blankText)TextView mText;
     private static double lon;
     private static double lat;
     private static final String TAG= MainActivity.class.getSimpleName();
@@ -100,8 +97,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         });
 
-
-
     }
 
     @Override
@@ -143,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if(mLastLocationCoordinates !=null){
             lat= mLastLocationCoordinates.getLatitude();
             lon= mLastLocationCoordinates.getLongitude();
+
 
 
         }else{
