@@ -13,12 +13,31 @@ public class Model {
     @SerializedName("html_attributions")
     @Expose
     private List<Object> htmlAttributions = new ArrayList<Object>();
-    @SerializedName("result")
-    @Expose
-    private Result result;
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("results")
+    @Expose
+    private List<Result> results;
+    @SerializedName("next_page_token")
+    @Expose
+    private String pageToken;
+
+    public String getPageToken() {
+        return pageToken;
+    }
+
+    public void setPageToken(String pageToken) {
+        this.pageToken = pageToken;
+    }
+
+    public List<Result> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
 
     /**
      * 
@@ -38,23 +57,6 @@ public class Model {
         this.htmlAttributions = htmlAttributions;
     }
 
-    /**
-     * 
-     * @return
-     *     The result
-     */
-    public Result getResult() {
-        return result;
-    }
-
-    /**
-     * 
-     * @param result
-     *     The result
-     */
-    public void setResult(Result result) {
-        this.result = result;
-    }
 
     /**
      * 

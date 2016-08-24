@@ -1,5 +1,6 @@
 package com.datenyc.mom.datenyc;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,8 +15,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.datenyc.mom.datenyc.GoogleMaps.Data.Model;
 import com.datenyc.mom.datenyc.GoogleMaps.Data.Result;
+import com.datenyc.mom.datenyc.Retrofit.ApiClient;
+import com.datenyc.mom.datenyc.Retrofit.RestAPI;
 import com.datenyc.mom.datenyc.VenueTypePackage.RestDetails;
+import com.datenyc.mom.datenyc.VenueTypePackage.RestDetailsAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jpardogo.android.googleprogressbar.library.GoogleProgressBar;
@@ -32,22 +37,29 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class RestaurantActivity extends AppCompatActivity {
 
     GoogleAdapter mGoogleAdapter;
-    String BASE_URL="https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&query=";
     ArrayList<Result> mPlaces;
     String PAGE_TOKEN;
     String SECOND_CALL;
     String googleRequest;
     @Bind(R.id.google_progress)GoogleProgressBar mProgressGoogle;
     @Bind(R.id.restaurantlistView)ListView mList;
-    private GoogleAsyncTask mGoogleAsync;
-
+//    private GoogleAsyncTask mGoogleAsync;
+    Context context;
     private int pageCount = 0;
     String TAG= MainActivity.class.getSimpleName();
 
@@ -59,25 +71,46 @@ public class RestaurantActivity extends AppCompatActivity {
         setTitle("Choose Restaurant");
         ButterKnife.bind(this);
 
+        if(mPlaces ==null|| mPlaces.isEmpty()){
+            mPlaces= new ArrayList<>();
+        }
+        mGoogleAdapter= new GoogleAdapter(this,mPlaces);
+        context=this;
+
         Intent intent= getIntent();
         final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
-        mGoogleAdapter= new GoogleAdapter(this,mPlaces);
-        mList.setAdapter(mGoogleAdapter);
-
         String price= "&minprice="+myDate.getPrice();
-        String location= "&location="+myDate.getLat()+","+myDate.getLon()+"&radius=8100";
+        String location= String.valueOf(+myDate.getLat()+","+myDate.getLon());
 
 
-        try {
-            googleRequest = BASE_URL+myDate.getFormattedCuisine()+"+in+"+location+price;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        RestAPI restAPI= ApiClient.getClient().create(RestAPI.class);
+        Observable<Model> restCall= restAPI.getResults(getString(R.string.places_api_key),myDate.getCuisine(),price,location,"8100");
+        restCall.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Model>() {
+                    @Override
+                    public void onCompleted() {
 
-        mGoogleAsync= new GoogleAsyncTask();
-        GoogleAsyncTask googleAsyncTask= new GoogleAsyncTask();
-        googleAsyncTask.execute(googleRequest);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    Log.e("MESSAGE",e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(Model result) {
+                        List<Result> results= result.getResults();
+                        PAGE_TOKEN= result.getPageToken();
+                        Log.d("PAGE", PAGE_TOKEN);
+                        mList.setAdapter(new GoogleAdapter(context,results));
+                        mGoogleAdapter.setResults(results);
+                        mGoogleAdapter.notifyDataSetChanged();
+
+                    }
+                });
+
 
         mList.setOnScrollListener(onScrollListener());
 
@@ -116,9 +149,26 @@ public class RestaurantActivity extends AppCompatActivity {
             }
         });
 }
-    private void getNewData(String url){
-        SECOND_CALL=BASE_URL+"&pagetoken="+PAGE_TOKEN;
-        new GoogleAsyncTask().execute(SECOND_CALL);
+    private void getNewData(){
+        RestAPI restAPI= ApiClient.getClient().create(RestAPI.class);
+        Call<Model> second= restAPI.getNextPage(getString(R.string.places_api_key),PAGE_TOKEN);
+        second.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                Log.d("CALL", call.request().url().toString());
+                List<Result> nextItems= response.body().getResults();
+                mPlaces.add(nextItems);
+                //Need to fix the call
+                mGoogleAdapter.setResults(mPlaces);
+                mGoogleAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private OnScrollListener onScrollListener() {
@@ -133,7 +183,7 @@ public class RestaurantActivity extends AppCompatActivity {
                     if (mList.getLastVisiblePosition() >= count - threshold && pageCount < 2) {
                         Log.i(TAG, "loading more data");
                         // Execute LoadMoreDataTask AsyncTask
-                        getNewData(SECOND_CALL);
+                        getNewData();
                     }
                 }
             }
@@ -146,82 +196,5 @@ public class RestaurantActivity extends AppCompatActivity {
         };
     }
 
-
-        private String getInputData(InputStream inputStream) throws IOException {
-            StringBuilder stringBuilder= new StringBuilder();
-            BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(inputStream));
-            String data;
-
-            while ((data=bufferedReader.readLine()) !=null){
-                stringBuilder.append(data);
-            }
-            bufferedReader.close();
-
-            return stringBuilder.toString();
-        }
-
-    public class GoogleAsyncTask extends AsyncTask<String,Void,String> {
-        String data="";
-
-        @Override
-        protected void onPreExecute() {
-//            pb.setVisibility(ProgressBar.VISIBLE);
-            mProgressGoogle.setVisibility(GoogleProgressBar.VISIBLE);
-
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... urls) {
-
-            try {
-                URL url = new URL(urls[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-                InputStream inputStream = connection.getInputStream();
-                data = getInputData(inputStream);
-            } catch (Throwable thr) {
-                thr.fillInStackTrace();
-            }
-            return data;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-//            pb.setVisibility(ProgressBar.GONE);
-            mProgressGoogle.setVisibility(GoogleProgressBar.GONE);
-
-            super.onPostExecute(s);
-
-            try {
-                JSONObject dataObject = new JSONObject(data);
-                PAGE_TOKEN= dataObject.optString("next_page_token");
-                JSONArray placesArray = dataObject.getJSONArray("results");
-                if(mPlaces ==null|| mPlaces.isEmpty()){
-                    mPlaces= new ArrayList<>();
-                }
-
-
-                for (int i = 0; i < placesArray.length(); i++) {
-                    JSONObject object = placesArray.optJSONObject(i);
-                    String title = object.optString("name");
-
-                    Log.d("name",title);
-
-                    Gson gson = new GsonBuilder().create();
-                    Result place= gson.fromJson(String.valueOf(placesArray.get(i)), Result.class);
-
-                    mPlaces.add(place);
-
-                }
-            } catch (JSONException e) {
-
-                e.printStackTrace();
-            }
-            mGoogleAdapter.setResults(mPlaces);
-            mGoogleAdapter.notifyDataSetChanged();
-        }
-    }
 
 }

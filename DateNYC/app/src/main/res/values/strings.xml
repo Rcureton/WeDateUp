@@ -16,5 +16,6 @@
     <string name="pause">" "</string>
     <string name="ad_banner_mob_id">ca-app-pub-4769395927018789/5101973554</string>
     <string name="google_places_androidkey">AIzaSyCFml-zjAjCxrG1gS_tCTqDof5nuj4k9G8</string>
+    <string name="places_api_key">AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs</string>
 
 </resources>

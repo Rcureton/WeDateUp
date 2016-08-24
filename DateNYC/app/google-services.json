@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "110707991520",
+    "firebase_url": "https://datenyc-1260.firebaseio.com",
+    "project_id": "datenyc-1260",
+    "storage_bucket": "datenyc-1260.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110707991520:android:521954d2166f5f56",
+        "android_client_info": {
+          "package_name": "com.datenyc.mom.datenyc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110707991520-9dff4ro6d9vl3rggf301udck6pm0qso9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT7fsvYdVslHMywfJKR4hG50aOt4pSbqI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

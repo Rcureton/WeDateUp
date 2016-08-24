@@ -13,17 +13,19 @@ import com.datenyc.mom.datenyc.GoogleMaps.Data.Result;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ra on 3/29/16.
  */
 public class GoogleAdapter extends ArrayAdapter<Result> {
-    ArrayList<Result> mResults;
-    private ArrayList<Result> results;
+    List<Result> mResults;
+    Context appContext;
+
     String baseURL="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
     String apiKey="&key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs";
 
-    public GoogleAdapter(Context context, ArrayList<Result> newResults) {
+    public GoogleAdapter(Context context, List<Result> newResults) {
         super(context, -1);
 
         mResults= new ArrayList<>();
@@ -47,8 +49,7 @@ public class GoogleAdapter extends ArrayAdapter<Result> {
         String phone =resultItems.getFormattedPhoneNumber();
         double lat= resultItems.getGeometry().getLocation().getLat();
         double lon= resultItems.getGeometry().getLocation().getLng();
-        Log.d("lat and long", String.valueOf(lat)+ String.valueOf(lon));
-        Log.e("Phone", String.valueOf(phone));
+
 
         if(resultItems.getPhotos().size()>0){
             if(resultItems.getPhotos().get(0)!=null){
@@ -76,7 +77,7 @@ public class GoogleAdapter extends ArrayAdapter<Result> {
         return mResults.size();
     }
 
-    public void setResults(ArrayList<Result> results) {
+    public void setResults(List<Result> results) {
         mResults.clear();
         if(results != null){
             mResults.addAll(results);
