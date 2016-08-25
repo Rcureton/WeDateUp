@@ -24,18 +24,6 @@ import com.datenyc.mom.datenyc.VenueTypePackage.RestDetailsAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jpardogo.android.googleprogressbar.library.GoogleProgressBar;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +64,7 @@ public class RestaurantActivity extends AppCompatActivity {
         }
         mGoogleAdapter= new GoogleAdapter(this,mPlaces);
         context=this;
+        mList.setAdapter(mGoogleAdapter);
 
         Intent intent= getIntent();
         final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
@@ -101,16 +90,13 @@ public class RestaurantActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Model result) {
-                        List<Result> results= result.getResults();
+                        mPlaces= result.getResults();
                         PAGE_TOKEN= result.getPageToken();
-                        Log.d("PAGE", PAGE_TOKEN);
-                        mList.setAdapter(new GoogleAdapter(context,results));
-                        mGoogleAdapter.setResults(results);
+                        mGoogleAdapter.setResults(mPlaces);
                         mGoogleAdapter.notifyDataSetChanged();
 
                     }
                 });
-
 
         mList.setOnScrollListener(onScrollListener());
 
@@ -124,6 +110,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 alert.setView(dialogView);
 
                 final Result placeSelect = mPlaces.get(position);
+
 
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -156,9 +143,7 @@ public class RestaurantActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
                 Log.d("CALL", call.request().url().toString());
-                List<Result> nextItems= response.body().getResults();
-                mPlaces.add(nextItems);
-                //Need to fix the call
+                mPlaces=response.body().getResults();
                 mGoogleAdapter.setResults(mPlaces);
                 mGoogleAdapter.notifyDataSetChanged();
             }
@@ -181,7 +166,6 @@ public class RestaurantActivity extends AppCompatActivity {
 
                 if (scrollState == SCROLL_STATE_IDLE) {
                     if (mList.getLastVisiblePosition() >= count - threshold && pageCount < 2) {
-                        Log.i(TAG, "loading more data");
                         // Execute LoadMoreDataTask AsyncTask
                         getNewData();
                     }

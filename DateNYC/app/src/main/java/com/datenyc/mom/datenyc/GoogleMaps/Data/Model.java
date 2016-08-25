@@ -18,7 +18,7 @@ public class Model {
     private String status;
     @SerializedName("results")
     @Expose
-    private List<Result> results;
+    private ArrayList<Result> results;
     @SerializedName("next_page_token")
     @Expose
     private String pageToken;
@@ -31,11 +31,11 @@ public class Model {
         this.pageToken = pageToken;
     }
 
-    public List<Result> getResults() {
+    public ArrayList<Result> getResults() {
         return results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(ArrayList<Result> results) {
         this.results = results;
     }
 

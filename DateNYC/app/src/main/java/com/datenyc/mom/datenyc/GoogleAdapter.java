@@ -19,14 +19,14 @@ import java.util.List;
  * Created by Ra on 3/29/16.
  */
 public class GoogleAdapter extends ArrayAdapter<Result> {
-    List<Result> mResults;
+    ArrayList<Result> mResults;
     Context appContext;
 
     String baseURL="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
     String apiKey="&key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs";
 
-    public GoogleAdapter(Context context, List<Result> newResults) {
-        super(context, -1);
+    public GoogleAdapter(Context context, ArrayList<Result> newResults) {
+        super(context, -1, newResults);
 
         mResults= new ArrayList<>();
         if(newResults != null){
@@ -77,7 +77,7 @@ public class GoogleAdapter extends ArrayAdapter<Result> {
         return mResults.size();
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(ArrayList<Result> results) {
         mResults.clear();
         if(results != null){
             mResults.addAll(results);
