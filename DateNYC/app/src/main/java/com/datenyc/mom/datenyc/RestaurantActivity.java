@@ -42,11 +42,8 @@ public class RestaurantActivity extends AppCompatActivity {
     GoogleAdapter mGoogleAdapter;
     ArrayList<Result> mPlaces;
     String PAGE_TOKEN;
-    String SECOND_CALL;
-    String googleRequest;
     @Bind(R.id.google_progress)GoogleProgressBar mProgressGoogle;
     @Bind(R.id.restaurantlistView)ListView mList;
-//    private GoogleAsyncTask mGoogleAsync;
     Context context;
     private int pageCount = 0;
     String TAG= MainActivity.class.getSimpleName();
@@ -94,6 +91,7 @@ public class RestaurantActivity extends AppCompatActivity {
                         PAGE_TOKEN= result.getPageToken();
                         mGoogleAdapter.setResults(mPlaces);
                         mGoogleAdapter.notifyDataSetChanged();
+                        mList.setAdapter(mGoogleAdapter);
 
                     }
                 });
@@ -155,7 +153,7 @@ public class RestaurantActivity extends AppCompatActivity {
         });
 
     }
-
+//Crashing on Refresh data
     private OnScrollListener onScrollListener() {
         return new OnScrollListener(20) {
 

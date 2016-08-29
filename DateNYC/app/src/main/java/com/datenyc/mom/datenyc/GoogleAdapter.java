@@ -26,7 +26,7 @@ public class GoogleAdapter extends ArrayAdapter<Result> {
     String apiKey="&key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs";
 
     public GoogleAdapter(Context context, ArrayList<Result> newResults) {
-        super(context, -1, newResults);
+        super(context, -1);
 
         mResults= new ArrayList<>();
         if(newResults != null){
@@ -78,7 +78,7 @@ public class GoogleAdapter extends ArrayAdapter<Result> {
     }
 
     public void setResults(ArrayList<Result> results) {
-        mResults.clear();
+//        mResults.clear();
         if(results != null){
             mResults.addAll(results);
         }
