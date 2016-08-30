@@ -60,10 +60,9 @@ public class RestaurantActivity extends AppCompatActivity {
         mGoogleAdapter= new GoogleAdapter(this,mPlaces);
         context=this;
         mList.setAdapter(mGoogleAdapter);
-        getPlaces();
-
         Intent intent= getIntent();
         myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
+        getPlaces();
 
 
         mList.setOnScrollListener(onScrollListener());
@@ -108,7 +107,6 @@ public class RestaurantActivity extends AppCompatActivity {
         String price= "&minprice="+myDate.getPrice();
         String location= String.valueOf(+myDate.getLat()+","+myDate.getLon());
 
-
         RestAPI restAPI= ApiClient.getClient().create(RestAPI.class);
         Observable<Model> restCall= restAPI.getResults(getString(R.string.places_api_key),myDate.getCuisine(),price,location,"8100");
         restCall.subscribeOn(Schedulers.newThread())
@@ -126,14 +124,6 @@ public class RestaurantActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Model result) {
-                        if(mPlaces ==null|| mPlaces.isEmpty()){
-                            mPlaces= new ArrayList<>();
-                        }
-
-                        mResults= result.getResults();
-                        for(int i=0; i<mResults.size();i++){
-
-                        }
 
                         mPlaces= result.getResults();
                         PAGE_TOKEN= result.getPageToken();
@@ -150,10 +140,10 @@ public class RestaurantActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
                 Log.d("CALL", call.request().url().toString());
-                Model model =response.body();
-                mResults=model.getResults();
-                for(int i=0;i<mResults.size();i++){
-
+                mResults=response.body().getResults();
+                for (int i=0; i<mResults.size();i++){
+                    Result result= mResults.get(i);
+                    mPlaces.add(result);
                 }
                 mGoogleAdapter.setResults(mPlaces);
                 mGoogleAdapter.notifyDataSetChanged();
