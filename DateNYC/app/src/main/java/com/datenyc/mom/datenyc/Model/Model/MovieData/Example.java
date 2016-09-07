@@ -15,7 +15,7 @@ public class Example {
     private int page;
     @SerializedName("results")
     @Expose
-    private List<Result> results = new ArrayList<Result>();
+    private ArrayList<Result> results = new ArrayList<Result>();
     @SerializedName("dates")
     @Expose
     private Dates dates;
@@ -49,7 +49,7 @@ public class Example {
      * @return
      *     The results
      */
-    public List<Result> getResults() {
+    public ArrayList<Result> getResults() {
         return results;
     }
 
@@ -58,7 +58,7 @@ public class Example {
      * @param results
      *     The results
      */
-    public void setResults(List<Result> results) {
+    public void setResults(ArrayList<Result> results) {
         this.results = results;
     }
 

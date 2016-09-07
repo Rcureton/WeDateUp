@@ -124,7 +124,6 @@ public class RestaurantActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Model result) {
-
                         mPlaces= result.getResults();
                         PAGE_TOKEN= result.getPageToken();
                         mGoogleAdapter.setResults(mPlaces);
@@ -157,7 +156,7 @@ public class RestaurantActivity extends AppCompatActivity {
         });
 
     }
-//Crashing on Refresh data
+
     private OnScrollListener onScrollListener() {
         return new OnScrollListener(20) {
 

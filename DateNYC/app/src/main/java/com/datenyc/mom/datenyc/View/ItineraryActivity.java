@@ -62,17 +62,6 @@ public class ItineraryActivity extends AppCompatActivity {
         setTitle("WeDateUp");
         ButterKnife.bind(this);
 
-
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .build();
-        mAdView.loadAd(adRequest);
-
-        ImageView itineraryBackground = (ImageView) findViewById(R.id.itineraryBackground);
-
-//        Picasso.with(ItineraryActivity.this).load("http://www.samsung.com/global/microsite/galaxycamera/mobile/images/nx/img_pic_LARGE_08.jpg").fit().into(itineraryBackground);
-
-
         mSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

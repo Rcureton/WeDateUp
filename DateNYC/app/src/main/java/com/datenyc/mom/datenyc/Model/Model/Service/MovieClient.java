@@ -5,22 +5,21 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Ra on 8/24/16.
+ * Created by Ra on 9/6/16.
  */
-public class ApiClient {
-    private static String BASE_URL= "https://maps.googleapis.com/maps/api/place/";
+public class MovieClient {
+    private static String MOVIE_URL= "https://api.themoviedb.org/3/movie/";
     private static Retrofit retrofit= null;
 
-    public static Retrofit getClient(){
+
+    public static Retrofit getMovieClient(){
         if(retrofit==null){
             retrofit= new Retrofit.Builder().
-                    baseUrl(BASE_URL)
+                    baseUrl(MOVIE_URL)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
         return retrofit;
     }
-
-
 }

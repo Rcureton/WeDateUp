@@ -22,6 +22,22 @@ public class Model {
     @SerializedName("next_page_token")
     @Expose
     private String pageToken;
+    @SerializedName("result")
+    @Expose
+    private Result result;
+
+    public Result getResult() {
+        return result;
+    }
+
+    /**
+     *
+     * @param result
+     * The result
+     */
+    public void setResult(Result result) {
+        this.result = result;
+    }
 
     public String getPageToken() {
         return pageToken;

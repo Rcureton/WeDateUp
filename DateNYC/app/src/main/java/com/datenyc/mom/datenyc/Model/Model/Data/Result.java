@@ -58,7 +58,7 @@ public class Result {
     private String reference;
     @SerializedName("reviews")
     @Expose
-    private List<Review> reviews = new ArrayList<Review>();
+    private ArrayList<Review> reviews = new ArrayList<Review>();
     @SerializedName("types")
     @Expose
     private List<String> types = new ArrayList<String>();
@@ -353,7 +353,7 @@ public class Result {
      * @return
      *     The reviews
      */
-    public List<Review> getReviews() {
+    public ArrayList<Review> getReviews() {
         return reviews;
     }
 
@@ -362,7 +362,7 @@ public class Result {
      * @param reviews
      *     The reviews
      */
-    public void setReviews(List<Review> reviews) {
+    public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
     }
 

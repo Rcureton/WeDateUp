@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +34,7 @@ public class LocationPage extends AppCompatActivity implements GoogleApiClient.C
     @Bind(R.id.imageButton)ImageButton mLocation;
     @Bind(R.id.locationText)
     TextView mText;
+    @Bind(R.id.backgroundTwo)ImageView mBackground;
     double lon;
     double lat;
     MyDateItems myDate;
@@ -56,6 +59,7 @@ public class LocationPage extends AppCompatActivity implements GoogleApiClient.C
         setSupportActionBar(toolbar);
         setTitle("Location");
         ButterKnife.bind(this);
+
 
         if(checkPlayServices() ){
             buildGoogleApiClient();

@@ -93,6 +93,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
+    public boolean checkInternetConnection() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return connectivityManager.getActiveNetworkInfo() != null &&
+                connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -259,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Toast.makeText(MainActivity.this, "Location Changed", Toast.LENGTH_SHORT).show();
         displayLocation();
     }
+
 
 
 

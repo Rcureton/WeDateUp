@@ -1,5 +1,6 @@
 package com.datenyc.mom.datenyc.View;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,24 +18,30 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.datenyc.mom.datenyc.Model.Model.Adapter.GoogleAdapter;
+import com.datenyc.mom.datenyc.Model.Model.Adapter.RestDetailsAdapter;
+import com.datenyc.mom.datenyc.Model.Model.Data.Model;
+import com.datenyc.mom.datenyc.Model.Model.Data.Result;
+import com.datenyc.mom.datenyc.Model.Model.Data.Review;
+import com.datenyc.mom.datenyc.Model.Model.Service.ApiClient;
+import com.datenyc.mom.datenyc.Model.Model.Service.RestAPI;
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.R;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class RestDetails extends AppCompatActivity {
 
@@ -41,13 +49,16 @@ public class RestDetails extends AppCompatActivity {
     ListView mDetailsList;
     ProgressBar pb;
     Button mButton;
-    RestAsyncTask mRestAsync;
+//    RestAsyncTask mRestAsync;
     TextView placeName, mAddress, mPhone, mReview;
-    ArrayList<String> mReviewsList;
-    ArrayAdapter<String> mReviewAdapter;
+    ArrayList<Result> mResults;
+    ArrayList<Review> mComments;
     String phone;
     ImageView mBackground;
     String website;
+    RestDetailsAdapter mAdapter;
+    Context context;
+
 
     @Bind(R.id.website)TextView mWebText;
 
@@ -59,17 +70,40 @@ public class RestDetails extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mResults = new ArrayList<>();
+        context = this;
 
-        Intent intent= getIntent();
-        final MyDateItems myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
+        Intent intent = getIntent();
+        final MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
-        final String location= myDate.getLocation();
+        final String location = myDate.getLocation();
+        mBackground = (ImageView) findViewById(R.id.restDetailsBackground);
+        mReview = (TextView) findViewById(R.id.reviewText);
+        mButton = (Button) findViewById(R.id.button2);
+        mDetailsList = (ListView) findViewById(R.id.restdetails_list);
 
-        mBackground=(ImageView)findViewById(R.id.restDetailsBackground);
-        mReview=(TextView)findViewById(R.id.reviewText);
-        mButton= (Button)findViewById(R.id.button2);
+        mAdapter = new RestDetailsAdapter(this, mComments);
+        mDetailsList.setAdapter(mAdapter);
 
         setTitle(myDate.getRestaurant());
+
+        RestAPI restAPI = ApiClient.getClient().create(RestAPI.class);
+        Call<Model> call = restAPI.getDeets(getString(R.string.places_api_key), myDate.getPlaceId());
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                Log.d("CALL", call.request().url().toString());
+                Result result = response.body().getResult();
+                mComments = result.getReviews();
+                mAdapter.setResults(mComments);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+
+            }
+        });
 
 
         Picasso.with(RestDetails.this).load("http://novayorkevoce.com/wp-content/uploads/2014/09/the-chester-nova-york-e-voce-3.jpg").fit().into(mBackground);
@@ -77,7 +111,7 @@ public class RestDetails extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder= new AlertDialog.Builder(RestDetails.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(RestDetails.this);
                 builder.setTitle(myDate.getRestaurant());
                 LayoutInflater inflater = RestDetails.this.getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.custom_dialog_new_details, null);
@@ -85,104 +119,16 @@ public class RestDetails extends AppCompatActivity {
 
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent goToActivity= new Intent(RestDetails.this, ActivityType.class);
+                        Intent goToActivity = new Intent(RestDetails.this, ActivityType.class);
                         myDate.setLocation(location);
                         myDate.setPhoneNumber(phone);
-                        goToActivity.putExtra(MyDateItems.MY_ITEMS,myDate);
+                        goToActivity.putExtra(MyDateItems.MY_ITEMS, myDate);
                         startActivity(goToActivity);
                     }
                 });
                 builder.show();
             }
         });
-        mDetailsList=(ListView)findViewById(R.id.restdetails_list);
-        pb=(ProgressBar)findViewById(R.id.progress);
-
-        String googleRequest= null;
-        googleRequest = BASE_URL+myDate.getPlaceId();
-
-        mRestAsync= new RestAsyncTask();
-        RestAsyncTask restAsyncTask= new RestAsyncTask();
-        restAsyncTask.execute(googleRequest);
-
-    }
-    private String getInputData(InputStream inputStream) throws IOException {
-        StringBuilder stringBuilder= new StringBuilder();
-        BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(inputStream));
-        String data;
-
-        while ((data=bufferedReader.readLine()) !=null){
-            stringBuilder.append(data);
-        }
-        bufferedReader.close();
-
-        return stringBuilder.toString();
-    }
-
-    public class RestAsyncTask extends AsyncTask<String,Void,String> {
-        String data= " ";
-
-        @Override
-        protected void onPreExecute() {
-            pb.setVisibility(ProgressBar.VISIBLE);
-
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... urls) {
-
-            try {
-                URL url = new URL(urls[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-                InputStream inputStream = connection.getInputStream();
-                data = getInputData(inputStream);
-            } catch (Throwable thr) {
-                thr.fillInStackTrace();
-            }
-            return data;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            pb.setVisibility(ProgressBar.GONE);
-
-            super.onPostExecute(s);
-
-            try {
-                JSONObject result= new JSONObject(s);
-                JSONObject me= result.getJSONObject("result");
-                String name= me.optString("name");
-                String address= me.optString("formatted_address");
-                phone= me.optString("formatted_phone_number");
-                website= me.optString("website");
-
-                mWebText.setText(website);
-
-                mReviewsList= new ArrayList<>();
-
-                JSONArray array= me.getJSONArray("reviews");
-
-                for(int i= 0; i< array.length();i++){
-                    JSONObject object= array.optJSONObject(i);
-                    String review= object.optString("text");
-
-                    mReviewsList.add(review);
-
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            mReviewAdapter= new ArrayAdapter<String>(RestDetails.this, android.R.layout.simple_list_item_1,mReviewsList);
-            mDetailsList.setAdapter(mReviewAdapter);
-
-            mReviewAdapter.notifyDataSetChanged();
-
-        }
     }
 
 }
