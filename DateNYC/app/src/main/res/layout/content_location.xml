@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".YelpAPI.LocationPage"
+    tools:context=".View.LocationPage"
     tools:showIn="@layout/activity_location">
 
     <ImageView
         android:id="@+id/backgroundTwo"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:src="@drawable/rest_location"
+        android:src="@drawable/wooden_rest"
         android:scaleType="centerCrop"
         />
 

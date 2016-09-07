@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:uber="http://schemas.android.com/apk/res-auto"
     xmlns:ads= "http://schemas.android.com/apk/res-auto"
-    tools:context="com.datenyc.mom.datenyc.GoogleMaps.MapActivity">
+    tools:context=".View.ItineraryActivity">
 
     <ImageView
         android:id="@+id/itineraryBackground"
@@ -155,6 +155,7 @@
             android:src="@drawable/lyft_logo"
             android:background="#4A148C"
             android:paddingTop="5dp"
+            android:layout_marginTop="5dp"
             android:layout_width="100dp"
             android:layout_height="wrap_content" />
 
@@ -183,14 +184,6 @@
         android:layout_alignParentEnd="true"
         android:padding="10dp" />
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/ad_banner_mob_id">
-    </com.google.android.gms.ads.AdView>
+
 
 </RelativeLayout>
