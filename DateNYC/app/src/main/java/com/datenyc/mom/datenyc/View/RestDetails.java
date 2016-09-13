@@ -45,22 +45,15 @@ import rx.schedulers.Schedulers;
 
 public class RestDetails extends AppCompatActivity {
 
-    String BASE_URL="https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&placeid=";
     ListView mDetailsList;
-    ProgressBar pb;
     Button mButton;
-//    RestAsyncTask mRestAsync;
-    TextView placeName, mAddress, mPhone, mReview;
+    TextView mReview;
     ArrayList<Result> mResults;
     ArrayList<Review> mComments;
     String phone;
     ImageView mBackground;
-    String website;
     RestDetailsAdapter mAdapter;
     Context context;
-
-
-    @Bind(R.id.website)TextView mWebText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

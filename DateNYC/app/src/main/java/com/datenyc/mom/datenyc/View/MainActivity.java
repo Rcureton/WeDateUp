@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,9 +26,15 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.squareup.leakcanary.LeakCanary;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
@@ -40,13 +47,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST= 1000;
     private Location mLastLocationCoordinates;
     private GoogleApiClient mGoogleApiClient;
-    private boolean mRequestLocationUpdates = false;
-    private LocationRequest mLocationRequest;
-    private static int UPDATE_INTERVAL= 10000;
-    private static int FASTEST_INTERVAL= 5000;
-    private static int DISPLACEMENT= 10;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setTitle("WeDateUp");
+
+        // Create an instance of GoogleAPIClient.
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+
+
         isNetworkAvailable();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -66,27 +77,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             return;
 
-        }else{
-            configureButton();
-
         }
-
-        if(checkPlayServices() ){
-            buildGoogleApiClient();
-            createLocationRequest();
-        }
-
-
-
-
-
        final MyDateItems myDate= new MyDateItems();
 
         mStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, BudgetActivity.class);
-                displayLocation();
                 myDate.setLat(lat);
                 myDate.setLon(lon);
                 intent.putExtra(MyDateItems.MY_ITEMS, myDate);
@@ -113,69 +110,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        checkPlayServices();
-        if(mGoogleApiClient.isConnected() && mRequestLocationUpdates){
-            startLocationUpdates();
-
-        }
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         if(mGoogleApiClient.isConnected()){
             mGoogleApiClient.disconnect();
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stopLocationUpdates();
-
-    }
-
-    private void displayLocation(){
-        mLastLocationCoordinates= LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if(mLastLocationCoordinates !=null){
-            lat= mLastLocationCoordinates.getLatitude();
-            lon= mLastLocationCoordinates.getLongitude();
-
-
-
-        }else{
-
-        }
-    }
-
-    private void togglePeriodLocation(){
-        if(!mRequestLocationUpdates){
-            mRequestLocationUpdates=true;
-            startLocationUpdates();
-        }else{
-            mRequestLocationUpdates= false;
-
-            stopLocationUpdates();
-        }
-    }
-
-    protected synchronized void buildGoogleApiClient(){
-        mGoogleApiClient= new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API).build();
-    }
-
-    protected void createLocationRequest(){
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(UPDATE_INTERVAL);
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setSmallestDisplacement(DISPLACEMENT);
-
     }
 
     private boolean checkPlayServices(){
@@ -192,14 +131,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return true;
     }
 
-    protected void startLocationUpdates(){
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-    }
-
-    protected void stopLocationUpdates(){
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,this);
-
-    }
     public boolean isNetworkAvailable() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
@@ -213,65 +144,38 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return false;
     }
 
-
-
-
-    private void configureButton() {
-//        mLocation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                locationManager.requestLocationUpdates("gps", 5000, 0, locationListener);
-//                Toast.makeText(LocationPage.this, "Currently getting your location", Toast.LENGTH_LONG).show();
-//                myDate.setLon(lon);
-//                myDate.setLat(lat);
-//                Intent intent = new Intent(LocationPage.this, VenueType.class);
-//                intent.putExtra(MyDateItems.MY_ITEMS, myDate);
-//                startActivity(intent);
-//
-//            }
-//        });
-
-    }
-
-
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
-        displayLocation();
-        if(mRequestLocationUpdates){
-            startLocationUpdates();
+        mLastLocationCoordinates= LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if(mLastLocationCoordinates !=null){
+            lat= mLastLocationCoordinates.getLatitude();
+            lon= mLastLocationCoordinates.getLongitude();
+            Log.d("LAT",String.valueOf(lat));
         }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();
-    }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-        Log.i(TAG,"Connection failed" + connectionResult.getErrorMessage());
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
             case 10:
-                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    configureButton();
+                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED);
+
         }
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
-        mLastLocationCoordinates= location;
-        Toast.makeText(MainActivity.this, "Location Changed", Toast.LENGTH_SHORT).show();
-        displayLocation();
+
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-
-
+    }
 }

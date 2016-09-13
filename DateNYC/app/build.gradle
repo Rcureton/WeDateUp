@@ -10,6 +10,7 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'android-apt'
 
 repositories{
     mavenCentral()
@@ -38,8 +39,8 @@ android {
         applicationId "com.datenyc.mom.datenyc"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 4
-        versionName "1.2"
+        versionCode 6
+        versionName "1.4"
         multiDexEnabled true
     }
     compileOptions {
@@ -92,6 +93,11 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
         transitive = true;
     }
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
+    compile 'com.github.hotchemi:permissionsdispatcher:2.1.3'
+    apt 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
 
 
 }
