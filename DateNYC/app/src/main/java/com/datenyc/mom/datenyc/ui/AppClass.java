@@ -1,17 +1,18 @@
-package com.datenyc.mom.datenyc.View;
+package com.datenyc.mom.datenyc.ui;
 
 import android.app.Application;
 
+import com.crashlytics.android.Crashlytics;
 import com.squareup.leakcanary.LeakCanary;
 
-/**
- * Created by Ra on 9/12/16.
- */
+import io.fabric.sdk.android.Fabric;
+
 public class AppClass extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         LeakCanary.install(this);
     }
 }

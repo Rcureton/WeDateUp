@@ -1,11 +1,11 @@
-package com.datenyc.mom.datenyc.View;
+package com.datenyc.mom.datenyc.ui.restaurant;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +16,18 @@ import android.widget.ListView;
 import com.datenyc.mom.datenyc.Model.Model.Adapter.GoogleAdapter;
 import com.datenyc.mom.datenyc.Model.Model.Data.Model;
 import com.datenyc.mom.datenyc.Model.Model.Data.Result;
+import com.datenyc.mom.datenyc.Model.Model.Service.ApiClient;
+import com.datenyc.mom.datenyc.Model.Model.Service.RestAPI;
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.OnScrollListener;
 import com.datenyc.mom.datenyc.R;
-import com.datenyc.mom.datenyc.Model.Model.Service.ApiClient;
-import com.datenyc.mom.datenyc.Model.Model.Service.RestAPI;
+import com.datenyc.mom.datenyc.ui.RestDetails;
+import com.datenyc.mom.datenyc.ui.launch.LaunchActivity;
 import com.jpardogo.android.googleprogressbar.library.GoogleProgressBar;
+
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,11 +43,11 @@ public class RestaurantActivity extends AppCompatActivity {
     ArrayList<Result> mPlaces;
     ArrayList<Result> mResults;
     String PAGE_TOKEN;
-    @Bind(R.id.google_progress)GoogleProgressBar mProgressGoogle;
-    @Bind(R.id.restaurantlistView)ListView mList;
+    @BindView(R.id.google_progress) GoogleProgressBar mProgressGoogle;
+    @BindView(R.id.restaurantlistView) ListView mList;
     Context context;
     private int pageCount = 0;
-    String TAG= MainActivity.class.getSimpleName();
+    String TAG= LaunchActivity.class.getSimpleName();
     MyDateItems myDate;
 
 

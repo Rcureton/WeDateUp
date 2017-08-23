@@ -1,9 +1,8 @@
-package com.datenyc.mom.datenyc.View;
+package com.datenyc.mom.datenyc.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.datenyc.mom.datenyc.Model.Model.Adapter.GoogleAdapter;
 import com.datenyc.mom.datenyc.Model.Model.Adapter.RestDetailsAdapter;
 import com.datenyc.mom.datenyc.Model.Model.Data.Model;
 import com.datenyc.mom.datenyc.Model.Model.Data.Result;
@@ -31,17 +27,11 @@ import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class RestDetails extends AppCompatActivity {
 

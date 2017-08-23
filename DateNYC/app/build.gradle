@@ -1,25 +1,12 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-    }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
-    }
-}
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
-apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'android-apt'
-
-repositories{
-    mavenCentral()
-    maven { url 'https://maven.fabric.io/public' }
-}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -38,21 +25,31 @@ android {
     defaultConfig {
         applicationId "com.datenyc.mom.datenyc"
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 26
         versionCode 6
         versionName "1.4"
         multiDexEnabled true
     }
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled = true
+    }
+
+    kapt.generateStubs = true
 
     lintOptions {
         disable 'InvalidPackage'
     }
     dexOptions {
         javaMaxHeapSize "2g"
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     configurations {
@@ -67,37 +64,63 @@ android {
     }
 }
 
+
+final SUPPORT_VERSION = '26.0.0'
+final DAGGER_VERSION = '2.7'
+final BITCOINJ_VERSION = '0.14.4'
+final TIMBER_VERSION = '4.5.1'
+final JODATIME_VERSION = '2.8.2'
+final RETROFIT_VERSION = '2.2.0'
+final LOGGINGINTERCEPTOR_VERSION = '3.4.1'
+final GSON_VERSION = '2.8.0'
+final RXJAVA_VERSION = '1.2.1'
+final RXLIFECYCLE_VERSION = '1.0'
+final RXLINT_VERSION = '1.2'
+final PICASSO_VERSION = '2.5.2'
+final KOTLIN_DATABINDING_COMPILER = '2.3.1'
+final RXKOTLIN_VERSION = '2.1.0'
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support:cardview-v7:24.2.0'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
+    compile "com.android.support:appcompat-v7:$SUPPORT_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
+    compile "com.android.support:design:$SUPPORT_VERSION"
+    compile "com.android.support:cardview-v7:$SUPPORT_VERSION"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    kapt "com.android.databinding:compiler:$KOTLIN_DATABINDING_COMPILER"
+    implementation "io.reactivex.rxjava2:rxkotlin:$RXKOTLIN_VERSION"
+
     compile 'com.uber.sdk:rides-android:0.1.0'
     compile 'org.glassfish:javax.annotation:10.0-b28'
-    compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.jpardogo.googleprogressbar:library:1.2.0'
-    compile 'com.google.android.gms:play-services-ads:9.4.0'
-    compile 'com.google.android.gms:play-services:9.4.0'
-    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.google.android.gms:play-services-ads:11.2.0'
+    compile 'com.google.android.gms:play-services-awareness:11.2.0'
 // Because RxAndroid releases are few and far between, it is recommended you also
 // explicitly depend on RxJava's latest version for bug fixes and new features.
-    compile 'io.reactivex:rxjava:1.1.9'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+    compile "com.jakewharton.timber:timber:$TIMBER_VERSION"
+    compile "net.danlew:android.joda:$JODATIME_VERSION"
+    compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
+    compile "com.squareup.okhttp3:logging-interceptor:$LOGGINGINTERCEPTOR_VERSION"
+    compile "com.google.code.gson:gson:$GSON_VERSION"
+    compile "io.reactivex:rxjava:$RXJAVA_VERSION"
+    compile "io.reactivex:rxandroid:$RXJAVA_VERSION"
+
+    compile "com.squareup.picasso:picasso:$PICASSO_VERSION"
+
     compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
         transitive = true;
     }
+
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
     compile 'com.github.hotchemi:permissionsdispatcher:2.1.3'
-    apt 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
 
 
 }

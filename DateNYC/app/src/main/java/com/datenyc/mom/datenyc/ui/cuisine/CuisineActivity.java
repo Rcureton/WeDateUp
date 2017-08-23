@@ -1,8 +1,8 @@
-package com.datenyc.mom.datenyc.View;
+package com.datenyc.mom.datenyc.ui.cuisine;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
@@ -13,34 +13,35 @@ import android.widget.Toast;
 
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.R;
+import com.datenyc.mom.datenyc.ui.restaurant.RestaurantActivity;
 import com.squareup.picasso.Picasso;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CuisineActivity extends AppCompatActivity {
 
     //ImageViews
-    @Bind(R.id.asian)ImageView mAsian;
-    @Bind(R.id.american)ImageView mAmerican;
-    @Bind(R.id.indian)ImageView mIndian;
-    @Bind(R.id.italian)ImageView mItalian;
-    @Bind(R.id.mexican)ImageView mMexican;
-    @Bind(R.id.meditteranean)ImageView mMeditteranean;
-    @Bind(R.id.thai)ImageView mThai;
-    @Bind(R.id.veagan)ImageView mVeagan;
+    @BindView(R.id.asian) ImageView mAsian;
+    @BindView(R.id.american) ImageView mAmerican;
+    @BindView(R.id.indian) ImageView mIndian;
+    @BindView(R.id.italian) ImageView mItalian;
+    @BindView(R.id.mexican) ImageView mMexican;
+    @BindView(R.id.meditteranean) ImageView mMeditteranean;
+    @BindView(R.id.thai) ImageView mThai;
+    @BindView(R.id.veagan) ImageView mVeagan;
     //Cardviews
-    @Bind(R.id.asian_card)CardView mAsianCard;
-    @Bind(R.id.american_card)CardView mAmericanCard;
-    @Bind(R.id.indian_card)CardView mIndianCard;
-    @Bind(R.id.italian_card)CardView mItalianCard;
-    @Bind(R.id.mexican_card)CardView mMexicanCard;
-    @Bind(R.id.meditteranean_card)CardView mMeditteraneanCard;
-    @Bind(R.id.thai_card)CardView mThaiCard;
-    @Bind(R.id.veagan_card)CardView mVeaganCard;
+    @BindView(R.id.asian_card) CardView mAsianCard;
+    @BindView(R.id.american_card) CardView mAmericanCard;
+    @BindView(R.id.indian_card) CardView mIndianCard;
+    @BindView(R.id.italian_card) CardView mItalianCard;
+    @BindView(R.id.mexican_card) CardView mMexicanCard;
+    @BindView(R.id.meditteranean_card) CardView mMeditteraneanCard;
+    @BindView(R.id.thai_card) CardView mThaiCard;
+    @BindView(R.id.veagan_card) CardView mVeaganCard;
 
-    @Bind(R.id.foodEditText)EditText mEditText;
-    @Bind(R.id.submitButton)Button mButton;
+    @BindView(R.id.foodEditText) EditText mEditText;
+    @BindView(R.id.submitButton) Button mButton;
     private static String mUserInput;
 
     @Override

@@ -1,11 +1,11 @@
-package com.datenyc.mom.datenyc.View;
+package com.datenyc.mom.datenyc.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,15 +35,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class FunActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
    GoogleAdapter mAdapter;
-    @Bind(R.id.google_progress)GoogleProgressBar mProgress;
-    @Bind(R.id.listView)ListView mList;
+    @BindView(R.id.google_progress) GoogleProgressBar mProgress;
+    @BindView(R.id.listView) ListView mList;
     ArrayList<Result> mPlaces;
     GoogleAsyncTask mGoogleAsync;
     private int pageCount = 0;

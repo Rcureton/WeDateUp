@@ -1,8 +1,7 @@
-package com.datenyc.mom.datenyc.View;
+package com.datenyc.mom.datenyc.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,21 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.datenyc.mom.datenyc.Model.Model.Adapter.MoviesCustomAdapter;
 import com.datenyc.mom.datenyc.Model.Model.MovieData.Example;
 import com.datenyc.mom.datenyc.Model.Model.MovieData.Result;
-import com.datenyc.mom.datenyc.Model.Model.Service.ApiClient;
 import com.datenyc.mom.datenyc.Model.Model.Service.MovieClient;
 import com.datenyc.mom.datenyc.Model.Model.Service.RestAPI;
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.R;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 

@@ -17,9 +17,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".View.AppClass"
+        android:name=".ui.AppClass"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.MainActivity">
+        <activity android:name=".ui.launch.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,13 +27,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.LocationPage"
+            android:name=".ui.location.LocationPage"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".View.BudgetActivity" />
-        <activity android:name=".View.VenueType" />
-        <activity android:name=".View.CuisineActivity" />
-        <activity android:name=".View.FunActivity" />
+        <activity android:name=".ui.budget.BudgetActivity" />
+        <activity android:name=".ui.VenueType" />
+        <activity android:name=".ui.cuisine.CuisineActivity" />
+        <activity android:name=".ui.FunActivity" />
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
@@ -45,15 +45,15 @@
             android:value="@string/google_places_androidkey"/>
 
 
-        <activity android:name=".View.ItineraryActivity" />
-        <activity android:name=".View.RestaurantActivity" />
+        <activity android:name=".ui.ItineraryActivity" />
+        <activity android:name=".ui.restaurant.RestaurantActivity" />
         <activity
-            android:name=".View.RestDetails"
+            android:name=".ui.RestDetails"
             android:label="@string/title_activity_rest_details"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".View.ActivityType" />
+        <activity android:name=".ui.ActivityType" />
         <activity android:name=".Theatre.TheatreActivity" />
-        <activity android:name=".View.RottenTomatoes"></activity>
+        <activity android:name=".ui.RottenTomatoes"></activity>
         <activity android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />

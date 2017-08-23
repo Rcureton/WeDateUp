@@ -1,4 +1,4 @@
-package com.datenyc.mom.datenyc.View;
+package com.datenyc.mom.datenyc.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

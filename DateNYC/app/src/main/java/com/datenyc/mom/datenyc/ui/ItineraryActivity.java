@@ -1,18 +1,16 @@
-package com.datenyc.mom.datenyc.View;
+package com.datenyc.mom.datenyc.ui;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,33 +19,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.R;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import com.datenyc.mom.datenyc.ui.launch.LaunchActivity;
 import com.uber.sdk.android.rides.RequestButton;
 import com.uber.sdk.android.rides.RideParameters;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class ItineraryActivity extends AppCompatActivity {
-    @Bind(R.id.restaurant_info_text)TextView mName;
-    @Bind(R.id.restaurant_info_text_address)TextView mAddress;
-    @Bind(R.id.restaurant_info_text_rating)TextView mRating;
-    @Bind(R.id.fun_info_text)TextView mFunName;
-    @Bind(R.id.fun_info_text_address)TextView mFunAddress;
-    @Bind(R.id.fun_info_text_rating)TextView mFunRating;
-    @Bind(R.id.restaurant_phone)TextView mPhone;
-    @Bind(R.id.lyftButton)ImageButton mLyft;
-    @Bind(R.id.sendButton)Button mSendEmail;
-    @Bind(R.id.homeButton)FloatingActionButton mHome;
-    @Bind(R.id.uber)RequestButton requestButton;
+    @BindView(R.id.restaurant_info_text) TextView mName;
+    @BindView(R.id.restaurant_info_text_address) TextView mAddress;
+    @BindView(R.id.restaurant_info_text_rating) TextView mRating;
+    @BindView(R.id.fun_info_text) TextView mFunName;
+    @BindView(R.id.fun_info_text_address) TextView mFunAddress;
+    @BindView(R.id.fun_info_text_rating) TextView mFunRating;
+    @BindView(R.id.restaurant_phone) TextView mPhone;
+    @BindView(R.id.lyftButton) ImageButton mLyft;
+    @BindView(R.id.sendButton) Button mSendEmail;
+    @BindView(R.id.homeButton) FloatingActionButton mHome;
+    @BindView(R.id.uber) RequestButton requestButton;
     private String UBER_CLIENT_ID;
     private ShareActionProvider mShareActionProvider;
     String restName, restAdd, funName, funAdd, email, phone;
@@ -80,7 +76,7 @@ public class ItineraryActivity extends AppCompatActivity {
 
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent home = new Intent(ItineraryActivity.this, MainActivity.class);
+                        Intent home = new Intent(ItineraryActivity.this, LaunchActivity.class);
                         startActivity(home);
 
                     }
