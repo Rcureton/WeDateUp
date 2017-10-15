@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,33 +17,18 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.R;
+import com.datenyc.mom.datenyc.databinding.ActivityMapBinding;
 import com.datenyc.mom.datenyc.ui.launch.LaunchActivity;
-import com.uber.sdk.android.rides.RequestButton;
 import com.uber.sdk.android.rides.RideParameters;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class ItineraryActivity extends AppCompatActivity {
-    @BindView(R.id.restaurant_info_text) TextView mName;
-    @BindView(R.id.restaurant_info_text_address) TextView mAddress;
-    @BindView(R.id.restaurant_info_text_rating) TextView mRating;
-    @BindView(R.id.fun_info_text) TextView mFunName;
-    @BindView(R.id.fun_info_text_address) TextView mFunAddress;
-    @BindView(R.id.fun_info_text_rating) TextView mFunRating;
-    @BindView(R.id.restaurant_phone) TextView mPhone;
-    @BindView(R.id.lyftButton) ImageButton mLyft;
-    @BindView(R.id.sendButton) Button mSendEmail;
-    @BindView(R.id.homeButton) FloatingActionButton mHome;
-    @BindView(R.id.uber) RequestButton requestButton;
+    private ActivityMapBinding binding;
+
     private String UBER_CLIENT_ID;
     private ShareActionProvider mShareActionProvider;
     String restName, restAdd, funName, funAdd, email, phone;
@@ -54,11 +39,10 @@ public class ItineraryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
         setTitle("WeDateUp");
-        ButterKnife.bind(this);
 
-        mSendEmail.setOnClickListener(new View.OnClickListener() {
+        binding.sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendEmail();
@@ -66,7 +50,7 @@ public class ItineraryActivity extends AppCompatActivity {
             }
         });
 
-        mHome.setOnClickListener(new View.OnClickListener() {
+        binding.homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(ItineraryActivity.this);
@@ -102,24 +86,24 @@ public class ItineraryActivity extends AppCompatActivity {
         funAdd= myDate.getFunAddress();
         phone= myDate.getPhoneNumber();
 
-        mName.setText(myDate.getRestaurant());
-        mAddress.setText(myDate.getAddress());
-        mRating.setText(myDate.getRating());
-        mFunName.setText(myDate.getFunActivity());
-        mFunAddress.setText(myDate.getFunAddress());
-        mFunRating.setText(myDate.getFunRating());
-        mPhone.setText(phone);
+        binding.restaurantInfoText.setText(myDate.getRestaurant());
+        binding.restaurantInfoTextAddress.setText(myDate.getAddress());
+        binding.restaurantInfoTextRating.setText(myDate.getRating());
+        binding.funInfoText.setText(myDate.getFunActivity());
+        binding.funInfoTextAddress.setText(myDate.getFunAddress());
+        binding.funInfoTextRating.setText(myDate.getFunRating());
+        binding.restaurantPhone.setText(phone);
 
         //TODO: UBER RIDE REQUEST BUTTON
         UBER_CLIENT_ID=getResources().getString(R.string.uber_client_id);
-        requestButton.setClientId(UBER_CLIENT_ID);
+        binding.uber.setClientId(UBER_CLIENT_ID);
         RideParameters rideParams = new RideParameters.Builder()
                 .setProductId("DateNYC")
                 .setDropoffLocation((float) myDate.getLat(), (float) myDate.getLon(), myDate.getRestaurant(), myDate.getAddress())
                 .build();
-        requestButton.setRideParameters(rideParams);
+        binding.uber.setRideParameters(rideParams);
 
-        mLyft.setOnClickListener(new View.OnClickListener() {
+        binding.lyftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 deepLinkIntoLyft();

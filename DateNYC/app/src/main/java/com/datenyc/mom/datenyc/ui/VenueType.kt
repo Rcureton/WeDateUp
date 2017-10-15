@@ -2,21 +2,15 @@ package com.datenyc.mom.datenyc.ui
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.CardView
+import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.ImageView
-
 import com.datenyc.mom.datenyc.MyDateItems
 import com.datenyc.mom.datenyc.R
+import com.datenyc.mom.datenyc.databinding.ActivityVenueTypeBinding
 import com.datenyc.mom.datenyc.ui.cuisine.CuisineActivity
 import com.datenyc.mom.datenyc.ui.restaurant.RestaurantActivity
 import com.squareup.picasso.Picasso
-
-import butterknife.Bind
-import butterknife.ButterKnife
-import com.datenyc.mom.datenyc.databinding.ActivityVenueTypeBinding
 
 
 class VenueType : AppCompatActivity() {
@@ -41,8 +35,8 @@ class VenueType : AppCompatActivity() {
         val intent = intent
         val myDate = intent.getParcelableExtra<MyDateItems>(MyDateItems.MY_ITEMS)
 
-        val setVenue = { v ->
-            val id = v.getId()
+        val setVenue = View.OnClickListener { v ->
+            val id = v.id
 
             when (id) {
                 R.id.break_card -> myDate.venueType = "Breakfast"

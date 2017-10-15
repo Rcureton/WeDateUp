@@ -1,43 +1,38 @@
 package com.datenyc.mom.datenyc.ui.budget;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.R;
+import com.datenyc.mom.datenyc.databinding.ActivityBudgetBinding;
 import com.datenyc.mom.datenyc.ui.location.LocationPage;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class BudgetActivity extends AppCompatActivity {
-    @BindView(R.id.oneCash) FloatingActionButton mOneCash;
-    @BindView(R.id.twoCash) FloatingActionButton mTwoCash;
-    @BindView(R.id.threeCash) FloatingActionButton mThreeCash;
-    @BindView(R.id.fourCash) FloatingActionButton mFourCash;
+    private ActivityBudgetBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget);
         setTitle("Budget");
-        ButterKnife.bind(this);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_budget);
 
 
-        mOneCash.setImageResource(R.drawable.ic_looks_one);
-        mOneCash.setOnClickListener(setPrice);
+        binding.oneCash.setImageResource(R.drawable.ic_looks_one);
+        binding.oneCash.setOnClickListener(setPrice);
 
-        mTwoCash.setImageResource(R.drawable.ic_looks_two);
-        mTwoCash.setOnClickListener(setPrice);
+        binding.twoCash.setImageResource(R.drawable.ic_looks_two);
+        binding.twoCash.setOnClickListener(setPrice);
 
-        mThreeCash.setImageResource(R.drawable.ic_looks_3);
-        mThreeCash.setOnClickListener(setPrice);
+        binding.threeCash.setImageResource(R.drawable.ic_looks_3);
+        binding.threeCash.setOnClickListener(setPrice);
 
-        mFourCash.setImageResource(R.drawable.ic_looks_4);
-        mFourCash.setOnClickListener(setPrice);
+        binding.fourCash.setImageResource(R.drawable.ic_looks_4);
+        binding.fourCash.setOnClickListener(setPrice);
 
     }
 

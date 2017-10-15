@@ -19,4 +19,14 @@
     <string name="places_api_key">AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs</string>
     <string name="movie_api_key">7d730c3db3895e60a51aa8c185c736bd</string>
 
+    <!-- Progress Dialog -->
+    <string name="progress_dialog_loading">Loading…</string>
+
+    <!-- Success Dialog -->
+    <string name="dialog_success_message">Success</string>
+    <string name="dialog_success_button">OK</string>
+
+    <!-- Alert Dialog -->
+    <string name="alert_dialog_error_title">Error</string>
+
 </resources>
