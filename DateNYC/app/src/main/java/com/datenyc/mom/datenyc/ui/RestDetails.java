@@ -1,9 +1,9 @@
-package com.datenyc.mom.datenyc.View;
+package com.datenyc.mom.datenyc.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.datenyc.mom.datenyc.Model.Model.Adapter.GoogleAdapter;
 import com.datenyc.mom.datenyc.Model.Model.Adapter.RestDetailsAdapter;
 import com.datenyc.mom.datenyc.Model.Model.Data.Model;
 import com.datenyc.mom.datenyc.Model.Model.Data.Result;
@@ -27,23 +24,18 @@ import com.datenyc.mom.datenyc.Model.Model.Service.ApiClient;
 import com.datenyc.mom.datenyc.Model.Model.Service.RestAPI;
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.R;
+import com.datenyc.mom.datenyc.databinding.ActivityRestDetailsBinding;
 import com.squareup.picasso.Picasso;
 
-
 import java.util.ArrayList;
-import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class RestDetails extends AppCompatActivity {
+
+    private ActivityRestDetailsBinding binding;
 
     ListView mDetailsList;
     Button mButton;
@@ -58,8 +50,8 @@ public class RestDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rest_details);
-        ButterKnife.bind(this);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_rest_details);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -70,7 +62,7 @@ public class RestDetails extends AppCompatActivity {
         final MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
         final String location = myDate.getLocation();
-        mBackground = (ImageView) findViewById(R.id.restDetailsBackground);
+        mBackground = findViewById(R.id.restDetailsBackground);
         mReview = (TextView) findViewById(R.id.reviewText);
         mButton = (Button) findViewById(R.id.button2);
         mDetailsList = (ListView) findViewById(R.id.restdetails_list);

@@ -1,23 +1,24 @@
-package com.datenyc.mom.datenyc.View;
+package com.datenyc.mom.datenyc.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.datenyc.mom.datenyc.Model.Model.Adapter.GoogleAdapter;
 import com.datenyc.mom.datenyc.Model.Model.Data.Result;
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.OnScrollListener;
 import com.datenyc.mom.datenyc.R;
+import com.datenyc.mom.datenyc.databinding.ActivityFunBinding;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jpardogo.android.googleprogressbar.library.GoogleProgressBar;
@@ -35,50 +36,46 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
+public class FunActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-public class FunActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+    private ActivityFunBinding binding;
 
-   GoogleAdapter mAdapter;
-    @Bind(R.id.google_progress)GoogleProgressBar mProgress;
-    @Bind(R.id.listView)ListView mList;
+    GoogleAdapter mAdapter;
     ArrayList<Result> mPlaces;
     GoogleAsyncTask mGoogleAsync;
     private int pageCount = 0;
     String PAGE_TOKEN;
     String SECOND_CALL;
 
-    String BASE_URL="https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&query=";
+    String BASE_URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyBujaBYaHW0oG7NYeqgKLhElZ7FkI69ffs&query=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fun);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_fun);
         setTitle("Choose Activity");
-        ButterKnife.bind(this);
 
         Intent intent = getIntent();
         final MyDateItems myDate = intent.getParcelableExtra(MyDateItems.MY_ITEMS);
 
-        String location= "&location="+myDate.getLat()+","+myDate.getLon()+"&radius=16100";
+        String location = "&location=" + myDate.getLat() + "," + myDate.getLon() + "&radius=16100";
 
         String googleRequest = null;
         try {
-            googleRequest = BASE_URL+myDate.getFormattedFunType()+"+in+"+location;
+            googleRequest = BASE_URL + myDate.getFormattedFunType() + "+in+" + location;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        mGoogleAsync= new GoogleAsyncTask();
+        mGoogleAsync = new GoogleAsyncTask();
         mGoogleAsync.execute(googleRequest);
 
-        mAdapter= new GoogleAdapter(this, mPlaces);
-        mList.setAdapter(mAdapter);
+        mAdapter = new GoogleAdapter(this, mPlaces);
+        binding.listView.setAdapter(mAdapter);
 
-        mList.setOnScrollListener(onScrollListener());
-        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.listView.setOnScrollListener(onScrollListener());
+        binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(FunActivity.this);
@@ -111,8 +108,8 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         });
     }
 
-    private void getNewData(String url){
-        SECOND_CALL=BASE_URL+"&pagetoken="+PAGE_TOKEN;
+    private void getNewData(String url) {
+        SECOND_CALL = BASE_URL + "&pagetoken=" + PAGE_TOKEN;
         new GoogleAsyncTask().execute(SECOND_CALL);
     }
 
@@ -122,10 +119,10 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 int threshold = 1;
-                int count = mList.getCount();
+                int count = binding.listView.getCount();
 
                 if (scrollState == SCROLL_STATE_IDLE) {
-                    if (mList.getLastVisiblePosition() >= count - threshold && pageCount < 2) {
+                    if (binding.listView.getLastVisiblePosition() >= count - threshold && pageCount < 2) {
                         // Execute LoadMoreDataTask AsyncTask
                         getNewData(SECOND_CALL);
                     }
@@ -133,19 +130,18 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
             }
 
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
-                                 int totalItemCount) {
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             }
 
         };
     }
 
     private String getInputData(InputStream inputStream) throws IOException {
-        StringBuilder stringBuilder= new StringBuilder();
-        BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder stringBuilder = new StringBuilder();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String data;
 
-        while ((data=bufferedReader.readLine()) !=null){
+        while ((data = bufferedReader.readLine()) != null) {
             stringBuilder.append(data);
         }
         bufferedReader.close();
@@ -153,13 +149,13 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         return stringBuilder.toString();
     }
 
-    public class GoogleAsyncTask extends AsyncTask<String,Void,String> {
-        String data= " ";
+    public class GoogleAsyncTask extends AsyncTask<String, Void, String> {
+        String data = " ";
 
 
         @Override
         protected void onPreExecute() {
-            mProgress.setVisibility(GoogleProgressBar.VISIBLE);
+            binding.googleProgress.setVisibility(GoogleProgressBar.VISIBLE);
 
             super.onPreExecute();
         }
@@ -183,26 +179,26 @@ public class FunActivity extends AppCompatActivity implements AdapterView.OnItem
         @Override
         protected void onPostExecute(String s) {
 
-            mProgress.setVisibility(GoogleProgressBar.GONE);
+            binding.googleProgress.setVisibility(GoogleProgressBar.GONE);
 
             super.onPostExecute(s);
 
             try {
                 JSONObject dataObject = new JSONObject(data);
                 JSONArray placesArray = dataObject.getJSONArray("results");
-                PAGE_TOKEN= dataObject.optString("next_page_token");
-                if(mPlaces ==null|| mPlaces.isEmpty()){
-                    mPlaces= new ArrayList<>();
+                PAGE_TOKEN = dataObject.optString("next_page_token");
+                if (mPlaces == null || mPlaces.isEmpty()) {
+                    mPlaces = new ArrayList<>();
                 }
 
                 for (int i = 0; i < placesArray.length(); i++) {
                     JSONObject object = placesArray.optJSONObject(i);
                     String title = object.optString("name");
 
-                    Log.d("name",title);
+                    Log.d("name", title);
 
                     Gson gson = new GsonBuilder().create();
-                    Result place= gson.fromJson(String.valueOf(placesArray.get(i)), Result.class);
+                    Result place = gson.fromJson(String.valueOf(placesArray.get(i)), Result.class);
 
                     mPlaces.add(place);
 

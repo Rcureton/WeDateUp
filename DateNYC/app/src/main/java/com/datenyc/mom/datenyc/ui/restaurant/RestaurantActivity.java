@@ -1,31 +1,32 @@
-package com.datenyc.mom.datenyc.View;
+package com.datenyc.mom.datenyc.ui.restaurant;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.datenyc.mom.datenyc.Model.Model.Adapter.GoogleAdapter;
 import com.datenyc.mom.datenyc.Model.Model.Data.Model;
 import com.datenyc.mom.datenyc.Model.Model.Data.Result;
+import com.datenyc.mom.datenyc.Model.Model.Service.ApiClient;
+import com.datenyc.mom.datenyc.Model.Model.Service.RestAPI;
 import com.datenyc.mom.datenyc.MyDateItems;
 import com.datenyc.mom.datenyc.OnScrollListener;
 import com.datenyc.mom.datenyc.R;
-import com.datenyc.mom.datenyc.Model.Model.Service.ApiClient;
-import com.datenyc.mom.datenyc.Model.Model.Service.RestAPI;
-import com.jpardogo.android.googleprogressbar.library.GoogleProgressBar;
+import com.datenyc.mom.datenyc.databinding.ActivityRestaurantBinding;
+import com.datenyc.mom.datenyc.ui.RestDetails;
+import com.datenyc.mom.datenyc.ui.launch.LaunchActivity;
+
 import java.util.ArrayList;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,16 +36,15 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class RestaurantActivity extends AppCompatActivity {
+    private ActivityRestaurantBinding binding;
 
     GoogleAdapter mGoogleAdapter;
     ArrayList<Result> mPlaces;
     ArrayList<Result> mResults;
     String PAGE_TOKEN;
-    @Bind(R.id.google_progress)GoogleProgressBar mProgressGoogle;
-    @Bind(R.id.restaurantlistView)ListView mList;
     Context context;
     private int pageCount = 0;
-    String TAG= MainActivity.class.getSimpleName();
+    String TAG= LaunchActivity.class.getSimpleName();
     MyDateItems myDate;
 
 
@@ -53,21 +53,21 @@ public class RestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
         setTitle("Choose Restaurant");
-        ButterKnife.bind(this);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_restaurant);
 
         mResults= new ArrayList<>();
 
         mGoogleAdapter= new GoogleAdapter(this,mPlaces);
         context=this;
-        mList.setAdapter(mGoogleAdapter);
+        binding.restaurantlistView.setAdapter(mGoogleAdapter);
         Intent intent= getIntent();
         myDate= intent.getParcelableExtra(MyDateItems.MY_ITEMS);
         getPlaces();
 
 
-        mList.setOnScrollListener(onScrollListener());
+        binding.restaurantlistView.setOnScrollListener(onScrollListener());
 
-        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.restaurantlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(RestaurantActivity.this);
@@ -163,10 +163,10 @@ public class RestaurantActivity extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 int threshold = 1;
-                int count = mList.getCount();
+                int count = binding.restaurantlistView.getCount();
 
                 if (scrollState == SCROLL_STATE_IDLE) {
-                    if (mList.getLastVisiblePosition() >= count - threshold && pageCount < 2) {
+                    if (binding.restaurantlistView.getLastVisiblePosition() >= count - threshold && pageCount < 2) {
                         // Execute LoadMoreDataTask AsyncTask
                         getNewData();
                     }

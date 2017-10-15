@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".View.LocationPage"
-    tools:showIn="@layout/activity_location">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/backgroundTwo"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:src="@drawable/wooden_rest"
-        android:scaleType="centerCrop"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ui.location.LocationPage"
+        tools:showIn="@layout/activity_location">
 
-    <TextView
-        android:id="@+id/chooseLocation"
-        android:text="Get Current Location"
-        android:textStyle="bold"
-        android:textColor="#ffff"
-        android:paddingTop="35dp"
-        android:textSize="25sp"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/backgroundTwo"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/wooden_rest"
+            />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_location_on"
-        android:layout_below="@id/chooseLocation"
-        android:id="@+id/imageButton"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="15dp"
-        android:background="@android:color/transparent"
-        />
+        <TextView
+            android:id="@+id/chooseLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:paddingTop="35dp"
+            android:text="Get Current Location"
+            android:textColor="#ffff"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/locationText"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chooseLocation"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:paddingTop="15dp"
+            android:src="@drawable/ic_location_on"
+            />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/locationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+</layout>
+

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".View.MainActivity">
+    tools:context=".ui.launch.LaunchActivity">
 
     <ImageView
         android:id="@+id/background"

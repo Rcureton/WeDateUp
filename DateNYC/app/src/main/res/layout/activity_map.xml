@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:uber="http://schemas.android.com/apk/res-auto"
-    xmlns:ads= "http://schemas.android.com/apk/res-auto"
-    tools:context=".View.ItineraryActivity">
+    xmlns:uber="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/itineraryBackground"
@@ -187,3 +187,4 @@
 
 
 </RelativeLayout>
+</layout>
