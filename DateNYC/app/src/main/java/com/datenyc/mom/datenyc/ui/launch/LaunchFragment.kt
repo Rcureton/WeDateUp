@@ -1,6 +1,5 @@
 package com.datenyc.mom.datenyc.ui.launch
 
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,7 +21,7 @@ class LaunchFragment: WeDateUpFragment() {
 
         binding.apply {
             start.setOnClickListener {
-                val intent = Intent(context, BudgetActivity::class.java)
+                val intent = BudgetActivity.newIntent(context)
                 startActivity(intent)
             }
         }
